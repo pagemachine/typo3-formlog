@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.0">
+  <file source-language="en" target-language="de" datatype="plaintext" original="messages" product-name="typo3-base">
+    <header/>
+    <body>
+
+      <trans-unit id="formlog.title">
+        <source>Form log entries</source>
+        <target>Formular-Logeinträge</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.title">
+        <source>Filters active</source>
+        <target>Filter aktiv</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.explanation">
+        <source>Log entries are shown with the following filters:</source>
+        <target>Logeinträge werden mit den folgenden Filtern angezeigt:</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.clear">
+        <source>Clear filters</source>
+        <target>Filter entfernen</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.this">
+        <source>Filter by this</source>
+        <target>Hiernach filtern</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.export.csv">
+        <source>Export to CSV</source>
+        <target>Export zu CSV</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.export.xlsx">
+        <source>Export to Excel (XLSX)</source>
+        <target>Export zu Excel (XLSX)</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.export.unconfigured">
+        <source>Export is disabled: the configuration is incomplete, please contact your developer or integrator.</source>
+        <target>Export ist deaktiviert: die Konfiguration ist unvollständig, bitte kontaktieren Sie Ihren Entwickler oder Integrator.</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.applyButtonTitle">
+        <source>Apply</source>
+        <target>Übernehmen</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.cancelButtonTitle">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.startLabel">
+        <source>Start</source>
+        <target>Anfang</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.endLabel">
+        <source>End</source>
+        <target>Ende</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.ranges.last30days">
+        <source>Last 30 days</source>
+        <target>Letzte 30 Tage</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.ranges.lastYear">
+        <source>Last year</source>
+        <target>Letztes Jahr</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.ranges.other">
+        <source>Other range</source>
+        <target>Anderer Zeitraum</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.day">
+        <source>Day</source>
+        <target>Tag</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.week">
+        <source>Week</source>
+        <target>Woche</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.month">
+        <source>Month</source>
+        <target>Monat</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.quarter">
+        <source>Quarter</source>
+        <target>Quartal</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.year">
+        <source>Year</source>
+        <target>Jahr</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.page.title">
+        <source>Page</source>
+        <target>Seite</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.submissionDate">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.language">
+        <source>Language</source>
+        <target>Sprache</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.language.default">
+        <source>Default</source>
+        <target>Standard</target>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.identifier">
+        <source>Form</source>
+        <target>Formular</target>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>

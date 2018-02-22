@@ -1,0 +1,7 @@
+default:
+  - clean:css
+  - clean:js
+  - bower
+  - less
+  - umd
+  - uglify

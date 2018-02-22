@@ -1,0 +1,6 @@
+/bin
+/bower_components
+/composer.lock
+/node_modules
+/vendor
+/web

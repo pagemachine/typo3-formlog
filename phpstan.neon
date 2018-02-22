@@ -1,0 +1,12 @@
+parameters:
+  ignoreErrors:
+    - '#Constant TYPO3_MODE not found#'
+    - '#Undefined variable: \$_EXTKEY#'
+    - '#ObjectManagerInterface::get\(\) invoked with [\d]+ parameters, 1 required#'
+    - '#Call to an undefined method Prophecy\\Prophecy\\ObjectProphecy::.+#'
+    - '#Array \(mixed(\[\])+\) does not accept string#'
+    # TYPO3v7 support
+    - '#Access to an undefined property TYPO3\\CMS\\Core\\DataHandling\\DataHandler::\$stripslashes_values#'
+    # See https://github.com/dmitryd/typo3-realurl/issues/566
+    - '#Access to protected property \$rootPageId of class DmitryDulepov\\Realurl\\EncodeDecoderBase#'
+  reportUnmatchedIgnoredErrors: false

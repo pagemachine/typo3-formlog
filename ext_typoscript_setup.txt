@@ -1,0 +1,84 @@
+config.tx_extbase {
+  persistence {
+    classes {
+      Pagemachine\Formlog\Domain\Model\FormLogEntry {
+        mapping {
+          tableName = tx_formlog_entries
+
+          columns {
+            crdate.mapOnProperty = submissionDate
+            pid.mapOnProperty = page
+          }
+        }
+      }
+
+      Pagemachine\Formlog\Domain\Model\FormLogEntry\Page {
+        mapping {
+          tableName = pages
+        }
+      }
+
+      Pagemachine\Formlog\Domain\Model\FormLogEntry\Language {
+        mapping {
+          tableName = sys_language
+        }
+      }
+    }
+  }
+}
+
+plugin.tx_form {
+  settings {
+    yamlConfigurations {
+      formlog = EXT:formlog/Configuration/Form/Setup.yaml
+    }
+  }
+}
+
+module {
+  tx_form {
+    settings {
+      yamlConfigurations {
+        formlog = EXT:formlog/Configuration/Form/Setup.yaml
+      }
+    }
+  }
+
+  tx_formlog {
+    settings {
+      # dataFields {
+      # }
+
+      # finisherVariables {
+      # }
+
+      dateTimeFormat =
+
+      export {
+
+        columns {
+          10 {
+            property = uid
+            label = formlog.entry.uid
+          }
+          20 {
+            property = page.title
+            label = formlog.entry.page.title
+          }
+          30 {
+            property = identifier
+            label = formlog.entry.identifier
+          }
+          40 {
+            property = language.title
+            label = formlog.entry.language
+          }
+          50 {
+            property = submissionDate
+            label = formlog.entry.submissionDate
+          }
+        }
+      }
+    }
+  }
+}

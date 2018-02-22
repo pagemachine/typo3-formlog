@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" product-name="typo3-base">
+    <header/>
+    <body>
+
+      <trans-unit id="formlog.title">
+        <source>Form log entries</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.title">
+        <source>Filters active</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.explanation">
+        <source>Log entries are shown with the following filters:</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.clear">
+        <source>Clear filters</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.filters.this">
+        <source>Filter by this</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.export">
+        <source>Export</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.export.csv">
+        <source>Export to CSV</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.export.xlsx">
+        <source>Export to Excel (XLSX)</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.export.unconfigured">
+        <source>Export is disabled: the configuration is incomplete, please contact your developer or integrator.</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.applyButtonTitle">
+        <source>Apply</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.cancelButtonTitle">
+        <source>Cancel</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.startLabel">
+        <source>Start</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.endLabel">
+        <source>End</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.ranges.last30days">
+        <source>Last 30 days</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.ranges.lastYear">
+        <source>Last year</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.ranges.other">
+        <source>Other range</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.day">
+        <source>Day</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.week">
+        <source>Week</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.month">
+        <source>Month</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.quarter">
+        <source>Quarter</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.periods.year">
+        <source>Year</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.uid">
+        <source>UID</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.page.title">
+        <source>Page</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.submissionDate">
+        <source>Date</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.language">
+        <source>Language</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.language.default">
+        <source>Default</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.entry.identifier">
+        <source>Form</source>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>

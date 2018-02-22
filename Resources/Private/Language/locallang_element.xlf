@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" product-name="typo3-base">
+    <header/>
+    <body>
+
+      <trans-unit id="serializedData.field">
+        <source>Field</source>
+      </trans-unit>
+
+      <trans-unit id="serializedData.value">
+        <source>Value</source>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>

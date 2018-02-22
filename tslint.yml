@@ -1,0 +1,9 @@
+paths:
+  - ext_typoscript_setup.txt
+
+sniffs:
+  - class: Indentation
+    parameters:
+      indentPerLevel: 2
+  - class: RepeatingRValue
+    disabled: true

@@ -1,0 +1,8 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          finishersDefinition:
+            LogFormData:
+              implementationClassName: Pagemachine\Formlog\Domain\Form\Finishers\LoggerFinisher

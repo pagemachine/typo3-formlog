@@ -4,11 +4,11 @@
     <header/>
     <body>
 
-      <trans-unit id="serializedData.field">
+      <trans-unit id="jsonData.field">
         <source>Field</source>
       </trans-unit>
 
-      <trans-unit id="serializedData.value">
+      <trans-unit id="jsonData.value">
         <source>Value</source>
       </trans-unit>
 

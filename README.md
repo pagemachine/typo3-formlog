@@ -41,43 +41,49 @@ The keys within `finisherVariables` are identifiers of finishers used in a form,
 
 ## Form log module
 
-By default the form log module displays a few basic fields like page, form identifier, language and date of form submission.
+By default the form log module displays a few basic fields like page, form identifier, language and date of form submission as columns.
 
-Additional columns can be added with the `dataFields` option in `ext_typoscript_setup.txt`:
+Additional columns can be added with the `list.columns` setting in `ext_typoscript_setup.txt`:
 
 ```
 module.tx_formlog {
   settings {
-    dataFields {
-      1 {
-        name = email
-        label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Form/locallang.xlf:element.email.properties.label
+    list {
+      columns {
+        100 {
+          property = data.email
+          label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Form/locallang.xlf:element.email.properties.label
+        }
       }
     }
   }
 }
 ```
 
-Within `dataFields` an arbitrary list of fields can be added where the `name` refers to the identifier of a form element and `label` is used to retrieve a translatable label. Usually one can simply use the same label that is used for the field within the form itself.
+Within `list.columns` an arbitrary list of columns can be added where The `property` option refers to a property path in the `FormLogEntry` domain module. Simply speaking `data.*` provides access to form data by a form element identifier, e.g. `data.email` for the value of the form element `email`. The `label` option is used to retrieve a translatable label. Usually one can simply use the same label that is used for the field within the form itself.
 
-The option `finisherVariables` is similar and can be used to add finisher variables as additional columns:
+Similarly `finisherVariables.*` does the same for additional finisher variables by utilizing the finisher identifier and variable name:
 
 ```
 module.tx_formlog {
   settings {
-    finisherVariables {
-      1 {
-        name = myCustomVariable
-        label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Formlog/locallang.xlf:formlog.entry.finisherVariables.MyCustomFinisher.myCustomVariable
+    list {
+      columns {
+        200 {
+          name = finisherVariables.MyCustomFinisher.myCustomVariable
+          label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Formlog/locallang.xlf:formlog.entry.finisherVariables.MyCustomFinisher.myCustomVariable
+        }
       }
     }
   }
 }
 ```
+
+Here `myCustomVariable` of `MyCustomFinisher` is added as column to the list.
 
 ## Form log export
 
-Out of the box form log entries can be exported to CSV and Excel (XLSX). Basic fields of form log entries are exported by default, additional columns can be added with the `export` option in `ext_typoscript_setup.txt`:
+Out of the box form log entries can be exported to CSV and Excel (XLSX). Basic fields of form log entries are exported by default, additional columns can be added with the `export.columns` setting in `ext_typoscript_setup.txt` which is configured exactly the same as the `list.columns` setting:
 
 ```
 module.tx_formlog {
@@ -96,21 +102,6 @@ module.tx_formlog {
           property = data.email
           label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Form/locallang.xlf:element.email.properties.label
         }
-      }
-    }
-  }
-}
-```
-
-The `property` refers to a property path in the `FormLogEntry` domain module. Simply speaking `data.*` provides access to form data by a form element identifier, e.g. `data.email` for the value of the form element `email`.
-
-Similarly `finisherVariables.*` does the same for additional finisher variables by utilizing the finisher identifier and variable name:
-
-```
-module.tx_formlog {
-  settings {
-    export {
-      columns {
         200 {
           property = finisherVariables.MyCustomFinisher.myCustomVariable
           label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Formlog/locallang.xlf:formlog.entry.finisherVariables.MyCustomFinisher.myCustomVariable
@@ -120,5 +111,3 @@ module.tx_formlog {
   }
 }
 ```
-
-Here `myCustomVariable` of `MyCustomFinisher` is added as column to the export.

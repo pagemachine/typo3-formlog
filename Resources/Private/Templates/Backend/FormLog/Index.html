@@ -58,12 +58,8 @@
               </button>
             </th>
 
-            <f:for each="{settings.dataFields}" as="dataField">
-              <th><f:translate key="{dataField.label}">{dataField.label}</f:translate></th>
-            </f:for>
-
-            <f:for each="{settings.finisherVariables}" as="finisherVariable">
-              <th><f:translate key="{finisherVariable.label}">{finisherVariable.label}</f:translate></th>
+            <f:for each="{settings.list.columns}" as="column">
+              <th><f:translate key="{column.label}">{column.label}</f:translate></th>
             </f:for>
           </tr>
         </thead>
@@ -114,12 +110,8 @@
               </f:link.action>
             </td>
 
-            <f:for each="{settings.dataFields}" as="dataField">
-              <td>{entry.data.{dataField.name}}</td>
-            </f:for>
-
-            <f:for each="{settings.finisherVariables}" as="finisherVariable">
-              <td><f:render section="finisherVariableValue" contentAs="value">{entry.finisherVariables.{finisherVariable.name}}</f:render></td>
+            <f:for each="{settings.list.columns}" as="column">
+              <td><f:render section="columnValue" contentAs="value">{entry.{column.property}}</f:render></td>
             </f:for>
           </tr>
 
@@ -277,7 +269,7 @@
 
 </f:section>
 
-<f:section name="finisherVariableValue">
+<f:section name="columnValue">
 
   <f:if condition="{value.0}">
     <f:then>

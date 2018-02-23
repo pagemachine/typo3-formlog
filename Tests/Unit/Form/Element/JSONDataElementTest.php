@@ -36,8 +36,8 @@ class JSONDataElementTest extends UnitTestCase
         ]);
         /** @var LanguageService|\Prophecy\Prophecy\ObjectProphecy */
         $languageService = $this->prophesize(LanguageService::class);
-        $languageService->sL(Argument::containingString('serializedData.field'))->willReturn('Field');
-        $languageService->sL(Argument::containingString('serializedData.value'))->willReturn('Value');
+        $languageService->sL(Argument::containingString('field'))->willReturn('Field');
+        $languageService->sL(Argument::containingString('value'))->willReturn('Value');
         $GLOBALS['LANG'] = $languageService->reveal();
 
         $result = $jsonDataElement->render();

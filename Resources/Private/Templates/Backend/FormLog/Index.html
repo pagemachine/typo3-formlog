@@ -130,48 +130,7 @@
               </div>
               <div class="col-sm-4 text-right">
                 <f:render partial="Backend/FormLog/FiltersActions" arguments="{filters: filters}"/>
-
-                <f:if condition="{settings.export.columns}">
-                  <f:then>
-
-                    <div class="btn-group dropup" role="group">
-                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <c:icon identifier="actions-database-export"/>
-                        <f:translate key="formlog.export"/>
-                        <span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-right">
-                        <li>
-                          <f:link.action
-                            action="export"
-                            format="csv"
-                            addQueryString="true"
-                            addQueryStringMethod="POST,GET">
-                            <c:icon identifier="mimetypes-text-csv"/>
-                            <f:translate key="formlog.export.csv"/>
-                          </f:link.action>
-                        </li>
-                        <li>
-                          <f:link.action
-                            action="export"
-                            format="xlsx"
-                            addQueryString="true"
-                            addQueryStringMethod="POST,GET">
-                            <c:icon identifier="mimetypes-excel"/>
-                            <f:translate key="formlog.export.xlsx"/>
-                          </f:link.action>
-                        </li>
-                      </ul>
-                    </div>
-
-                  </f:then>
-                  <f:else>
-                    <button type="button" class="btn btn-default" disabled title="{f:translate(key: 'formlog.export.unconfigured')}">
-                      <c:icon identifier="actions-document-export-csv"/>
-                      <f:translate key="formlog.export.csv"/>
-                    </button>
-                  </f:else>
-                </f:if>
+                <f:render partial="Backend/FormLog/ExportActions"/>
               </div>
             </div>
 

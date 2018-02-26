@@ -6,3 +6,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1490193269] = [
     'priority' => 10,
     'class' => \Pagemachine\Formlog\Form\Element\JSONDataElement::class,
 ];
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['EXT:form/Resources/Private/Language/Database.xlf'][1519643592] = 'EXT:formlog/Resources/Private/Language/Database.xlf';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:form/Resources/Private/Language/Database.xlf'][1519643592] = 'EXT:formlog/Resources/Private/Language/de.Database.xlf';

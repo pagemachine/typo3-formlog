@@ -28,6 +28,10 @@
         <source>Form finisher variables</source>
       </trans-unit>
 
+      <trans-unit id="formEditor.label">
+        <source>Log form data</source>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

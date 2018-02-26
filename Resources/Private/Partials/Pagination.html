@@ -1,0 +1,58 @@
+<ul class="pagination">
+  <f:if condition="{pagination.previousPage}">
+    <f:then>
+      <li><f:render section="paginationLink" arguments="{page: pagination.previousPage}" contentAs="text">«</f:render></li>
+    </f:then>
+    <f:else>
+      <li class="disabled"><span>«</span></li>
+    </f:else>
+  </f:if>
+
+  <f:if condition="{pagination.displayRangeStart} > 1">
+    <li><f:render section="paginationLink" arguments="{page: 1}"/></li>
+  </f:if>
+
+  <f:if condition="{pagination.hasLessPages}">
+    <li class="disabled"><span>…</span></li>
+  </f:if>
+
+  <f:for each="{pagination.pages}" as="page">
+    <f:if condition="{page.isCurrent}">
+      <f:then>
+        <li class="active">
+          <span>{page.number}</span>
+        </li>
+      </f:then>
+      <f:else>
+        <li><f:render section="paginationLink" arguments="{page: page.number}"/></li>
+      </f:else>
+    </f:if>
+  </f:for>
+
+  <f:if condition="{pagination.hasMorePages}">
+    <li class="disabled"><span>…</span></li>
+  </f:if>
+
+  <f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
+    <li><f:render section="paginationLink" arguments="{page: pagination.numberOfPages}"/></li>
+  </f:if>
+
+  <f:if condition="{pagination.nextPage}">
+    <f:then>
+      <li><f:render section="paginationLink" arguments="{page: pagination.nextPage}" contentAs="text">»</f:render></li>
+    </f:then>
+    <f:else>
+      <li class="disabled"><span>»</span></li>
+    </f:else>
+  </f:if>
+</ul>
+
+<f:section name="paginationLink">
+
+  <f:link.action
+    arguments="{pagination: {currentPage: page}}"
+    addQueryString="true"
+    addQueryStringMethod="POST,GET"
+    title="{title}">{text -> f:or(alternative: page)}</f:link.action>
+
+</f:section>

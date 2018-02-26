@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" product-name="typo3-base">
+  <file source-language="en" datatype="plaintext" original="messages" product-name="formlog">
     <header/>
     <body>
 
@@ -26,10 +26,6 @@
 
       <trans-unit id="tx_formlog_entries.finisher_variables">
         <source>Form finisher variables</source>
-      </trans-unit>
-
-      <trans-unit id="formEditor.label">
-        <source>Log form data</source>
       </trans-unit>
 
     </body>

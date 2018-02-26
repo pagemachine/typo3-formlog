@@ -7,44 +7,38 @@ cache:
     - $HOME/.composer/cache
 
 install:
-  - composer require typo3/cms="$TYPO3_VERSION"
-
-script:
-  - composer test
+  - composer install
 
 jobs:
   include:
-    - php: 7.0
-      env: TYPO3_VERSION=^8.7
-    - php: 7.1
-      env: TYPO3_VERSION=^8.7
-
-    - &lint
+    - &test
       php: 7.0
-      env: PHP lint
+      env: TYPO3_VERSION=^8.7
       install:
-        - composer install
+        - composer require typo3/cms="$TYPO3_VERSION"
       script:
         - composer lint:php
-    - <<: *lint
+        - composer test
+
+    - <<: *test
       php: 7.1
-    - <<: *lint
-      php: 7.1
+
+    - php: 7.1
       env: TypoScript lint
       script:
         - composer lint:typoscript
-    - <<: *lint
-      php: 7.1
+
+    - php: 7.1
       env: XML lint
       script:
         - composer lint:xml
-    - <<: *lint
-      php: 7.1
+
+    - php: 7.1
       env: Codestyle
       script:
         - composer lint:style
-    - <<: *lint
-      php: 7.1
+
+    - php: 7.1
       env: Static analysis
       script:
         - composer analyze:php

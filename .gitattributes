@@ -9,6 +9,7 @@ phpcs.xml export-ignore
 phpstan.neon export-ignore
 phpunit-functional.xml export-ignore
 phpunit.xml export-ignore
+tslint.yml export-ignore
 
 .grunt/ export-ignore
 Tests/ export-ignore

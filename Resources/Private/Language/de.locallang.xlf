@@ -9,6 +9,11 @@
         <target>Formular-Logeinträge</target>
       </trans-unit>
 
+      <trans-unit id="formlog.empty">
+        <source>There are no form log entries yet. Make sure to add the "LogFormData" finisher to your form definitions.</source>
+        <target>Es gibt noch keine Formular-Logeinträge. Bitte vergewissern Sie sich, dass der "LogFormData"-Finisher in Formular-Definitionen hinzugefügt wurde.</target>
+      </trans-unit>
+
       <trans-unit id="formlog.filters.title">
         <source>Filters active</source>
         <target>Filter aktiv</target>

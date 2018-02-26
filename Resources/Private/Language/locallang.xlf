@@ -8,6 +8,10 @@
         <source>Form log entries</source>
       </trans-unit>
 
+      <trans-unit id="formlog.empty">
+        <source>There are no form log entries yet. Make sure to add the "LogFormData" finisher to your form definitions.</source>
+      </trans-unit>
+
       <trans-unit id="formlog.filters.title">
         <source>Filters active</source>
       </trans-unit>

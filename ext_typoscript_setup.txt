@@ -46,16 +46,14 @@ module {
 
   tx_formlog {
     settings {
-      # dataFields {
-      # }
-
-      # finisherVariables {
-      # }
-
       dateTimeFormat =
+      
+      # list {
+      #   columns {
+      #   }
+      # }
 
       export {
-
         columns {
           10 {
             property = uid

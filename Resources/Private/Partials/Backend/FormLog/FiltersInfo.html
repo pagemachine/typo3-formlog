@@ -1,0 +1,21 @@
+<f:if condition="!{filters.empty}">
+  <div id="filters-info" class="collapse">
+    <div class="well well-sm">
+      <p><f:translate key="formlog.filters.explanation"/></p>
+
+      <dl>
+        <f:for each="{filters}" as="filter" key="name">
+
+          <dt><f:translate key="formlog.entry.{name}"/></dt>
+          <dd>
+            <f:if condition="{filter.startDate} && {filter.endDate}">
+              <f:then>{filter.startDate -> f:format.date(format: dateFormat)} … {filter.endDate -> f:format.date(format: dateFormat)}</f:then>
+              <f:else if="{filter.value}">{filter.value}</f:else>
+            </f:if>
+          </dd>
+
+        </f:for>
+      </dl>
+    </div>
+  </div>
+</f:if>

@@ -1,0 +1,6 @@
+<f:if condition="!{filters.empty}">
+  <div class="btn-group">
+    <a href="#filters-info" class="btn btn-primary" data-toggle="collapse"><i class="fa fa-filter" aria-hidden="true"></i> <f:translate key="formlog.filters.title"/> <span class="badge">{filters -> f:count()}</span></a>
+    <f:link.action class="btn btn-default"><i class="fa fa-undo" aria-hidden="true"></i> <f:translate key="formlog.filters.clear"/></f:link.action>
+  </div>
+</f:if>

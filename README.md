@@ -114,4 +114,4 @@ module.tx_formlog {
 
 ## Thanks
 
-Development of this package was proudly sponsored by the [TÜV Hessen](https://www.tuev-hessen.de/).
+Development of this package was proudly sponsored by [TÜV Hessen](https://www.tuev-hessen.de/).

@@ -1,0 +1,30 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      39:
+                        value: LogFormData
+                        label: 'formEditor.elements.Form.editor.finishers.LogFormData.label'
+
+                propertyCollections:
+                  finishers:
+                    29:
+                      identifier: LogFormData
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        100:
+                          label: 'formEditor.elements.Form.editor.finishers.LogFormData.label'
+
+          finishersDefinition:
+            LogFormData:
+              formEditor:
+                iconIdentifier: t3-form-icon-finisher
+                label: 'formEditor.elements.Form.editor.finishers.LogFormData.label'

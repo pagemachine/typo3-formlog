@@ -30,7 +30,7 @@ config.tx_extbase {
 plugin.tx_form {
   settings {
     yamlConfigurations {
-      formlog = EXT:formlog/Configuration/Form/Setup.yaml
+      1520412939 = EXT:formlog/Configuration/Form/Setup.yaml
     }
   }
 }
@@ -39,7 +39,8 @@ module {
   tx_form {
     settings {
       yamlConfigurations {
-        formlog = EXT:formlog/Configuration/Form/Setup.yaml
+        1520412939 = EXT:formlog/Configuration/Form/Setup.yaml
+        1520412954 = EXT:formlog/Configuration/Form/EditorSetup.yaml
       }
     }
   }
@@ -47,7 +48,7 @@ module {
   tx_formlog {
     settings {
       dateTimeFormat =
-      
+
       # list {
       #   columns {
       #   }

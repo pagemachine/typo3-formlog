@@ -12,6 +12,12 @@ This extension is installable from various sources:
 
 2. From the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/formlog/)
 
+## Purpose
+
+One feature absent in the [TYPO3 form extension](https://docs.typo3.org/typo3cms/extensions/form/) is logging of form data. If you have ever used the now defunct Formhandler extension you know how valuable this can be. You can easily check if form submissions are working as they should, see internal values are generated correctly and perform some basic analysis thanks to exports to CSV or similar.
+
+See our blog post [about the TYPO3 form log extension](https://www.pagemachine.de/blog/typo3-form-log/).
+
 ## Start logging
 
 Logging can be enabled for any form by adding the `LogFormData` finisher to its form definition:

@@ -45,7 +45,7 @@ jobs:
 
     - stage: deploy
       if: tag IS present
-      php: 7.1
+      php: 7.0
       before_install: skip
       install: skip
       before_script: skip

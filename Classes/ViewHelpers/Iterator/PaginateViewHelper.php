@@ -19,15 +19,15 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  * = Examples =
  *
  * <code title="required arguments">
- * <t3b:iterator.paginate iterable="{blogs}" as="paginatedBlogs">
+ * <fl:iterator.paginate iterable="{blogs}" as="paginatedBlogs">
  * use {paginatedBlogs} as you used {blogs} before, most certainly inside a <f:for> loop.
- * </t3b:iterator.paginate>
+ * </fl:iterator.paginate>
  * </code>
  *
  * <code title="full configuration">
- * <t3b:iterator.paginate iterable="{blogs}" as="paginatedBlogs" currentPage="5" itemsPerPage="5" maximumNumberOfLinks="20">
+ * <fl:iterator.paginate iterable="{blogs}" as="paginatedBlogs" currentPage="5" itemsPerPage="5" maximumNumberOfLinks="20">
  * use {paginatedBlogs} as you used {blogs} before, most certainly inside <f:for> loop.
- * </t3b:iterator.paginate>
+ * </fl:iterator.paginate>
  * </code>
  */
 class PaginateViewHelper extends AbstractViewHelper

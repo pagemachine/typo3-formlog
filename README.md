@@ -66,7 +66,7 @@ module.tx_formlog {
 }
 ```
 
-Within `list.columns` an arbitrary list of columns can be added where The `property` option refers to a property path in the `FormLogEntry` domain module. Simply speaking `data.*` provides access to form data by a form element identifier, e.g. `data.email` for the value of the form element `email`. The `label` option is used to retrieve a translatable label. Usually one can simply use the same label that is used for the field within the form itself.
+Within `list.columns` an arbitrary list of columns can be added where the `property` option refers to a property path in the `FormLogEntry` domain model. Simply speaking `data.*` provides access to form data by a form element identifier, e.g. `data.email` for the value of the form element `email`. The `label` option is used to retrieve a translatable label. Usually one can simply use the same label that is used for the field within the form itself.
 
 Similarly `finisherVariables.*` does the same for additional finisher variables by utilizing the finisher identifier and variable name:
 

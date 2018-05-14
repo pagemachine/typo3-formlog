@@ -51,10 +51,14 @@ class FormLogEntryRepository extends Repository
             $query->greaterThan('uid', 0),
         ];
 
-        foreach ($filters as $propertyName => $filter) {
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($filters, __METHOD__, 8, defined('TYPO3_cliMode') || defined('TYPO3_REQUESTTYPE') && (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI));
+
+        foreach ($filters as $filter) {
             if ($filter->isEmpty()) {
                 continue;
             }
+
+            $propertyName = $filter->getPropertyName();
 
             if ($filter instanceof ValueFilter) {
                 $constraints[] = $query->equals($propertyName, $filter->getValue());

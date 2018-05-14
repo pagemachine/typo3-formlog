@@ -15,14 +15,29 @@ class ValueFilter implements FilterInterface
     /**
      * @var string
      */
+    protected $propertyName;
+
+    /**
+     * @var string
+     */
     protected $value;
 
     /**
+     * @param string $propertyName
      * @param string $value
      */
-    public function __construct(string $value = '')
+    public function __construct(string $propertyName, string $value = '')
     {
+        $this->propertyName = $propertyName;
         $this->value = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyName(): string
+    {
+        return $this->propertyName;
     }
 
     /**

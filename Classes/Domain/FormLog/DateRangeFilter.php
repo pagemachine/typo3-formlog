@@ -13,6 +13,11 @@ namespace Pagemachine\Formlog\Domain\FormLog;
 class DateRangeFilter implements FilterInterface
 {
     /**
+     * @var string
+     */
+    protected $propertyName;
+
+    /**
      * @var \DateTime
      */
     protected $startDate;
@@ -23,13 +28,23 @@ class DateRangeFilter implements FilterInterface
     protected $endDate;
 
     /**
+     * @param string $propertyName
      * @param \DateTime $startDate
      * @param \DateTime $endDate
      */
-    public function __construct(\DateTime $startDate = null, \DateTime $endDate = null)
+    public function __construct(string $propertyName, \DateTime $startDate = null, \DateTime $endDate = null)
     {
+        $this->propertyName = $propertyName;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPropertyName(): string
+    {
+        return $this->propertyName;
     }
 
     /**

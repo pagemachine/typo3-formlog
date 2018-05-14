@@ -10,6 +10,13 @@ namespace Pagemachine\Formlog\Domain\FormLog;
 interface FilterInterface
 {
     /**
+     * The property name to filter
+     *
+     * @return string
+     */
+    public function getPropertyName(): string;
+
+    /**
      * Returns whether the filter is set
      *
      * @return bool

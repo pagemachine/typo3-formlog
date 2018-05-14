@@ -23,6 +23,7 @@
     <fl:iterator.paginate iterable="{entries}" as="paginatedEntries" currentPage="{pagination.currentPage}">
 
       <f:form objectName="filters" object="{filters}" id="filter-form" class="form-inline">
+        <f:form.hidden property="submissionDate.propertyName" value="submissionDate"/>
         <f:form.hidden id="submissiondate-start" property="submissionDate.startDate" value="{filters.submissionDate.startDate -> f:format.date(format: isoDateFormat)}"/>
         <f:form.hidden id="submissiondate-end" property="submissionDate.endDate" value="{filters.submissionDate.endDate -> f:format.date(format: isoDateFormat)}"/>
 
@@ -42,6 +43,7 @@
                     <i class="fa fa-filter" aria-hidden="true"></i>
                   </button>
                   <div class="hidden">
+                    <f:form.hidden property="pageTitle.propertyName" value="page.title"/>
                     <f:form.select id="pagetitle" class="form-control" property="pageTitle.value" prependOptionLabel="" data="{value: filters.pageTitle.value}"/>
                   </div>
                 </th>

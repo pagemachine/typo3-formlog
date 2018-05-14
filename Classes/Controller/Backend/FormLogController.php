@@ -61,12 +61,39 @@ class FormLogController extends ActionController
     public function initializeAction()
     {
         if ($this->arguments->hasArgument('filters')) {
-            $this->request->setArgument('filters', $this->request->hasArgument('filters') ? $this->request->getArgument('filters') : []);
+            $filters = $this->request->hasArgument('filters') ? $this->request->getArgument('filters') : [];
+
+            if (empty($filters['pageTitle'])) {
+                $filters['pageTitle'] = new \Pagemachine\Formlog\Domain\FormLog\ValueFilter('page.title');
+            }
+
+            if (empty($filters['submissionDate'])) {
+                $filters['submissionDate'] = new \Pagemachine\Formlog\Domain\FormLog\DateRangeFilter('submissionDate');
+            }
+
+            $this->request->setArgument('filters', $filters);
+
             $filtersArgument = $this->arguments->getArgument('filters');
-            $filtersArgument->getPropertyMappingConfiguration()
+            $filtersMappingConfiguration = $filtersArgument->getPropertyMappingConfiguration();
+
+            $filtersMappingConfiguration
                 ->allowAllProperties()
                 ->forProperty('*')
                     ->allowAllProperties();
+
+            $filtersMappingConfiguration->forProperty('pageTitle')
+                ->setTypeConverterOption(
+                    \TYPO3\CMS\Extbase\Property\TypeConverter\ObjectConverter::class,
+                    \TYPO3\CMS\Extbase\Property\TypeConverter\ObjectConverter::CONFIGURATION_TARGET_TYPE,
+                    \Pagemachine\Formlog\Domain\FormLog\ValueFilter::class
+                );
+
+            $filtersMappingConfiguration->forProperty('submissionDate')
+                ->setTypeConverterOption(
+                    \TYPO3\CMS\Extbase\Property\TypeConverter\ObjectConverter::class,
+                    \TYPO3\CMS\Extbase\Property\TypeConverter\ObjectConverter::CONFIGURATION_TARGET_TYPE,
+                    \Pagemachine\Formlog\Domain\FormLog\DateRangeFilter::class
+                );
         }
     }
 

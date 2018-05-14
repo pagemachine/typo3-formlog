@@ -10,42 +10,12 @@ namespace Pagemachine\Formlog\Domain\FormLog;
 /**
  * Collection of form log filters
  */
-class Filters implements \IteratorAggregate, \Countable
+class Filters implements \ArrayAccess, \IteratorAggregate, \Countable
 {
     /**
-     * @var ValueFilter
+     * @var array
      */
-    protected $pageTitle;
-
-    /**
-     * @var DateRangeFilter
-     */
-    protected $submissionDate;
-
-    /**
-     * @param DateRangeFilter|null $submissionDate
-     */
-    public function __construct(ValueFilter $pageTitle = null, DateRangeFilter $submissionDate = null)
-    {
-        $this->pageTitle = $pageTitle ?: new ValueFilter();
-        $this->submissionDate = $submissionDate ?: new DateRangeFilter();
-    }
-
-    /**
-     * @return ValueFilter
-     */
-    public function getPageTitle(): ValueFilter
-    {
-        return $this->pageTitle;
-    }
-
-    /**
-     * @return DateRangeFilter
-     */
-    public function getSubmissionDate(): DateRangeFilter
-    {
-        return $this->submissionDate;
-    }
+    protected $filters = [];
 
     /**
      * Returns whether no filter is set
@@ -54,7 +24,40 @@ class Filters implements \IteratorAggregate, \Countable
      */
     public function isEmpty(): bool
     {
-        return $this->pageTitle->isEmpty() && $this->submissionDate->isEmpty();
+        return empty($this->filters);
+    }
+
+    /**
+     * @param mixed $offset
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->filters[$offset]);
+    }
+
+    /**
+     * @param mixed $offset
+     */
+    public function offsetGet($offset)
+    {
+        return $this->filters[$offset];
+    }
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->filters[$offset] = $value;
+    }
+
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->filters[$offset]);
     }
 
     /**
@@ -62,15 +65,7 @@ class Filters implements \IteratorAggregate, \Countable
      */
     public function getIterator(): \Traversable
     {
-        if (!$this->pageTitle->isEmpty()) {
-            yield 'page.title' => $this->pageTitle;
-        }
-
-        if (!$this->submissionDate->isEmpty()) {
-            yield 'submissionDate' => $this->submissionDate;
-        }
-
-        yield from [];
+        yield from $this->filters;
     }
 
     /**
@@ -78,6 +73,6 @@ class Filters implements \IteratorAggregate, \Countable
      */
     public function count(): int
     {
-        return count(iterator_to_array($this));
+        return count($this->filters);
     }
 }

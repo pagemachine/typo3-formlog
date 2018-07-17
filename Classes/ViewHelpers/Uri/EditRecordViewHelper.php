@@ -7,7 +7,7 @@ namespace Pagemachine\Formlog\ViewHelpers\Uri;
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -47,7 +47,9 @@ class EditRecordViewHelper extends AbstractViewHelper
             ],
             'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI'),
         ];
+        /** @var UriBuilder */
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
-        return BackendUtility::getModuleUrl('record_edit', $parameters);
+        return (string)$uriBuilder->buildUriFromRoute('record_edit', $parameters);
     }
 }

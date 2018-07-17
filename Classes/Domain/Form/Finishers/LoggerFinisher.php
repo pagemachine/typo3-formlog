@@ -55,9 +55,10 @@ class LoggerFinisher extends AbstractFinisher
             'finisher_variables' => json_encode($this->getFinisherVariables()),
         ];
 
+        /** @var ConnectionPool */
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         /** @var \TYPO3\CMS\Core\Database\Connection */
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getConnectionForTable('tx_formlog_entries');
+        $connection = $connectionPool->getConnectionForTable('tx_formlog_entries');
         $connection->insert('tx_formlog_entries', $data);
     }
 

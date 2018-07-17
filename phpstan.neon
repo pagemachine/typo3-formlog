@@ -9,4 +9,7 @@ parameters:
     - '#Access to an undefined property TYPO3\\CMS\\Core\\DataHandling\\DataHandler::\$stripslashes_values#'
     # See https://github.com/dmitryd/typo3-realurl/issues/566
     - '#Access to protected property \$rootPageId of class DmitryDulepov\\Realurl\\EncodeDecoderBase#'
+    - '#Parameter .+ expects .+, Prophecy\\.+\\.+Token given\.#'
+    - '#.+ does not accept PHPUnit\\Framework\\MockObject\\MockObject\.#'
+    - '#Parameter .+ expects .+, PHPUnit\\Framework\\MockObject\\MockObject given\.#'
   reportUnmatchedIgnoredErrors: false

@@ -33,7 +33,9 @@ class FiltersTest extends UnitTestCase
      */
     public function constructsWithFilters()
     {
+        /** @var ValueFilter */
         $pageTitleFilter = $this->prophesize(ValueFilter::class)->reveal();
+        /** @var DateRangeFilter */
         $submissionDateFilter = $this->prophesize(DateRangeFilter::class)->reveal();
         $filters = new Filters($pageTitleFilter, $submissionDateFilter);
 

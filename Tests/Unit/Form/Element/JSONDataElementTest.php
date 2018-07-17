@@ -11,6 +11,8 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Form\Element\JSONDataElement;
 use Prophecy\Argument;
 use TYPO3\CMS\Backend\Form\NodeFactory;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
@@ -18,6 +20,14 @@ use TYPO3\CMS\Lang\LanguageService;
  */
 class JSONDataElementTest extends UnitTestCase
 {
+    /**
+     * Tear down this testcase
+     */
+    protected function tearDown()
+    {
+        GeneralUtility::purgeInstances();
+    }
+
     /**
      * @test
      * @dataProvider samples
@@ -27,6 +37,10 @@ class JSONDataElementTest extends UnitTestCase
      */
     public function rendersFormData($formElementValue, $expected)
     {
+        /** @var IconFactory|\Prophecy\Prophecy\ObjectProphecy */
+        $iconFactory = $this->prophesize(IconFactory::class);
+        GeneralUtility::addInstance(IconFactory::class, $iconFactory->reveal());
+
         /** @var NodeFactory|\Prophecy\Prophecy\ObjectProphecy */
         $nodeFactory = $this->prophesize(NodeFactory::class);
         $jsonDataElement = new JSONDataElement($nodeFactory->reveal(), [

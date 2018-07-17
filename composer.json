@@ -28,7 +28,6 @@
     "jakub-onderka/php-console-highlighter": "^0.3.2",
     "jakub-onderka/php-parallel-lint": "^0.9.2",
     "nimut/testing-framework": "^4.0",
-    "phpstan/phpstan": "^0.8.5",
     "phpunit/phpunit": "^6.5",
     "sclable/xml-lint": "^0.2.2",
     "slevomat/coding-standard": "^4.0",

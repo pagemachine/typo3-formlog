@@ -44,6 +44,8 @@ jobs:
 
     - php: 7.1
       env: Static analysis
+      install:
+        - composer require --dev phpstan/phpstan:^0.10
       script:
         - composer analyze:php
 

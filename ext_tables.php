@@ -16,5 +16,6 @@ defined('TYPO3_MODE') or die();
         'icon' => 'EXT:formlog/Resources/Public/Icons/module-list.svg',
         'labels' => 'LLL:EXT:formlog/Resources/Private/Language/locallang_mod_formlog.xlf',
         'navigationComponentId' => '',
+        'inheritNavigationComponentFromMainModule' => false,
     ]
 );

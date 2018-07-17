@@ -54,22 +54,24 @@ class LoggerFinisherTest extends UnitTestCase
         $formDefinition = $this->prophesize(FormDefinition::class);
         $formDefinition->getIdentifier()->willReturn('test-form');
 
-        /** @var FormRuntime|\Prophecy\Prophecy\ObjectProphec */
+        /** @var FormRuntime|\Prophecy\Prophecy\ObjectProphecy */
         $formRuntime = $this->prophesize(FormRuntime::class);
         $formRuntime->getFormDefinition()->willReturn($formDefinition->reveal());
 
-        /** @var FinisherContext|\Prophecy\Prophecy\ObjectProphec */
+        /** @var FinisherContext|\Prophecy\Prophecy\ObjectProphecy */
         $this->finisherContext = $this->prophesize(FinisherContext::class);
         $this->finisherContext->getFormRuntime()->willReturn($formRuntime->reveal());
 
-        /** @var Connection|\Prophecy\Prophecy\ObjectProphec */
+        /** @var Connection|\Prophecy\Prophecy\ObjectProphecy */
         $this->connection = $this->prophesize(Connection::class);
-        /** @var ConnectionPool|\Prophecy\Prophecy\ObjectProphec */
+        /** @var ConnectionPool|\Prophecy\Prophecy\ObjectProphecy */
         $connectionPool = $this->prophesize(ConnectionPool::class);
         $connectionPool->getConnectionForTable('tx_formlog_entries')->willReturn($this->connection->reveal());
         GeneralUtility::addInstance(ConnectionPool::class, $connectionPool->reveal());
 
-        $this->frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        /** @var TypoScriptFrontendController|\Prophecy\Prophecy\ObjectProphecy */
+        $frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        $this->frontendController = $frontendController;
         $this->frontendController->id = 2;
         $this->frontendController->sys_language_uid = 20;
         $this->loggerFinisher = new LoggerFinisher('test', $this->frontendController);

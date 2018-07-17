@@ -26,6 +26,11 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
     protected $paginateViewHelper;
 
     /**
+     * @var \TYPO3\CMS\Fluid\Core\Variables\CmsVariableProvider|\TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $templateVariableContainer;
+
+    /**
      * Set up this testcase
      */
     protected function setUp()
@@ -149,7 +154,7 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
      * @dataProvider paginatedIterable
      *
      * @param int $currentPage
-     * @param mixed $expectedIterable
+     * @param array $expectedIterable
      * @param array $expectedPagination
      */
     public function paginatesIterable($currentPage, array $expectedIterable, array $expectedPagination)

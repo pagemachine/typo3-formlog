@@ -26,8 +26,9 @@ class Suggestions
      */
     public function __construct(QueryBuilder $query = null)
     {
-        $this->query = $query ?: GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_formlog_entries');
+        $this->query = $query ?: $this->getConnectionPool()->getQueryBuilderForTable('tx_formlog_entries');
     }
+
     /**
      * Get suggestions for a form log property
      *
@@ -55,5 +56,13 @@ class Suggestions
         }
 
         return $suggestions;
+    }
+
+    private function getConnectionPool(): ConnectionPool
+    {
+        /** @var ConnectionPool */
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+
+        return $connectionPool;
     }
 }

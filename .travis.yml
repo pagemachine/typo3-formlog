@@ -15,10 +15,14 @@ jobs:
       php: 7.0
       env: TYPO3_VERSION=^8.7
       install:
-        - composer require typo3/cms="$TYPO3_VERSION"
+        - composer require typo3/cms-core="$TYPO3_VERSION"
       script:
         - composer lint:php
         - composer test
+
+    - <<: *test
+      php: 7.2
+      env: TYPO3_VERSION=~9.3.0
 
     - <<: *test
       php: 7.1
@@ -40,6 +44,8 @@ jobs:
 
     - php: 7.1
       env: Static analysis
+      install:
+        - composer require --dev phpstan/phpstan:^0.10
       script:
         - composer analyze:php
 

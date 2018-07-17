@@ -23,7 +23,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class FormLogController extends ActionController
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Mvc\View\ViewInterface|\Pagemachine\Formlog\Mvc\View\ConfigurableViewInterface
+     * @var \Pagemachine\Formlog\Mvc\View\ConfigurableViewInterface
      */
     protected $view = null;
 
@@ -79,6 +79,9 @@ class FormLogController extends ActionController
      */
     public function indexAction(Filters $filters, array $pagination = [])
     {
+        /** @var UriBuilder */
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+
         $this->view->assignMultiple([
             'entries' => $this->formLogEntryRepository->findAllFiltered($filters),
             'filters' => $filters,
@@ -88,7 +91,7 @@ class FormLogController extends ActionController
             'daterangepickerTranslations' => $this->prepareDaterangepickerTranslations(),
             'inlineSettings' => [
                 'formlog' => [
-                    'suggestUri' => (string)GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('ajax_formlog_suggest'),
+                    'suggestUri' => (string)$uriBuilder->buildUriFromRoute('ajax_formlog_suggest'),
                     'language' => $GLOBALS['BE_USER']->uc['lang'],
                     'timeZone' => date_default_timezone_get(),
                 ],

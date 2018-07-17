@@ -62,6 +62,8 @@ class PaginateViewHelper extends AbstractViewHelper
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         $iterable = $arguments['iterable'];
+        self::assertIterable($iterable);
+
         $itemsPerPage = max(1, $arguments['itemsPerPage']);
         $numberOfPages = max(1, ceil(count($iterable) / $itemsPerPage));
         $currentPage = min(max(1, $arguments['currentPage']), $numberOfPages);
@@ -152,8 +154,19 @@ class PaginateViewHelper extends AbstractViewHelper
             $iterable = $iterable->toArray();
         }
 
-        if (is_array($iterable)) {
-            return array_slice($iterable, $offset, $itemsPerPage);
+        return array_slice($iterable, $offset, $itemsPerPage);
+    }
+
+    /**
+     * Assert that a given iterable is supported
+     *
+     * @param array|object $iterable
+     * @return void
+     */
+    private static function assertIterable($iterable)
+    {
+        if (is_array($iterable) || $iterable instanceof QueryResultInterface || $iterable instanceof ObjectStorage) {
+            return;
         }
 
         throw new \InvalidArgumentException(sprintf(

@@ -37,7 +37,7 @@ class FormLogSuggestController
      */
     public function searchAction(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        $body = $request->getParsedBody();
+        $body = (array)$request->getParsedBody();
         $suggestions = $this->suggestions->getForProperty($body['property']);
         $response->getBody()->write(json_encode($suggestions));
 

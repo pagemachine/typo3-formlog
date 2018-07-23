@@ -37,6 +37,9 @@
     "formlog": "self.version",
     "typo3-ter/formlog": "self.version"
   },
+  "suggest": {
+    "typo3/cms-scheduler": "Allows automatic garbage collection of old form entries."
+  },
   "config": {
     "sort-packages": true,
     "bin-dir": "bin"

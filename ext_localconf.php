@@ -12,5 +12,5 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:form/Resou
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables']['tx_formlog_entries'] = [
     'dateField' => 'tstamp',
-    'expirePeriod' => 90,
+    'expirePeriod' => 180,
 ];

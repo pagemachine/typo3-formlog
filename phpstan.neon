@@ -12,4 +12,5 @@ parameters:
     - '#Parameter .+ expects .+, Prophecy\\.+\\.+Token given\.#'
     - '#.+ does not accept PHPUnit\\Framework\\MockObject\\MockObject\.#'
     - '#Parameter .+ expects .+, PHPUnit\\Framework\\MockObject\\MockObject given\.#'
+    - '#Class TYPO3\\CMS\\Scheduler\\Task\\TableGarbageCollectionTask not found\.#'
   reportUnmatchedIgnoredErrors: false

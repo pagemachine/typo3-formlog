@@ -41,6 +41,7 @@ return [
             'label' => 'LLL:EXT:formlog/Resources/Private/Language/locallang_db.xml:tx_formlog_entries.language',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'sys_language',
                 'items' => [
                     ['LLL:EXT:formlog/Resources/Private/Language/locallang_db.xml:tx_formlog_entries.language.default', '0'],

@@ -22,7 +22,7 @@ jobs:
 
     - <<: *test
       php: 7.2
-      env: TYPO3_VERSION=~9.3.0
+      env: TYPO3_VERSION=~9.4.0
 
     - <<: *test
       php: 7.1

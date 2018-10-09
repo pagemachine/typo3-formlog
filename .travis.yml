@@ -22,7 +22,7 @@ jobs:
 
     - <<: *test
       php: 7.2
-      env: TYPO3_VERSION=~9.4.0
+      env: TYPO3_VERSION=^9.5
 
     - <<: *test
       php: 7.1
@@ -42,7 +42,7 @@ jobs:
       script:
         - composer lint:style
 
-    - php: 7.1
+    - php: 7.2
       env: Static analysis
       install:
         - composer require --dev phpstan/phpstan:^0.10

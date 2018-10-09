@@ -9,6 +9,8 @@ namespace Pagemachine\Formlog\Tests\Unit\Domain\Form\Finishers;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Domain\Form\Finishers\LoggerFinisher;
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\LanguageAspect;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -73,7 +75,15 @@ class LoggerFinisherTest extends UnitTestCase
         $frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
         $this->frontendController = $frontendController;
         $this->frontendController->id = 2;
-        $this->frontendController->sys_language_uid = 20;
+
+        if (class_exists(Context::class)) {
+            $languageAspect = GeneralUtility::makeInstance(LanguageAspect::class, 20);
+            $context = GeneralUtility::makeInstance(Context::class, ['language' => $languageAspect]);
+            GeneralUtility::setSingletonInstance(Context::class, $context);
+        } else {
+            $this->frontendController->sys_language_uid = 20;
+        }
+
         $this->loggerFinisher = new LoggerFinisher('test', $this->frontendController);
     }
 

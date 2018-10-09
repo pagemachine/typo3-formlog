@@ -78,6 +78,7 @@ class LoggerFinisherTest extends UnitTestCase
 
         if (class_exists(Context::class)) {
             $languageAspect = GeneralUtility::makeInstance(LanguageAspect::class, 20);
+            /** @var Context */
             $context = GeneralUtility::makeInstance(Context::class, ['language' => $languageAspect]);
             GeneralUtility::setSingletonInstance(Context::class, $context);
         } else {

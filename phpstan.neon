@@ -13,4 +13,5 @@ parameters:
     - '#.+ does not accept PHPUnit\\Framework\\MockObject\\MockObject\.#'
     - '#Parameter .+ expects .+, PHPUnit\\Framework\\MockObject\\MockObject given\.#'
     - '#Class TYPO3\\CMS\\Scheduler\\Task\\TableGarbageCollectionTask not found\.#'
+    - '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'
   reportUnmatchedIgnoredErrors: false

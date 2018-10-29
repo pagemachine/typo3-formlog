@@ -33,7 +33,7 @@ finishers:
 
 The `LogFormData` finisher should be the last finisher or right before the `Redirect` finisher if used. Logging after a redirect is not possible.
 
-Additional variables stored in the `FinisherVariableProvider` can also be logged by using the `finisherVariables` option:
+Additional variables stored in the [`FinisherVariableProvider`](https://docs.typo3.org/typo3cms/extensions/form/Concepts/FrontendRendering/Index.html#share-data-between-finishers) can also be logged by using the `finisherVariables` option:
 
 ```
   - identifier: LogFormData

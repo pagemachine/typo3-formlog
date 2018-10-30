@@ -50,6 +50,7 @@ class LoggerFinisher extends AbstractFinisher
         $data = [
             'pid' => $this->frontendController->id,
             'crdate' => $GLOBALS['EXEC_TIME'],
+            'tstamp' => $GLOBALS['EXEC_TIME'],
             'language' => $this->getLanguageUid(),
             'identifier' => $formDefinition->getIdentifier(),
             'data' => json_encode($formValues),

@@ -108,6 +108,7 @@ class LoggerFinisherTest extends UnitTestCase
         $this->connection->insert('tx_formlog_entries', [
             'pid' => 2,
             'crdate' => 1490191502,
+            'tstamp' => 1490191502,
             'language' => 20,
             'identifier' => 'test-form',
             'data' => '{"foo":"bar","qux":10}',
@@ -142,6 +143,7 @@ class LoggerFinisherTest extends UnitTestCase
         $this->connection->insert('tx_formlog_entries', [
             'pid' => 2,
             'crdate' => 1490191502,
+            'tstamp' => 1490191502,
             'language' => 20,
             'identifier' => 'test-form',
             'data' => '{"foo":"bar","qux":10}',

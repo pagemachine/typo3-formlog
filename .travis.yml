@@ -12,7 +12,7 @@ install:
 jobs:
   include:
     - &test
-      name: "Lint & Unit tests: PHP 7.0, TYPO3v8"
+      name: "Lint & Unit tests: PHP ${PHP_VERSION}, TYPO3 ${TYPO3_VERSION}"
       php: 7.0
       env: TYPO3_VERSION=^8.7
       install:
@@ -22,12 +22,10 @@ jobs:
         - composer test
 
     - <<: *test
-      name: "Lint & Unit tests: PHP 7.2, TYPO3v9"
       php: 7.2
       env: TYPO3_VERSION=^9.5
 
     - <<: *test
-      name: "Lint & Unit tests: PHP 7.1, TYPO3v8"
       php: 7.1
 
     - php: 7.1

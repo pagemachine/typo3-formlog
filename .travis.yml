@@ -12,6 +12,7 @@ install:
 jobs:
   include:
     - &test
+      name: "Lint & Unit tests: PHP 7.0, TYPO3v8"
       php: 7.0
       env: TYPO3_VERSION=^8.7
       install:
@@ -21,35 +22,38 @@ jobs:
         - composer test
 
     - <<: *test
+      name: "Lint & Unit tests: PHP 7.2, TYPO3v9"
       php: 7.2
       env: TYPO3_VERSION=^9.5
 
     - <<: *test
+      name: "Lint & Unit tests: PHP 7.1, TYPO3v8"
       php: 7.1
 
     - php: 7.1
-      env: TypoScript lint
+      name: TypoScript lint
       script:
         - composer lint:typoscript
 
     - php: 7.1
-      env: XML lint
+      name: XML lint
       script:
         - composer lint:xml
 
     - php: 7.1
-      env: Codestyle
+      name: Codestyle
       script:
         - composer lint:style
 
     - php: 7.2
-      env: Static analysis
+      name: Static analysis
       install:
         - composer require --dev phpstan/phpstan:^0.10
       script:
         - composer analyze:php
 
     - stage: deploy
+      name: "Upload to TER"
       if: tag IS present
       php: 7.0
       before_install: skip

@@ -32,17 +32,23 @@
               <tr>
                 <th></th>
                 <th><f:translate key="formlog.entry.uid"/></th>
-                <th>
+                <th class="formlog-select-filter">
                   <button
                     type="button"
-                    id="pagetitle-filter"
                     class="btn btn-{f:if(condition: filters.pageTitle.empty, then: 'default', else: 'primary')}"
                   >
                     <b><f:translate key="formlog.entry.page.title"/></b>
                     <i class="fa fa-filter" aria-hidden="true"></i>
                   </button>
                   <div class="hidden">
-                    <f:form.select id="pagetitle" class="form-control" property="pageTitle.value" prependOptionLabel="" data="{value: filters.pageTitle.value}"/>
+                    <f:form.select
+                      class="form-control"
+                      property="pageTitle.value"
+                      prependOptionLabel=""
+                      data="{
+                        property: 'page.title',
+                        value: filters.pageTitle.value
+                      }"/>
                   </div>
                 </th>
                 <th><f:translate key="formlog.entry.identifier"/></th>

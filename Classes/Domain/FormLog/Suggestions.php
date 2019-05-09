@@ -37,23 +37,19 @@ class Suggestions
      */
     public function getForProperty(string $property): array
     {
-        $suggestions = [];
-
-        if ($property === 'page.title') {
-            $rows = $this->query
-                ->select('pages.title')
-                ->from('tx_formlog_entries')
-                ->join(
-                    'tx_formlog_entries',
-                    'pages',
-                    'pages',
-                    $this->query->expr()->eq('pages.uid', $this->query->quoteIdentifier('tx_formlog_entries.pid'))
-                )
-                ->groupBy('pages.title')
-                ->execute()
-                ->fetchAll();
-            $suggestions = array_column($rows, 'title');
-        }
+        $rows = $this->query
+            ->select($property)
+            ->from('tx_formlog_entries')
+            ->join(
+                'tx_formlog_entries',
+                'pages',
+                'page',
+                $this->query->expr()->eq('page.uid', $this->query->quoteIdentifier('tx_formlog_entries.pid'))
+            )
+            ->groupBy($property)
+            ->execute()
+            ->fetchAll(\PDO::FETCH_NUM);
+        $suggestions = array_column($rows, 0);
 
         return $suggestions;
     }

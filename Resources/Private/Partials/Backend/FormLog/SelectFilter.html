@@ -1,0 +1,17 @@
+<button
+  type="button"
+  class="btn btn-{f:if(condition: '{filter.empty}', then: 'default', else: 'primary')}"
+>
+  <b><f:translate key="{title}">{title}</f:translate></b>
+  <i class="fa fa-filter" aria-hidden="true"></i>
+</button>
+<div class="hidden">
+  <f:form.select
+    class="form-control"
+    property="{filterProperty}.value"
+    prependOptionLabel=""
+    data="{
+      property: property,
+      value: filter.value
+    }"/>
+</div>

@@ -1,1 +1,1 @@
-define(["./Filter/PageTitleFilter","./Filter/SubmissionDateFilter"],function(){});
+define(["./Filter/SelectFilter","./Filter/SubmissionDateFilter"],function(){});

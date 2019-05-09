@@ -32,20 +32,22 @@
               <tr>
                 <th></th>
                 <th><f:translate key="formlog.entry.uid"/></th>
-                <th>
-                  <button
-                    type="button"
-                    id="pagetitle-filter"
-                    class="btn btn-{f:if(condition: filters.pageTitle.empty, then: 'default', else: 'primary')}"
-                  >
-                    <b><f:translate key="formlog.entry.page.title"/></b>
-                    <i class="fa fa-filter" aria-hidden="true"></i>
-                  </button>
-                  <div class="hidden">
-                    <f:form.select id="pagetitle" class="form-control" property="pageTitle.value" prependOptionLabel="" data="{value: filters.pageTitle.value}"/>
-                  </div>
+                <th class="formlog-select-filter">
+                  <f:render partial="Backend/FormLog/SelectFilter" arguments="{
+                    title: 'formlog.entry.page.title',
+                    filter: filters.pageTitle,
+                    filterProperty: 'pageTitle',
+                    property: 'page.title'
+                  }"/>
                 </th>
-                <th><f:translate key="formlog.entry.identifier"/></th>
+                <th class="formlog-select-filter">
+                  <f:render partial="Backend/FormLog/SelectFilter" arguments="{
+                    title: 'formlog.entry.identifier',
+                    filter: filters.identifier,
+                    filterProperty: 'identifier',
+                    property: 'identifier'
+                  }"/>
+                </th>
                 <th><f:translate key="formlog.entry.language"/></th>
                 <th>
                   <button

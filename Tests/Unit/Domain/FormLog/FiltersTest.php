@@ -35,11 +35,14 @@ class FiltersTest extends UnitTestCase
     {
         /** @var ValueFilter */
         $pageTitleFilter = $this->prophesize(ValueFilter::class)->reveal();
+        /** @var ValueFilter */
+        $identifierFilter = $this->prophesize(ValueFilter::class)->reveal();
         /** @var DateRangeFilter */
         $submissionDateFilter = $this->prophesize(DateRangeFilter::class)->reveal();
-        $filters = new Filters($pageTitleFilter, $submissionDateFilter);
+        $filters = new Filters($pageTitleFilter, $identifierFilter, $submissionDateFilter);
 
         $this->assertSame($pageTitleFilter, $filters->getPageTitle());
+        $this->assertSame($identifierFilter, $filters->getIdentifier());
         $this->assertSame($submissionDateFilter, $filters->getSubmissionDate());
     }
 
@@ -80,11 +83,11 @@ class FiltersTest extends UnitTestCase
 
         $this->assertFalse($filters->isEmpty());
 
-        $filters = new Filters(null, $submissionDateFilter->reveal());
+        $filters = new Filters(null, null, $submissionDateFilter->reveal());
 
         $this->assertFalse($filters->isEmpty());
 
-        $filters = new Filters($pageTitleFilter->reveal(), $submissionDateFilter->reveal());
+        $filters = new Filters($pageTitleFilter->reveal(), null, $submissionDateFilter->reveal());
 
         $this->assertFalse($filters->isEmpty());
     }
@@ -108,6 +111,9 @@ class FiltersTest extends UnitTestCase
         /** @var ValueFilter|\Prophecy\Prophecy\ObjectProphecy */
         $pageTitleFilter = $this->prophesize(ValueFilter::class);
         $pageTitleFilter->isEmpty()->willReturn(false);
+        /** @var ValueFilter|\Prophecy\Prophecy\ObjectProphecy */
+        $identifierFilter = $this->prophesize(ValueFilter::class);
+        $identifierFilter->isEmpty()->willReturn(true);
         /** @var DateRangeFilter|\Prophecy\Prophecy\ObjectProphecy */
         $submissionDateFilter = $this->prophesize(DateRangeFilter::class);
         $submissionDateFilter->isEmpty()->willReturn(false);
@@ -118,13 +124,13 @@ class FiltersTest extends UnitTestCase
         $this->assertCount(1, $items);
         $this->assertContainsOnlyInstancesOf(ValueFilter::class, $items);
 
-        $filters = new Filters(null, $submissionDateFilter->reveal());
+        $filters = new Filters(null, null, $submissionDateFilter->reveal());
         $items = iterator_to_array($filters);
 
         $this->assertCount(1, $items);
         $this->assertContainsOnlyInstancesOf(DateRangeFilter::class, $items);
 
-        $filters = new Filters($pageTitleFilter->reveal(), $submissionDateFilter->reveal());
+        $filters = new Filters($pageTitleFilter->reveal(), $identifierFilter->reveal(), $submissionDateFilter->reveal());
         $items = iterator_to_array($filters);
 
         $this->assertCount(2, $items);

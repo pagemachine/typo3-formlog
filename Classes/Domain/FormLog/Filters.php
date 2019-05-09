@@ -18,16 +18,24 @@ class Filters implements \IteratorAggregate, \Countable
     protected $pageTitle;
 
     /**
+     * @var ValueFilter
+     */
+    protected $identifier;
+
+    /**
      * @var DateRangeFilter
      */
     protected $submissionDate;
 
     /**
+     * @param ValueFilter|null $pageTitle
+     * @param ValueFilter|null $identifier
      * @param DateRangeFilter|null $submissionDate
      */
-    public function __construct(ValueFilter $pageTitle = null, DateRangeFilter $submissionDate = null)
+    public function __construct(ValueFilter $pageTitle = null, ValueFilter $identifier = null, DateRangeFilter $submissionDate = null)
     {
         $this->pageTitle = $pageTitle ?: new ValueFilter();
+        $this->identifier = $identifier ?: new ValueFilter();
         $this->submissionDate = $submissionDate ?: new DateRangeFilter();
     }
 
@@ -37,6 +45,14 @@ class Filters implements \IteratorAggregate, \Countable
     public function getPageTitle(): ValueFilter
     {
         return $this->pageTitle;
+    }
+
+    /**
+     * @return ValueFilter
+     */
+    public function getIdentifier(): ValueFilter
+    {
+        return $this->identifier;
     }
 
     /**
@@ -54,7 +70,7 @@ class Filters implements \IteratorAggregate, \Countable
      */
     public function isEmpty(): bool
     {
-        return $this->pageTitle->isEmpty() && $this->submissionDate->isEmpty();
+        return count($this) === 0;
     }
 
     /**
@@ -64,6 +80,10 @@ class Filters implements \IteratorAggregate, \Countable
     {
         if (!$this->pageTitle->isEmpty()) {
             yield 'page.title' => $this->pageTitle;
+        }
+
+        if (!$this->identifier->isEmpty()) {
+            yield 'identifier' => $this->identifier;
         }
 
         if (!$this->submissionDate->isEmpty()) {

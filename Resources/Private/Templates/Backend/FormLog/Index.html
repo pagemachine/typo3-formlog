@@ -94,7 +94,23 @@
                     <i class="fa fa-filter" aria-hidden="true"></i>
                   </f:link.action>
                 </td>
-                <td>{entry.identifier}</td>
+                <td>
+                  {entry.identifier}
+                  <f:link.action
+                    arguments="{
+                      filters: {
+                        identifier: {
+                          value: entry.identifier
+                        }
+                      }
+                    }"
+                    class="btn btn-default filter-button"
+                    title="{f:translate(key: 'formlog.filters.this')}"
+                    addQueryString="true"
+                    addQueryStringMethod="POST,GET">
+                    <i class="fa fa-filter" aria-hidden="true"></i>
+                  </f:link.action>
+                </td>
                 <td>{entry.language.title -> f:or(alternative: defaultLanguageLabel)}</td>
                 <td>
                   {entry.submissionDate -> f:format.date(format: dateFormat)}

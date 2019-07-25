@@ -127,7 +127,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         return $formDefinition;
     }
 
-    protected function submitForm(FormDefinition $formDefinition, array $formValues = []): void
+    protected function submitForm(FormDefinition $formDefinition, array $formValues = [])
     {
         $formState = $this->objectManager->get(FormState::class);
         $formState->setLastDisplayedPageIndex(0);

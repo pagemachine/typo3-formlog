@@ -1,3 +1,6 @@
+includes:
+    - vendor/saschaegerer/phpstan-typo3/extension.neon
+
 parameters:
   ignoreErrors:
     - '#Constant TYPO3_MODE not found#'

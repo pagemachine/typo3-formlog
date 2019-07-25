@@ -48,7 +48,7 @@ jobs:
     - php: 7.2
       name: Static analysis
       install:
-        - composer require --dev phpstan/phpstan:^0.10
+        - composer require --dev phpstan/phpstan:^0.10 saschaegerer/phpstan-typo3
       script:
         - composer analyze:php
 

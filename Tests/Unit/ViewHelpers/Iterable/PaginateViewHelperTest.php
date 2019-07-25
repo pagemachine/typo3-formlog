@@ -60,12 +60,6 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function supportsValidIterables($iterable, $expectedIterable)
     {
-        $this->setArgumentsUnderTest($this->paginateViewHelper, [
-            'iterable' => $iterable,
-            'as' => 'paginatedIterable',
-        ]);
-        $this->paginateViewHelper->method('renderChildren')->willReturn('test');
-
         $this->templateVariableContainer->expects($this->exactly(2))->method('add')->withConsecutive(
             ['paginatedIterable', $expectedIterable],
             ['pagination', $this->isType('array')]
@@ -75,7 +69,20 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
             ['paginatedIterable']
         );
 
-        $output = $this->paginateViewHelper->render();
+        $output = PaginateViewHelper::renderStatic(
+            [
+                'iterable' => $iterable,
+                'as' => 'paginatedIterable',
+                'pagination' => 'pagination',
+                'currentPage' => 1,
+                'itemsPerPage' => 10,
+                'maximumNumberOfLinks' => 10,
+            ],
+            function () {
+                return 'test';
+            },
+            $this->renderingContext
+        );
 
         $this->assertEquals('test', $output);
     }
@@ -116,6 +123,11 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
         $queryResult = $this->prophesize(QueryResultInterface::class);
         $queryResult->getQuery()->willReturn($query->reveal());
         $queryResult->count()->willReturn(30);
+        $queryResult->rewind()->willReturn();
+        $queryResult->valid()->willReturn(...array_merge(array_fill(0, 30, true), [false]));
+        $queryResult->current()->willReturn(null);
+        $queryResult->key()->willReturn(0);
+        $queryResult->next()->willReturn();
 
         yield 'QueryResultInterface' => [$queryResult->reveal(), $paginatedQueryResult->reveal()];
 
@@ -129,6 +141,7 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
         $queryResult = $this->prophesize(QueryResultInterface::class);
         $queryResult->getQuery()->willReturn($query->reveal());
         $queryResult->count()->willReturn(0);
+        $queryResult->rewind()->willReturn();
 
         yield 'empty QueryResultInterface' => [$queryResult->reveal(), $paginatedQueryResult->reveal()];
     }
@@ -138,15 +151,18 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function throwsExceptionOnInvalidIterables()
     {
-        $this->setArgumentsUnderTest($this->paginateViewHelper, [
-            'iterable' => new \stdClass(),
-            'as' => 'paginatedIterable',
-        ]);
-
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionCode(1516182434);
 
-        $this->paginateViewHelper->render();
+        PaginateViewHelper::renderStatic(
+            [
+                'iterable' => new \stdClass(),
+            ],
+            function () {
+                return 'test';
+            },
+            $this->renderingContext
+        );
     }
 
     /**
@@ -159,19 +175,25 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function paginatesIterable($currentPage, array $expectedIterable, array $expectedPagination)
     {
-        $this->setArgumentsUnderTest($this->paginateViewHelper, [
-            'iterable' => range(1, 500),
-            'as' => 'paginatedIterable',
-            'currentPage' => $currentPage,
-        ]);
-        $this->paginateViewHelper->method('renderChildren')->willReturn(null);
-
         $this->templateVariableContainer->expects($this->exactly(2))->method('add')->withConsecutive(
             ['paginatedIterable', $expectedIterable],
             ['pagination', new ArraySubsetConstraint($expectedPagination)]
         );
 
-        $this->paginateViewHelper->render();
+        PaginateViewHelper::renderStatic(
+            [
+                'iterable' => range(1, 500),
+                'as' => 'paginatedIterable',
+                'pagination' => 'pagination',
+                'currentPage' => $currentPage,
+                'itemsPerPage' => 10,
+                'maximumNumberOfLinks' => 10,
+            ],
+            function () {
+                return null;
+            },
+            $this->renderingContext
+        );
     }
 
     /**
@@ -240,13 +262,6 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
      */
     public function allowsCustomItemsPerPage()
     {
-        $this->setArgumentsUnderTest($this->paginateViewHelper, [
-            'iterable' => range(1, 500),
-            'as' => 'paginatedIterable',
-            'itemsPerPage' => 50,
-        ]);
-        $this->paginateViewHelper->method('renderChildren')->willReturn(null);
-
         $this->templateVariableContainer->expects($this->exactly(2))->method('add')->withConsecutive(
             ['paginatedIterable', range(1, 50)],
             ['pagination', new ArraySubsetConstraint([
@@ -254,20 +269,26 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
             ])]
         );
 
-        $this->paginateViewHelper->render();
+        PaginateViewHelper::renderStatic(
+            [
+                'iterable' => range(1, 500),
+                'as' => 'paginatedIterable',
+                'pagination' => 'pagination',
+                'currentPage' => 1,
+                'itemsPerPage' => 50,
+                'maximumNumberOfLinks' => 10,
+            ],
+            function () {
+                return null;
+            },
+            $this->renderingContext
+        );
     }
     /**
      * @test
      */
     public function allowsCustomMaximumNumberOfLinks()
     {
-        $this->setArgumentsUnderTest($this->paginateViewHelper, [
-            'iterable' => range(1, 500),
-            'as' => 'paginatedIterable',
-            'maximumNumberOfLinks' => 5,
-        ]);
-        $this->paginateViewHelper->method('renderChildren')->willReturn(null);
-
         $this->templateVariableContainer->expects($this->exactly(2))->method('add')->withConsecutive(
             ['paginatedIterable', range(1, 10)],
             ['pagination', new ArraySubsetConstraint([
@@ -277,6 +298,19 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
             ])]
         );
 
-        $this->paginateViewHelper->render();
+        PaginateViewHelper::renderStatic(
+            [
+                'iterable' => range(1, 500),
+                'as' => 'paginatedIterable',
+                'pagination' => 'pagination',
+                'currentPage' => 1,
+                'itemsPerPage' => 10,
+                'maximumNumberOfLinks' => 5,
+            ],
+            function () {
+                return null;
+            },
+            $this->renderingContext
+        );
     }
 }

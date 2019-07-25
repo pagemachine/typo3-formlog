@@ -122,6 +122,12 @@ module.tx_formlog {
 
 The _Table garbage collection_ Scheduler task can be set up to automatically delete old form log entries. Select `tx_formlog_entries` as _Table to clean up_ and a suitable value for _Delete entries older than given number of days_, 180 by default.
 
+## Testing
+
+All tests can be executed with the shipped Docker Compose definition:
+
+    docker-compose run --rm build composer test
+
 ## Thanks
 
 Development of this package was proudly sponsored by [TÜV Hessen](https://www.tuev-hessen.de/).

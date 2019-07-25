@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  build:
+    image: thecodingmachine/php:7.2-v2-cli
+    environment:
+      typo3DatabaseHost: mysql
+      typo3DatabasePassword: root
+    depends_on:
+      - mysql
+      - ssh-agent
+      - ssh-key
+    volumes:
+      - ./:/usr/src/app
+      - ssh-agent:/.ssh-agent
+
+  mysql:
+    image: mysql:5.7
+    command: ['mysqld', '--character-set-server=utf8mb4']
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql:/var/lib/mysql
+
+  ssh-agent:
+    image: docksal/ssh-agent
+    volumes:
+      - ssh-agent:/.ssh-agent
+
+  ssh-key:
+    image: docksal/ssh-agent
+    command: ['bash', '-c', 'ssh-add - </tmp/host-ssh/id_rsa']
+    depends_on:
+      - ssh-agent
+    volumes:
+      - $HOME/.ssh:/tmp/host-ssh:ro
+      - ssh-agent:/.ssh-agent
+
+volumes:
+  mysql:
+  ssh-agent:

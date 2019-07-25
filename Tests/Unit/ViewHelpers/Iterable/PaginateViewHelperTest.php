@@ -78,7 +78,9 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
                 'itemsPerPage' => 10,
                 'maximumNumberOfLinks' => 10,
             ],
-            function () { return 'test'; },
+            function () {
+                return 'test';
+            },
             $this->renderingContext
         );
 
@@ -156,7 +158,9 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
             [
                 'iterable' => new \stdClass(),
             ],
-            function () { return 'test'; },
+            function () {
+                return 'test';
+            },
             $this->renderingContext
         );
     }
@@ -185,7 +189,9 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
                 'itemsPerPage' => 10,
                 'maximumNumberOfLinks' => 10,
             ],
-            function () { return null; },
+            function () {
+                return null;
+            },
             $this->renderingContext
         );
     }
@@ -272,7 +278,9 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
                 'itemsPerPage' => 50,
                 'maximumNumberOfLinks' => 10,
             ],
-            function () { return null; },
+            function () {
+                return null;
+            },
             $this->renderingContext
         );
     }
@@ -299,7 +307,9 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
                 'itemsPerPage' => 10,
                 'maximumNumberOfLinks' => 5,
             ],
-            function () { return null; },
+            function () {
+                return null;
+            },
             $this->renderingContext
         );
     }

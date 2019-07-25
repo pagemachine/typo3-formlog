@@ -14,16 +14,17 @@
     "php": "^7.0",
     "league/csv": "^9.1",
     "nimmneun/onesheet": "^1.0",
-    "typo3/cms-backend": "*",
-    "typo3/cms-core": "^8.7 || ^9.0",
-    "typo3/cms-extbase": "*",
-    "typo3/cms-fluid": "*",
-    "typo3/cms-form": "*",
-    "typo3/cms-frontend": "*",
+    "typo3/cms-backend": "^8.7 || ^9.5",
+    "typo3/cms-core": "^8.7 || ^9.5",
+    "typo3/cms-extbase": "^8.7 || ^9.5",
+    "typo3/cms-fluid": "^8.7 || ^9.5",
+    "typo3/cms-form": "^8.7 || ^9.5",
+    "typo3/cms-frontend": "^8.7 || ^9.5",
     "typo3fluid/fluid": "^2.3"
   },
   "require-dev": {
     "cakephp/cakephp-codesniffer": "^3.0",
+    "doppy/composer-symlink": "^1.0",
     "helmich/typo3-typoscript-lint": "^1.3",
     "jakub-onderka/php-console-highlighter": "^0.3.2",
     "jakub-onderka/php-parallel-lint": "^0.9.2",
@@ -49,6 +50,9 @@
       "extension-key": "formlog",
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": "web"
+    },
+    "doppy-composer-symlink": {
+      "web/typo3conf/ext/formlog": "../../.."
     }
   },
   "scripts": {
@@ -66,8 +70,14 @@
       "@lint:xml"
     ],
     "test:unit": "phpunit --colors=always",
+    "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
     "test": [
-      "@test:unit"
+      "@test:unit",
+      "@test:functional"
+    ],
+    "post-autoload-dump": [
+      "mkdir -p web/typo3conf/ext",
+      "Doppy\\ComposerSymlink\\ComposerSymlink::apply"
     ]
   },
   "autoload": {

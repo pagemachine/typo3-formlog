@@ -42,7 +42,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        Bootstrap::initializeLanguageObject();
+        Bootstrap::getInstance()->initializeLanguageObject();
 
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
     }

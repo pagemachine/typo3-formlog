@@ -12,9 +12,9 @@ install:
 jobs:
   include:
     - &test
-      name: "Lint & Tests: PHP 7.0, TYPO3v8"
-      php: 7.0
-      env: TYPO3_VERSION=^8.7
+      name: "Lint & Tests: PHP 7.2, TYPO3v9"
+      php: 7.2
+      env: TYPO3_VERSION=^9.5
       install:
         - composer require typo3/cms-core="$TYPO3_VERSION"
       script:
@@ -22,13 +22,23 @@ jobs:
         - composer test
 
     - <<: *test
-      name: "Lint & Tests: PHP 7.2, TYPO3v9"
-      php: 7.2
-      env: TYPO3_VERSION=^9.5
+      name: "Lint & Tests: PHP 7.3, TYPO3v9"
+      php: 7.3
+
+    - <<: *test
+      name: "Lint & Tests: PHP 7.0, TYPO3v8"
+      php: 7.0
+      env: TYPO3_VERSION=^8.7
 
     - <<: *test
       name: "Lint & Tests: PHP 7.1, TYPO3v8"
       php: 7.1
+      env: TYPO3_VERSION=^8.7
+
+    - <<: *test
+      name: "Lint & Tests: PHP 7.2, TYPO3v8"
+      php: 7.2
+      env: TYPO3_VERSION=^8.7
 
     - php: 7.1
       name: TypoScript lint

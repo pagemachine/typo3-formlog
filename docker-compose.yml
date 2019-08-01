@@ -20,8 +20,8 @@ services:
     command: ['mysqld', '--character-set-server=utf8mb4']
     environment:
       MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - mysql:/var/lib/mysql
+    tmpfs:
+      - /var/lib/mysql
 
   ssh-agent:
     image: docksal/ssh-agent
@@ -38,5 +38,4 @@ services:
       - ssh-agent:/.ssh-agent
 
 volumes:
-  mysql:
   ssh-agent:

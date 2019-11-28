@@ -3,7 +3,6 @@ version: '3'
 services:
   app:
     image: thecodingmachine/php:7.2-v2-fpm
-    command: composer test
     environment:
       typo3DatabaseHost: mysql
       typo3DatabasePassword: root

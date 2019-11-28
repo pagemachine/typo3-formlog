@@ -62,9 +62,9 @@
       "@test"
     ],
     "analyze:php": [
-      "@composer require --dev phpstan/phpstan:^0.10 saschaegerer/phpstan-typo3",
+      "@composer require --dev phpstan/phpstan:^0.11 jangregor/phpstan-prophecy saschaegerer/phpstan-typo3",
       "phpstan analyse --ansi --no-progress --configuration=phpstan.neon --level=5 *.php Classes Configuration Tests",
-      "@composer remove --dev phpstan/phpstan saschaegerer/phpstan-typo3"
+      "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
     ],
     "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
     "lint:typoscript": "typoscript-lint --ansi",

@@ -1,4 +1,5 @@
 includes:
+    - vendor/jangregor/phpstan-prophecy/src/extension.neon
     - vendor/saschaegerer/phpstan-typo3/extension.neon
 
 parameters:

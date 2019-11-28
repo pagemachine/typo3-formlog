@@ -41,7 +41,7 @@ class LoggerFinisherTest extends UnitTestCase
     protected $connection;
 
     /**
-     * @var TypoScriptFrontendController|\Prophecy\Prophecy\ObjectProphecy
+     * @var TypoScriptFrontendController
      */
     protected $frontendController;
 
@@ -71,10 +71,8 @@ class LoggerFinisherTest extends UnitTestCase
         $connectionPool->getConnectionForTable('tx_formlog_entries')->willReturn($this->connection->reveal());
         GeneralUtility::addInstance(ConnectionPool::class, $connectionPool->reveal());
 
-        /** @var TypoScriptFrontendController|\Prophecy\Prophecy\ObjectProphecy */
-        $frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        $this->frontendController = $frontendController;
-        $this->frontendController->id = 2;
+        $this->frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        $this->frontendController->id = '2';
 
         if (class_exists(Context::class)) {
             $languageAspect = GeneralUtility::makeInstance(LanguageAspect::class, 20);

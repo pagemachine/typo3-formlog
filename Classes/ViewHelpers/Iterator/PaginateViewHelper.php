@@ -160,7 +160,7 @@ class PaginateViewHelper extends AbstractViewHelper
     /**
      * Assert that a given iterable is supported
      *
-     * @param array|object $iterable
+     * @param mixed $iterable
      * @return void
      */
     private static function assertIterable($iterable)

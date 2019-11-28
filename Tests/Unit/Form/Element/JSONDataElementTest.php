@@ -37,18 +37,15 @@ class JSONDataElementTest extends UnitTestCase
      */
     public function rendersFormData($formElementValue, $expected)
     {
-        /** @var IconFactory|\Prophecy\Prophecy\ObjectProphecy */
         $iconFactory = $this->prophesize(IconFactory::class);
         GeneralUtility::addInstance(IconFactory::class, $iconFactory->reveal());
 
-        /** @var NodeFactory|\Prophecy\Prophecy\ObjectProphecy */
         $nodeFactory = $this->prophesize(NodeFactory::class);
         $jsonDataElement = new JSONDataElement($nodeFactory->reveal(), [
             'parameterArray' => [
                 'itemFormElValue' => $formElementValue,
             ],
         ]);
-        /** @var LanguageService|\Prophecy\Prophecy\ObjectProphecy */
         $languageService = $this->prophesize(LanguageService::class);
         $languageService->sL(Argument::containingString('field'))->willReturn('Field');
         $languageService->sL(Argument::containingString('value'))->willReturn('Value');

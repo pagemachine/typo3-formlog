@@ -41,7 +41,7 @@ class LoggerFinisher extends AbstractFinisher
     }
 
     /**
-     * @return void
+     * @return string|null
      */
     protected function executeInternal()
     {

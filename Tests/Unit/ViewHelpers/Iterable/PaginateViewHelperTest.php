@@ -110,16 +110,13 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
 
         yield 'ObjectStorage' => [$storage, $paginatedObjects];
 
-        /** @var QueryResultInterface|\Prophecy\Prophecy\ObjectProphecy */
         $paginatedQueryResult = $this->prophesize(QueryResultInterface::class);
 
-        /** @var QueryInterface|\Prophecy\Prophecy\ObjectProphecy */
         $query = $this->prophesize(QueryInterface::class);
         $query->setLimit(10)->shouldBeCalled()->willReturn($query->reveal());
         $query->setOffset(0)->shouldBeCalled()->willReturn($query->reveal());
         $query->execute()->willReturn($paginatedQueryResult->reveal());
 
-        /** @var QueryResultInterface|\Prophecy\Prophecy\ObjectProphecy */
         $queryResult = $this->prophesize(QueryResultInterface::class);
         $queryResult->getQuery()->willReturn($query->reveal());
         $queryResult->count()->willReturn(30);
@@ -131,13 +128,11 @@ class PaginateViewHelperTest extends ViewHelperBaseTestcase
 
         yield 'QueryResultInterface' => [$queryResult->reveal(), $paginatedQueryResult->reveal()];
 
-        /** @var QueryInterface|\Prophecy\Prophecy\ObjectProphecy */
         $query = $this->prophesize(QueryInterface::class);
         $query->setLimit(10)->shouldBeCalled()->willReturn($query->reveal());
         $query->setOffset(0)->shouldBeCalled()->willReturn($query->reveal());
         $query->execute()->willReturn($paginatedQueryResult->reveal());
 
-        /** @var QueryResultInterface|\Prophecy\Prophecy\ObjectProphecy */
         $queryResult = $this->prophesize(QueryResultInterface::class);
         $queryResult->getQuery()->willReturn($query->reveal());
         $queryResult->count()->willReturn(0);

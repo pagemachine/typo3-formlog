@@ -33,11 +33,8 @@ class FiltersTest extends UnitTestCase
      */
     public function constructsWithFilters()
     {
-        /** @var ValueFilter */
         $pageTitleFilter = $this->prophesize(ValueFilter::class)->reveal();
-        /** @var ValueFilter */
         $identifierFilter = $this->prophesize(ValueFilter::class)->reveal();
-        /** @var DateRangeFilter */
         $submissionDateFilter = $this->prophesize(DateRangeFilter::class)->reveal();
         $filters = new Filters($pageTitleFilter, $identifierFilter, $submissionDateFilter);
 
@@ -72,10 +69,8 @@ class FiltersTest extends UnitTestCase
      */
     public function isNotEmptyWithAtLeastOneNonEmptyFilter()
     {
-        /** @var ValueFilter|\Prophecy\Prophecy\ObjectProphecy */
         $pageTitleFilter = $this->prophesize(ValueFilter::class);
         $pageTitleFilter->isEmpty()->willReturn(false);
-        /** @var DateRangeFilter|\Prophecy\Prophecy\ObjectProphecy */
         $submissionDateFilter = $this->prophesize(DateRangeFilter::class);
         $submissionDateFilter->isEmpty()->willReturn(false);
 
@@ -108,13 +103,10 @@ class FiltersTest extends UnitTestCase
      */
     public function yieldsNonEmptyFiltersOnTraversal()
     {
-        /** @var ValueFilter|\Prophecy\Prophecy\ObjectProphecy */
         $pageTitleFilter = $this->prophesize(ValueFilter::class);
         $pageTitleFilter->isEmpty()->willReturn(false);
-        /** @var ValueFilter|\Prophecy\Prophecy\ObjectProphecy */
         $identifierFilter = $this->prophesize(ValueFilter::class);
         $identifierFilter->isEmpty()->willReturn(true);
-        /** @var DateRangeFilter|\Prophecy\Prophecy\ObjectProphecy */
         $submissionDateFilter = $this->prophesize(DateRangeFilter::class);
         $submissionDateFilter->isEmpty()->willReturn(false);
 

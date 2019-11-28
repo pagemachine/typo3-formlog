@@ -25,12 +25,12 @@ services:
       - /var/lib/mysql
 
   ssh-agent:
-    image: docksal/ssh-agent
+    image: docksal/ssh-agent:1.3
     volumes:
       - ssh-agent:/.ssh-agent
 
   ssh-key:
-    image: docksal/ssh-agent
+    image: docksal/ssh-agent:1.3
     command: ['bash', '-c', 'ssh-add - </tmp/host-ssh/id_rsa']
     depends_on:
       - ssh-agent

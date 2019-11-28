@@ -1,11 +1,10 @@
 version: '3'
 
 services:
-  build:
-    image: thecodingmachine/php:7.2-v2-cli
+  app:
+    image: thecodingmachine/php:7.2-v2-fpm
     command: composer test
     environment:
-      STARTUP_COMMAND_1: composer install
       typo3DatabaseHost: mysql
       typo3DatabasePassword: root
     depends_on:
@@ -13,7 +12,7 @@ services:
       - ssh-agent
       - ssh-key
     volumes:
-      - ./:/usr/src/app
+      - ./:/var/www/html
       - ssh-agent:/.ssh-agent
 
   mysql:

@@ -62,6 +62,8 @@ class LoggerFinisher extends AbstractFinisher
         /** @var \TYPO3\CMS\Core\Database\Connection */
         $connection = $connectionPool->getConnectionForTable('tx_formlog_entries');
         $connection->insert('tx_formlog_entries', $data);
+
+        return null;
     }
 
     /**

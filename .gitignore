@@ -2,5 +2,6 @@
 /bower_components
 /composer.lock
 /node_modules
+/var
 /vendor
 /web

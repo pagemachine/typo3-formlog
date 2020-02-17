@@ -32,6 +32,7 @@ class XlsxView extends AbstractExportView
             throw new \InvalidArgumentException('XLSX export column configuration is empty', 1517391761);
         }
 
+        $this->extendAllDataPlaceholder();
         $headers = $this->getHeaders();
         $columnPaths = $this->getColumnPaths();
         $filename = $this->getOutputFilename();

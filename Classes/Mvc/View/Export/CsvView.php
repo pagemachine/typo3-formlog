@@ -31,6 +31,7 @@ class CsvView extends AbstractExportView
             throw new \InvalidArgumentException('CSV export column configuration is empty', 1516620386);
         }
 
+        $this->extendAllDataPlaceholder();
         $headers = $this->getHeaders();
         $columnPaths = $this->getColumnPaths();
         $filename = $this->getOutputFilename();

@@ -76,6 +76,9 @@ module {
             property = submissionDate
             label = formlog.entry.submissionDate
           }
+          60 {
+            property = __allData
+          }
         }
       }
     }

@@ -55,6 +55,7 @@ module {
       # }
 
       export {
+        labelPattern = LLL:EXT:formlog/Resources/Language/locallang.xlf:formlog.entry.%s
         columns {
           10 {
             property = uid

@@ -82,6 +82,7 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
         }
 
         $newColumnConfiguration = [];
+        $columnProperties = array_column($this->configuration['columns'], 'property');
 
         foreach ($this->configuration['columns'] as $key => $column) {
             if (($column['property'] ?? '') === '__allData') {
@@ -92,10 +93,16 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
                     $columns = $firstItem->getData();
 
                     foreach ($columns as $columnName => $columnValue) {
-                        $newColumnConfiguration[] = [
-                            'property' => 'data.' . $columnName,
-                            'label' => $columnName,
-                        ];
+                        if (!in_array('data.' . $columnName, $columnProperties, true)) {
+                            $columnConfiguration = [
+                                'property' => 'data.' . $columnName,
+                                'label' => $columnName,
+                            ];
+                            if (!empty($this->configuration['labelPattern'])) {
+                                $columnConfiguration['label'] =  LocalizationUtility::translate(sprintf($this->configuration['labelPattern'], $columnName), 'Formlog') ?: $columnName;
+                            }
+                            $newColumnConfiguration[] = $columnConfiguration;
+                        }
                     }
                 }
             } else {

@@ -1,102 +1,106 @@
 {
-  "name": "pagemachine/typo3-formlog",
-  "description": "Form log for TYPO3",
-  "keywords": ["typo3", "form", "log"],
-  "type": "typo3-cms-extension",
-  "license": "GPL-3.0-or-later",
-  "authors": [
-    {
-      "name": "Mathias Brodala",
-      "email": "mbrodala@pagemachine.de"
+    "name": "pagemachine/typo3-formlog",
+    "type": "typo3-cms-extension",
+    "description": "Form log for TYPO3",
+    "keywords": [
+        "typo3",
+        "form",
+        "log"
+    ],
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Mathias Brodala",
+            "email": "mbrodala@pagemachine.de"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "league/csv": "^9.1",
+        "nimmneun/onesheet": "^1.0",
+        "typo3/cms-backend": "^8.7 || ^9.5",
+        "typo3/cms-core": "^8.7 || ^9.5",
+        "typo3/cms-extbase": "^8.7 || ^9.5",
+        "typo3/cms-fluid": "^8.7 || ^9.5",
+        "typo3/cms-form": "^8.7 || ^9.5",
+        "typo3/cms-frontend": "^8.7 || ^9.5",
+        "typo3fluid/fluid": "^2.3"
+    },
+    "replace": {
+        "typo3-ter/formlog": "self.version"
+    },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "^3.0",
+        "ergebnis/composer-normalize": "^2.3",
+        "helmich/typo3-typoscript-lint": "^1.3",
+        "nimut/testing-framework": "^4.1.1",
+        "php-parallel-lint/php-console-highlighter": "^0.4.0",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
+        "phpunit/phpunit": "^6.5",
+        "sclable/xml-lint": "^0.2.2",
+        "slevomat/coding-standard": "^4.0",
+        "squizlabs/php_codesniffer": "^3.1"
+    },
+    "suggest": {
+        "typo3/cms-scheduler": "Allows automatic deletion of old form log entries."
+    },
+    "config": {
+        "bin-dir": "bin",
+        "sort-packages": true
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "formlog",
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": "web"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Pagemachine\\Formlog\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pagemachine\\Formlog\\Tests\\": "Tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@setup:php:functional"
+        ],
+        "analyze:php": [
+            "@composer require --dev phpstan/phpstan:^0.12 jangregor/phpstan-prophecy:^0.5 saschaegerer/phpstan-typo3:^0.12",
+            "phpstan analyse --ansi --no-progress --configuration=phpstan.neon --level=5 *.php Classes Configuration Tests",
+            "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
+        ],
+        "build": [
+            "@composer install",
+            "@composer validate --ansi",
+            "@lint",
+            "@test"
+        ],
+        "fix:style": "phpcbf",
+        "lint": [
+            "@lint:php",
+            "@lint:typoscript",
+            "@lint:style",
+            "@analyze:php",
+            "@lint:xml"
+        ],
+        "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
+        "lint:style": "phpcs",
+        "lint:typoscript": "typoscript-lint --ansi",
+        "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
+        "setup:php:functional": [
+            "mkdir -p web/typo3conf/ext",
+            "ln -sfn ../../.. web/typo3conf/ext/formlog"
+        ],
+        "test": [
+            "@test:unit",
+            "@test:functional"
+        ],
+        "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
+        "test:unit": "phpunit --colors=always"
     }
-  ],
-  "require": {
-    "php": "^7.0",
-    "league/csv": "^9.1",
-    "nimmneun/onesheet": "^1.0",
-    "typo3/cms-backend": "^8.7 || ^9.5",
-    "typo3/cms-core": "^8.7 || ^9.5",
-    "typo3/cms-extbase": "^8.7 || ^9.5",
-    "typo3/cms-fluid": "^8.7 || ^9.5",
-    "typo3/cms-form": "^8.7 || ^9.5",
-    "typo3/cms-frontend": "^8.7 || ^9.5",
-    "typo3fluid/fluid": "^2.3"
-  },
-  "require-dev": {
-    "cakephp/cakephp-codesniffer": "^3.0",
-    "ergebnis/composer-normalize": "^2.3",
-    "helmich/typo3-typoscript-lint": "^1.3",
-    "nimut/testing-framework": "^4.1.1",
-    "php-parallel-lint/php-console-highlighter": "^0.4.0",
-    "php-parallel-lint/php-parallel-lint": "^1.2",
-    "phpunit/phpunit": "^6.5",
-    "sclable/xml-lint": "^0.2.2",
-    "slevomat/coding-standard": "^4.0",
-    "squizlabs/php_codesniffer": "^3.1"
-  },
-  "replace": {
-    "typo3-ter/formlog": "self.version"
-  },
-  "suggest": {
-    "typo3/cms-scheduler": "Allows automatic deletion of old form log entries."
-  },
-  "config": {
-    "sort-packages": true,
-    "bin-dir": "bin"
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "formlog",
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": "web"
-    }
-  },
-  "scripts": {
-    "build": [
-      "@composer install",
-      "@composer validate --ansi",
-      "@lint",
-      "@test"
-    ],
-    "analyze:php": [
-      "@composer require --dev phpstan/phpstan:^0.12 jangregor/phpstan-prophecy:^0.5 saschaegerer/phpstan-typo3:^0.12",
-      "phpstan analyse --ansi --no-progress --configuration=phpstan.neon --level=5 *.php Classes Configuration Tests",
-      "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
-    ],
-    "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
-    "lint:typoscript": "typoscript-lint --ansi",
-    "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
-    "lint:style": "phpcs",
-    "fix:style": "phpcbf",
-    "lint": [
-      "@lint:php",
-      "@lint:typoscript",
-      "@lint:style",
-      "@analyze:php",
-      "@lint:xml"
-    ],
-    "test:unit": "phpunit --colors=always",
-    "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
-    "test": [
-      "@test:unit",
-      "@test:functional"
-    ],
-    "setup:php:functional": [
-      "mkdir -p web/typo3conf/ext",
-      "ln -sfn ../../.. web/typo3conf/ext/formlog"
-    ],
-    "post-autoload-dump": [
-      "@setup:php:functional"
-    ]
-  },
-  "autoload": {
-    "psr-4": {
-      "Pagemachine\\Formlog\\": "Classes/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Pagemachine\\Formlog\\Tests\\": "Tests/"
-    }
-  }
 }

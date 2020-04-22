@@ -75,8 +75,9 @@
             "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
         ],
         "build": [
-            "@composer install",
             "@composer validate --ansi",
+            "@composer install",
+            "@composer normalize --no-update-lock --dry-run",
             "@lint",
             "@test"
         ],

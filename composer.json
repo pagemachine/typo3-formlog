@@ -71,7 +71,7 @@
         ],
         "analyze:php": [
             "@composer require --dev phpstan/phpstan:^0.12 jangregor/phpstan-prophecy:^0.5 saschaegerer/phpstan-typo3:^0.12",
-            "phpstan analyse --ansi --no-progress --configuration=phpstan.neon --level=5 *.php Classes Configuration Tests",
+            "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon --level=5 *.php Classes Configuration Tests",
             "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
         ],
         "build": [

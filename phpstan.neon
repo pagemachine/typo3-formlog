@@ -5,7 +5,8 @@ includes:
 parameters:
   ignoreErrors:
     - '#Constant TYPO3_MODE not found#'
-    - '#Undefined variable: \$_EXTKEY#'
+    - message: '#Variable \$_EXTKEY might not be defined#'
+      path: '*/ext_emconf.php'
     - '#ObjectManagerInterface::get\(\) invoked with [\d]+ parameters, 1 required#'
     - '#Call to an undefined method Prophecy\\Prophecy\\ObjectProphecy::.+#'
     - '#Array \(mixed(\[\])+\) does not accept string#'

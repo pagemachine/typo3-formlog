@@ -3,6 +3,16 @@ includes:
     - vendor/saschaegerer/phpstan-typo3/extension.neon
 
 parameters:
+  level: 5
+
+  paths:
+    - ext_emconf.php
+    - ext_localconf.php
+    - ext_tables.php
+    - Classes
+    - Configuration
+    - Tests
+
   ignoreErrors:
     - '#Constant TYPO3_MODE not found#'
     - message: '#Variable \$_EXTKEY might not be defined#'

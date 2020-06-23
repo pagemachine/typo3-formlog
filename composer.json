@@ -39,7 +39,8 @@
         "phpunit/phpunit": "^6.5",
         "sclable/xml-lint": "^0.2.2",
         "slevomat/coding-standard": "^4.0",
-        "squizlabs/php_codesniffer": "^3.1"
+        "squizlabs/php_codesniffer": "^3.1",
+        "typo3/cms-scheduler": "^8.7 || ^9.5"
     },
     "suggest": {
         "typo3/cms-scheduler": "Allows automatic deletion of old form log entries."

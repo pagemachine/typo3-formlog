@@ -14,19 +14,10 @@ parameters:
     - Tests
 
   ignoreErrors:
-    - '#Constant TYPO3_MODE not found#'
     - message: '#Variable \$_EXTKEY might not be defined#'
       path: '*/ext_emconf.php'
-    - '#ObjectManagerInterface::get\(\) invoked with [\d]+ parameters, 1 required#'
-    - '#Call to an undefined method Prophecy\\Prophecy\\ObjectProphecy::.+#'
-    - '#Array \(mixed(\[\])+\) does not accept string#'
-    # TYPO3v7 support
-    - '#Access to an undefined property TYPO3\\CMS\\Core\\DataHandling\\DataHandler::\$stripslashes_values#'
-    # See https://github.com/dmitryd/typo3-realurl/issues/566
-    - '#Access to protected property \$rootPageId of class DmitryDulepov\\Realurl\\EncodeDecoderBase#'
-    - '#Parameter .+ expects .+, Prophecy\\.+\\.+Token given\.#'
-    - '#.+ does not accept PHPUnit\\Framework\\MockObject\\MockObject\.#'
-    - '#Parameter .+ expects .+, PHPUnit\\Framework\\MockObject\\MockObject given\.#'
-    - '#Class TYPO3\\CMS\\Scheduler\\Task\\TableGarbageCollectionTask not found\.#'
-    - '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'
+    - message: '#Parameter .+ expects .+, PHPUnit\\Framework\\MockObject\\MockObject given\.#'
+      path: '*/PaginateViewHelperTest.php'
+    - message: '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'
+      path: '*LoggerFinisher*'
   reportUnmatchedIgnoredErrors: false

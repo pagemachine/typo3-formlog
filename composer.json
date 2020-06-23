@@ -39,7 +39,8 @@
         "phpunit/phpunit": "^6.5",
         "sclable/xml-lint": "^0.2.2",
         "slevomat/coding-standard": "^4.0",
-        "squizlabs/php_codesniffer": "^3.1"
+        "squizlabs/php_codesniffer": "^3.1",
+        "typo3/cms-scheduler": "^8.7 || ^9.5"
     },
     "suggest": {
         "typo3/cms-scheduler": "Allows automatic deletion of old form log entries."
@@ -71,7 +72,7 @@
         ],
         "analyze:php": [
             "@composer require --dev phpstan/phpstan:^0.12 jangregor/phpstan-prophecy:^0.5 saschaegerer/phpstan-typo3:^0.12",
-            "phpstan analyse --ansi --no-progress --configuration=phpstan.neon --level=5 *.php Classes Configuration Tests",
+            "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
             "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
         ],
         "build": [

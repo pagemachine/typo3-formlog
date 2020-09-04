@@ -46,7 +46,6 @@
         "typo3/cms-scheduler": "Allows automatic deletion of old form log entries."
     },
     "config": {
-        "bin-dir": "bin",
         "sort-packages": true
     },
     "extra": {
@@ -90,7 +89,7 @@
             "@analyze:php",
             "@lint:xml"
         ],
-        "lint:php": "parallel-lint --exclude bin --exclude vendor --exclude web .",
+        "lint:php": "parallel-lint --exclude vendor --exclude web .",
         "lint:style": "phpcs",
         "lint:typoscript": "typoscript-lint --ansi",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",

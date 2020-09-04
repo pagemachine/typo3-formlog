@@ -1,92 +1,29 @@
 dist: trusty
-sudo: false
-language: php
+language: shell
 
-cache:
-  directories:
-    - $HOME/.composer/cache
+services:
+  - docker
 
-install:
-  - composer install
+script:
+  - docker-compose run --rm app composer build
+
+after_script:
+  - docker-compose down --volumes
 
 jobs:
   include:
-    - &test
-      name: "Lint & Tests: PHP 7.2, TYPO3v9"
-      php: 7.2
-      env: TYPO3_VERSION=^9.5
-      install:
-        - composer require typo3/cms-core="$TYPO3_VERSION"
-      script:
-        - composer lint:php
-        - composer test
+    - env:
+        - PHP_VERSION=7.2
+        - TYPO3_VERSION=^9.5
 
-    - <<: *test
-      name: "Lint & Tests: PHP 7.3, TYPO3v9"
-      php: 7.3
-
-    - <<: *test
-      name: "Lint & Tests: PHP 7.1, TYPO3v8"
-      php: 7.1
-      env: TYPO3_VERSION=^8.7
-
-    - <<: *test
-      name: "Lint & Tests: PHP 7.2, TYPO3v8"
-      php: 7.2
-      env: TYPO3_VERSION=^8.7
-
-    - php: 7.1
-      name: TypoScript lint
-      script:
-        - composer lint:typoscript
-
-    - php: 7.1
-      name: XML lint
-      script:
-        - composer lint:xml
-
-    - php: 7.1
-      name: Codestyle
-      script:
-        - composer lint:style
-
-    - php: 7.2
-      name: Static analysis
-      script:
-        - composer analyze:php
+    - env:
+        - PHP_VERSION=7.2
+        - TYPO3_VERSION=^8.7
 
     - stage: deploy
-      name: "Upload to TER"
+      name: Deploy to TER
       if: tag IS present
-      php: 7.1
-      before_install: skip
-      install: skip
-      before_script: skip
-      script: |
-        echo -e "Preparing upload of release ${TRAVIS_TAG} to TER\n"
-
-        TAG_ANNOTATION="$(git tag -n -l $TRAVIS_TAG)"
-        TAG_MESSAGE="${TAG_ANNOTATION#* }"
-        EXTENSION_KEY="$(composer config extra.typo3/cms.extension-key)"
-
-        export PATH=$PATH:$(composer global config bin-dir --absolute 2>/dev/null)
-        git reset --hard
-        git clean -xfd
-
-        echo "Creating phar files for vendors"
-        composer global require clue/phar-composer
-        mkdir -p /tmp/vendors
-        pushd /tmp/vendors
-        composer require league/csv:^9.1 nimmneun/onesheet:^1.0
-        phar-composer build
-        popd
-        cp /tmp/vendors/vendors.phar .
-        echo "require 'phar://' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('${EXTENSION_KEY}') . 'vendors.phar/vendor/autoload.php';" >> ext_localconf.php
-
-        composer global require helhum/ter-client
-
-        echo "Uploading release ${TRAVIS_TAG} to TER"
-        ter-client upload "$EXTENSION_KEY" . -u "$TYPO3_ORG_USERNAME" -p "$TYPO3_ORG_PASSWORD" -m "$TAG_MESSAGE"
+      script: docker-compose run --rm app composer deploy:ter
 
 notifications:
   slack:

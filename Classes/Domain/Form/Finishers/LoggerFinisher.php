@@ -95,7 +95,7 @@ class LoggerFinisher extends AbstractFinisher
     {
         if (class_exists(Context::class)) {
             /** @var Context */
-            $context = GeneralUtility::makeInstance(Context::class);
+            $context = GeneralUtility::makeInstance(Context::class); // @phpstan-ignore-line
 
             return (int)$context->getPropertyFromAspect('language', 'id', 0);
         }

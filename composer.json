@@ -66,20 +66,38 @@
         }
     },
     "scripts": {
-        "post-autoload-dump": [
-            "@setup:php:functional"
-        ],
         "analyze:php": [
             "@composer require --dev phpstan/phpstan:^0.12 jangregor/phpstan-prophecy:^0.5 saschaegerer/phpstan-typo3:^0.12",
             "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
             "@composer remove --dev phpstan/phpstan jangregor/phpstan-prophecy saschaegerer/phpstan-typo3"
         ],
         "build": [
+            "@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",
             "@composer validate --ansi",
-            "@composer install",
             "@composer normalize --no-update-lock --dry-run",
             "@lint",
             "@test"
+        ],
+        "build:cleanup": [
+            "git reset --hard",
+            "git clean -xfd"
+        ],
+        "build:ter:vendors": [
+            "(mkdir -p /tmp/vendors && cd /tmp/vendors && composer require league/csv:^9.1 nimmneun/onesheet:^1.0 && composer global exec phar-composer build -v)",
+            "cp /tmp/vendors/vendors.phar .",
+            "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php"
+        ],
+        "deploy:ter": [
+            "@build:cleanup",
+            "@deploy:ter:setup",
+            "@build:ter:vendors",
+            "@deploy:ter:upload"
+        ],
+        "deploy:ter:setup": [
+            "@composer global require clue/phar-composer helhum/ter-client symfony/console:^3"
+        ],
+        "deploy:ter:upload": [
+            "composer global exec -v -- ter-client upload --username $TYPO3_ORG_USERNAME --password $TYPO3_ORG_PASSWORD --upload-comment \"$(git tag -l --format='%(contents)' $TRAVIS_TAG)\" $(composer config extra.typo3/cms.extension-key) ."
         ],
         "fix:style": "phpcbf",
         "lint": [
@@ -93,15 +111,15 @@
         "lint:style": "phpcs",
         "lint:typoscript": "typoscript-lint --ansi",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
-        "setup:php:functional": [
-            "mkdir -p web/typo3conf/ext",
-            "ln -sfn ../../.. web/typo3conf/ext/formlog"
-        ],
         "test": [
             "@test:unit",
             "@test:functional"
         ],
-        "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
+        "test:functional": [
+            "mkdir -p web/typo3conf/ext",
+            "ln -sfn ../../.. web/typo3conf/ext/$(composer config extra.typo3/cms.extension-key)",
+            "phpunit --configuration phpunit-functional.xml --colors=always"
+        ],
         "test:unit": "phpunit --colors=always"
     }
 }

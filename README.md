@@ -76,7 +76,7 @@ module.tx_formlog {
     list {
       columns {
         200 {
-          name = finisherVariables.MyCustomFinisher.myCustomVariable
+          property = finisherVariables.MyCustomFinisher.myCustomVariable
           label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Formlog/locallang.xlf:formlog.entry.finisherVariables.MyCustomFinisher.myCustomVariable
         }
       }

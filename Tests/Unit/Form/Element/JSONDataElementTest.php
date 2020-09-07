@@ -10,10 +10,12 @@ namespace Pagemachine\Formlog\Tests\Unit\Form\Element;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Form\Element\JSONDataElement;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Backend\Form\NodeFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Localization\LanguageService as CoreLanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Lang\LanguageService as LegacyLanguageService;
 
 /**
  * Testcase for Pagemachine\Formlog\Form\Element\JSONDataElement
@@ -46,7 +48,7 @@ class JSONDataElementTest extends UnitTestCase
                 'itemFormElValue' => $formElementValue,
             ],
         ]);
-        $languageService = $this->prophesize(LanguageService::class);
+        $languageService = $this->prophesizeLanguageService();
         $languageService->sL(Argument::containingString('field'))->willReturn('Field');
         $languageService->sL(Argument::containingString('value'))->willReturn('Value');
         $GLOBALS['LANG'] = $languageService->reveal();
@@ -92,5 +94,14 @@ HTML;
 </table>
 HTML;
         yield 'nested values' => ['{"foo":{"bar": "qux","list":["first","second"]}}', $expected];
+    }
+
+    private function prophesizeLanguageService(): ObjectProphecy
+    {
+        if (class_exists(CoreLanguageService::class)) {
+            return $this->prophesize(CoreLanguageService::class);
+        }
+
+        return $this->prophesize(LegacyLanguageService::class);
     }
 }

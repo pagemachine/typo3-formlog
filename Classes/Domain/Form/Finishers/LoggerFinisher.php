@@ -100,6 +100,6 @@ class LoggerFinisher extends AbstractFinisher
             return (int)$context->getPropertyFromAspect('language', 'id', 0);
         }
 
-        return $this->frontendController->sys_language_uid;
+        return $this->frontendController->sys_language_uid; // @phpstan-ignore-line
     }
 }

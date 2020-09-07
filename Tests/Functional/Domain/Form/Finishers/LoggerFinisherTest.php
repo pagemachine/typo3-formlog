@@ -43,7 +43,11 @@ final class LoggerFinisherTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        Bootstrap::getInstance()->initializeLanguageObject();
+        if (!method_exists(Bootstrap::class, 'getInstance')) { // TYPO3v9+
+            Bootstrap::initializeLanguageObject();
+        } else {
+            Bootstrap::getInstance()->initializeLanguageObject();
+        }
 
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
     }

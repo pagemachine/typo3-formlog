@@ -5,7 +5,9 @@ namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -50,6 +52,9 @@ final class LoggerFinisherTest extends FunctionalTestCase
         }
 
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+
+        $this->getDatabaseConnection()->insertArray('pages', ['uid' => 123]);
+        $this->setUpFrontendRootPage(123);
     }
 
     /**
@@ -108,7 +113,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
             'pid' => 123,
             'identifier' => $formDefinition->getIdentifier(),
             'data' => '{"name":"Tester"}',
-            'finisher_variables' => '{"SaveToDatabase":{"insertedUids.0":1}}',
+            'finisher_variables' => '{"SaveToDatabase":{"insertedUids.0":124}}',
         ], $logEntry);
     }
 
@@ -123,10 +128,20 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $page1 = $formDefinition->createPage('page1');
         $name = $page1->createElement('name', 'Text');
 
-        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(TypoScriptFrontendController::class, [], 123, 1);
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '10', '>=')) {
+            $_SERVER['HTTP_HOST'] = 'localhost';
+            $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
+            $siteLanguage = $site->getLanguageById(1);
+            $GLOBALS['TSFE'] = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $site, $siteLanguage);
+            $GLOBALS['TSFE']->id = 123;
+        } else {
+            $GLOBALS['TSFE'] = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 123, 1);
+        }
+
         foreach ($finishers as $finisherIdentifier => $options) {
             $formDefinition->createFinisher($finisherIdentifier, $options);
         }
+
         unset($GLOBALS['TSFE']);
 
         return $formDefinition;

@@ -48,11 +48,11 @@
 </ul>
 
 <f:section name="paginationLink">
-
   <f:link.action
     arguments="{pagination: {currentPage: page}}"
     addQueryString="true"
-    addQueryStringMethod="POST,GET"
-    title="{title}">{text -> f:or(alternative: page)}</f:link.action>
-
+    title="{title}"
+  >
+    {text -> f:or(alternative: page)}
+  </f:link.action>
 </f:section>

@@ -113,6 +113,7 @@ class FormLogController extends ActionController
         $this->view->setConfiguration([
             'columns' => $this->settings['export']['columns'],
             'dateTimeFormat' => $this->settings['dateTimeFormat'],
+            'labelPattern' => $this->settings['export']['labelPattern'],
             'fileBasename' => $fileBasename,
         ]);
         $this->view->assign('items', $this->formLogEntryRepository->findAllFiltered($filters));

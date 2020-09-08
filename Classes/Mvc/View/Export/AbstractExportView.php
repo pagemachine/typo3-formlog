@@ -73,6 +73,47 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
     }
 
     /**
+     * Extends the "__allData" placeholder within export column configuration with columns from first record.
+     */
+    protected function extendAllDataPlaceholder()
+    {
+        if (empty($this->configuration['columns']) || !is_array($this->configuration['columns'])) {
+            return;
+        }
+
+        $newColumnConfiguration = [];
+        $columnProperties = array_column($this->configuration['columns'], 'property');
+
+        foreach ($this->configuration['columns'] as $key => $column) {
+            if (($column['property'] ?? '') === '__allData') {
+                $firstItem = $this->variables['items']->getFirst();
+                if ($firstItem !== null) {
+
+                    /** @var \Pagemachine\Formlog\Domain\Model\FormLogEntry $firstItem  */
+                    $columns = $firstItem->getData();
+
+                    foreach ($columns as $columnName => $columnValue) {
+                        if (!in_array('data.' . $columnName, $columnProperties, true)) {
+                            $columnConfiguration = [
+                                'property' => 'data.' . $columnName,
+                                'label' => $columnName,
+                            ];
+                            if (!empty($this->configuration['labelPattern'])) {
+                                $columnConfiguration['label'] =  LocalizationUtility::translate(sprintf($this->configuration['labelPattern'], $columnName), 'Formlog') ?: $columnName;
+                            }
+                            $newColumnConfiguration[] = $columnConfiguration;
+                        }
+                    }
+                }
+            } else {
+                $newColumnConfiguration[] = $column;
+            }
+        }
+
+        $this->configuration['columns'] = $newColumnConfiguration;
+    }
+
+    /**
      * Get the CSV output filename
      *
      * @return string

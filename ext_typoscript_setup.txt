@@ -55,6 +55,7 @@ module {
       # }
 
       export {
+        labelPattern = LLL:EXT:formlog/Resources/Language/locallang.xlf:formlog.entry.%s
         columns {
           10 {
             property = uid
@@ -75,6 +76,9 @@ module {
           50 {
             property = submissionDate
             label = formlog.entry.submissionDate
+          }
+          60 {
+            property = __allData
           }
         }
       }

@@ -19,4 +19,8 @@ parameters:
       path: '*/PaginateViewHelperTest.php'
     - message: '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'
       path: '*LoggerFinisher*'
+    - message: '#TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewResolverInterface not found#'
+      paths:
+        - Classes/Controller/Backend/FormLogController.php
+        - Classes/Mvc/View/FormatViewResolver.php
   reportUnmatchedIgnoredErrors: false

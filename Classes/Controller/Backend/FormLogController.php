@@ -110,7 +110,7 @@ class FormLogController extends ActionController
                 $viewResolver->map($format, $viewClassName);
             }
 
-            $this->injectViewResolver($viewResolver);
+            $this->injectViewResolver($viewResolver); // @phpstan-ignore-line
         }
     }
 

@@ -11,10 +11,12 @@ use Pagemachine\Formlog\Domain\FormLog\Filters;
 use Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository;
 use Pagemachine\Formlog\Mvc\View\Export\CsvView;
 use Pagemachine\Formlog\Mvc\View\Export\XlsxView;
+use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\View\ViewResolverInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -97,6 +99,19 @@ class FormLogController extends ActionController
                 ],
             ],
         ]);
+    }
+
+    public function initializeExportAction(): void
+    {
+        if (interface_exists(ViewResolverInterface::class)) {
+            $viewResolver = $this->objectManager->get(FormatViewResolver::class);
+
+            foreach ($this->viewFormatToObjectNameMap as $format => $viewClassName) {
+                $viewResolver->map($format, $viewClassName);
+            }
+
+            $this->injectViewResolver($viewResolver); // @phpstan-ignore-line
+        }
     }
 
     /**

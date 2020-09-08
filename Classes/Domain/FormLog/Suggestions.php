@@ -46,6 +46,7 @@ class Suggestions
                 'page',
                 $this->query->expr()->eq('page.uid', $this->query->quoteIdentifier('tx_formlog_entries.pid'))
             )
+            ->orderBy($property)
             ->groupBy($property)
             ->execute()
             ->fetchAll(\PDO::FETCH_NUM);

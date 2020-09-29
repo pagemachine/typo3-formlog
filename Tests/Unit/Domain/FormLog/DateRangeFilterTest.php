@@ -69,4 +69,23 @@ class DateRangeFilterTest extends UnitTestCase
 
         $this->assertFalse($dateRangeFilter->isEmpty());
     }
+
+    /**
+     * @test
+     */
+    public function canBeConvertedToArray(): void
+    {
+        $dateRangeFilter = new DateRangeFilter(
+            new \DateTime('@1601379000'),
+            new \DateTime('@1601292600')
+        );
+
+        $result = $dateRangeFilter->toArray();
+        $expected = [
+            'startDate' => '2020-09-29T11:30:00+00:00',
+            'endDate' => '2020-09-28T11:30:00+00:00',
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
 }

@@ -42,4 +42,9 @@ class ValueFilter implements FilterInterface
     {
         return empty($this->value);
     }
+
+    public function toArray(): array
+    {
+        return ['value' => $this->value];
+    }
 }

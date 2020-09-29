@@ -55,4 +55,19 @@ class ValueFilterTest extends UnitTestCase
 
         $this->assertFalse($valueFilter->isEmpty());
     }
+
+    /**
+     * @test
+     */
+    public function canBeConvertedToArray(): void
+    {
+        $valueFilter = new ValueFilter('foo');
+
+        $result = $valueFilter->toArray();
+        $expected = [
+            'value' => 'foo',
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
 }

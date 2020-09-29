@@ -15,4 +15,6 @@ interface FilterInterface
      * @return bool
      */
     public function isEmpty(): bool;
+
+    public function toArray(): array;
 }

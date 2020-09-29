@@ -127,4 +127,32 @@ class FiltersTest extends UnitTestCase
 
         $this->assertCount(2, $items);
     }
+
+    /**
+     * @test
+     */
+    public function canBeConvertedToArray(): void
+    {
+        $pageTitleFilter = $this->prophesize(ValueFilter::class);
+        $pageTitleFilter->toArray()->willReturn(['value' => 'Test']);
+        $identifierFilter = $this->prophesize(ValueFilter::class);
+        $identifierFilter->toArray()->willReturn(['value' => 'foo']);
+        $submissionDateFilter = $this->prophesize(DateRangeFilter::class);
+        $submissionDateFilter->toArray()->willReturn(['value' => 'foo']);
+
+        $filters = new Filters(
+            new ValueFilter('Test'),
+            new ValueFilter('foo'),
+            new DateRangeFilter(new \DateTime(), new \DateTime())
+        );
+
+        $result = $filters->toArray();
+
+        $this->assertArrayHasKey('pageTitle', $result);
+        $this->assertInternalType('array', $result['pageTitle']);
+        $this->assertArrayHasKey('identifier', $result);
+        $this->assertInternalType('array', $result['identifier']);
+        $this->assertArrayHasKey('submissionDate', $result);
+        $this->assertInternalType('array', $result['submissionDate']);
+    }
 }

@@ -100,4 +100,13 @@ class Filters implements \IteratorAggregate, \Countable
     {
         return count(iterator_to_array($this));
     }
+
+    public function toArray(): array
+    {
+        return [
+            'pageTitle' => $this->getPageTitle()->toArray(),
+            'identifier' => $this->getIdentifier()->toArray(),
+            'submissionDate' => $this->getSubmissionDate()->toArray(),
+        ];
+    }
 }

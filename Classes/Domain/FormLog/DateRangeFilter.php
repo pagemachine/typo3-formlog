@@ -13,12 +13,12 @@ namespace Pagemachine\Formlog\Domain\FormLog;
 class DateRangeFilter implements FilterInterface
 {
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $startDate;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $endDate;
 
@@ -33,7 +33,7 @@ class DateRangeFilter implements FilterInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getStartDate()
     {
@@ -41,7 +41,7 @@ class DateRangeFilter implements FilterInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getEndDate()
     {
@@ -56,5 +56,13 @@ class DateRangeFilter implements FilterInterface
     public function isEmpty(): bool
     {
         return empty($this->startDate) && empty($this->endDate);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'startDate' => $this->startDate ? $this->startDate->format('c') : null,
+            'endDate' => $this->endDate ? $this->endDate->format('c') : null,
+        ];
     }
 }

@@ -12,6 +12,10 @@ env:
     - TYPO3_VERSION=^9.5
     - TYPO3_VERSION=^8.7
 
+cache:
+  directories:
+    - vendor
+
 script:
   - docker-compose run --rm app composer build
 

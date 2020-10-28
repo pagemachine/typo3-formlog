@@ -51,7 +51,7 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
      */
     protected function getHeaders()
     {
-        $headers = array_column($this->configuration['columns'], 'label');
+        $headers = array_column($this->getColumns(), 'label');
         $headers = array_map(function ($header) {
 
             return  LocalizationUtility::translate($header, 'Formlog') ?: $header;
@@ -67,7 +67,7 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
      */
     protected function getColumnPaths()
     {
-        $columnPaths = array_column($this->configuration['columns'], 'property');
+        $columnPaths = array_column($this->getColumns(), 'property');
 
         return $columnPaths;
     }
@@ -153,5 +153,21 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
             sprintf('Could not convert value of type "%s" to string', is_object($value) ? get_class($value) : gettype($value)),
             1516617588
         );
+    }
+
+    /**
+     * @throws \InvalidArgumentException if the column configuration is empty
+     */
+    private function getColumns(): array
+    {
+        $columns = $this->configuration['columns'] ?? [];
+
+        if (empty($columns)) {
+            throw new \InvalidArgumentException('Export column configuration is empty', 1516620386);
+        }
+
+        ksort($columns);
+
+        return $columns;
     }
 }

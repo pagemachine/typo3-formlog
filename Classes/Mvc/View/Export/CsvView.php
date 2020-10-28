@@ -23,14 +23,9 @@ class CsvView extends AbstractExportView
      * Transform view value to a CSV representation
      *
      * @return string
-     * @throws \InvalidArgumentException if the column configuration is empty
      */
     public function render()
     {
-        if (empty($this->configuration['columns'])) {
-            throw new \InvalidArgumentException('CSV export column configuration is empty', 1516620386);
-        }
-
         $headers = $this->getHeaders();
         $columnPaths = $this->getColumnPaths();
         $filename = $this->getOutputFilename();

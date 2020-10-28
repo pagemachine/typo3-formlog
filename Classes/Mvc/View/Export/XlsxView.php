@@ -24,14 +24,9 @@ class XlsxView extends AbstractExportView
      * Transform view value to a XLSX representation
      *
      * @return string
-     * @throws \InvalidArgumentException if the column configuration is empty
      */
     public function render()
     {
-        if (empty($this->configuration['columns'])) {
-            throw new \InvalidArgumentException('XLSX export column configuration is empty', 1517391761);
-        }
-
         $headers = $this->getHeaders();
         $columnPaths = $this->getColumnPaths();
         $filename = $this->getOutputFilename();

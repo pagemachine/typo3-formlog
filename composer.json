@@ -53,8 +53,8 @@
     },
     "extra": {
         "typo3/cms": {
-            "extension-key": "formlog",
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "extension-key": "formlog",
             "web-dir": "web"
         }
     },

@@ -13,6 +13,18 @@ namespace Pagemachine\Formlog\Rendering;
 final class ValueFormatter
 {
     /**
+     * @var string
+     */
+    protected $dateTimeFormat = \DateTimeInterface::W3C;
+
+    public function setDateTimeFormat(string $dateTimeFormat): self
+    {
+        $this->dateTimeFormat = $dateTimeFormat;
+
+        return $this;
+    }
+
+    /**
      * @throws \UnexpectedValueException for unsupported types
      */
     public function format($value): string
@@ -37,6 +49,10 @@ final class ValueFormatter
             }
 
             return implode("\n", $value);
+        }
+
+        if ($value instanceof \DateTimeInterface) {
+            return $value->format($this->dateTimeFormat);
         }
 
         throw new \UnexpectedValueException(sprintf('Cannot format value of type "%s"', gettype($value)), 1610097797);

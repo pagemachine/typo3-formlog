@@ -82,6 +82,30 @@ TEXT
 TEXT
 ,
         ];
+
+        yield 'date' => [
+            new \DateTime('@1610102035'),
+            '2021-01-08T10:33:55+00:00',
+        ];
+
+        yield 'immutable date' => [
+            new \DateTimeImmutable('@1610102035'),
+            '2021-01-08T10:33:55+00:00',
+        ];
+    }
+
+    /**
+     * @test
+     */
+    public function rendersDateWithCustomFormat(): void
+    {
+        $date = new \DateTime('@1610102035');
+
+        $result = $this->valueFormatter
+            ->setDateTimeFormat('d.m.Y')
+            ->format($date);
+
+        $this->assertEquals('08.01.2021', $result);
     }
 
     /**

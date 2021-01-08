@@ -70,8 +70,8 @@ HTML;
         $expected = <<<HTML
 <table class="table table-striped table-hover">
 <tr><th>Field</th><th>Value</th></tr>
-<tr><th rowspan="1">foo</th><td>bar</td></tr>
-<tr><th rowspan="1">qux</th><td>10</td></tr>
+<tr><th>foo</th><td style="white-space: pre">bar</td></tr>
+<tr><th>qux</th><td style="white-space: pre">10</td></tr>
 </table>
 HTML;
         yield 'simple' => ['{"foo":"bar","qux":10}', $expected];
@@ -79,8 +79,8 @@ HTML;
         $expected = <<<HTML
 <table class="table table-striped table-hover">
 <tr><th>Field</th><th>Value</th></tr>
-<tr><th rowspan="2">foo</th><td>bar</td></tr>
-<tr><td>qux</td></tr>
+<tr><th>foo</th><td style="white-space: pre">bar
+qux</td></tr>
 </table>
 HTML;
         yield 'list of values' => ['{"foo":["bar","qux"]}', $expected];
@@ -88,9 +88,10 @@ HTML;
         $expected = <<<HTML
 <table class="table table-striped table-hover">
 <tr><th>Field</th><th>Value</th></tr>
-<tr><th rowspan="1">foo.bar</th><td>qux</td></tr>
-<tr><th rowspan="2">foo.list</th><td>first</td></tr>
-<tr><td>second</td></tr>
+<tr><th>foo</th><td style="white-space: pre">bar: qux
+list:
+    first
+    second</td></tr>
 </table>
 HTML;
         yield 'nested values' => ['{"foo":{"bar": "qux","list":["first","second"]}}', $expected];

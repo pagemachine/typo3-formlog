@@ -8,6 +8,8 @@ namespace Pagemachine\Formlog\Mvc\View\Export;
  */
 
 use Pagemachine\Formlog\Mvc\View\ConfigurableViewInterface;
+use Pagemachine\Formlog\Rendering\ValueFormatter;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\AbstractView;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -131,28 +133,13 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
      * @param mixed $value value to convert
      * @return string
      */
-    protected function convertValueToString($value)
+    protected function convertValueToString($value): string
     {
-        if ($value === null) {
-            return '';
-        }
+        $formatter = GeneralUtility::makeInstance(ValueFormatter::class);
 
-        if (is_scalar($value)) {
-            return (string)$value;
-        }
-
-        if (is_array($value)) {
-            return implode(', ', $value);
-        }
-
-        if ($value instanceof \DateTime) {
-            return $value->format($this->getDateTimeFormat());
-        }
-
-        throw new \UnexpectedValueException(
-            sprintf('Could not convert value of type "%s" to string', is_object($value) ? get_class($value) : gettype($value)),
-            1516617588
-        );
+        return $formatter
+            ->setDateTimeFormat($this->getDateTimeFormat())
+            ->format($value);
     }
 
     /**

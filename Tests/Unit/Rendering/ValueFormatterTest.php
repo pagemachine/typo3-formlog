@@ -101,6 +101,26 @@ TEXT
 ,
         ];
 
+        yield 'mixed array' => [
+            [
+                '1st' => [
+                    '2nd' => 'foo',
+                    '3rd' => [
+                        '4th' => 'bar',
+                    ],
+                    '5th' => 'qux',
+                ],
+            ],
+            <<<TEXT
+1st:
+    2nd: foo
+    3rd:
+        4th: bar
+    5th: qux
+TEXT
+,
+        ];
+
         yield 'date' => [
             new \DateTime('@1610102035'),
             '2021-01-08T10:33:55+00:00',

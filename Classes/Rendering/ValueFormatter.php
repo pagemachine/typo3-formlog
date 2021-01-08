@@ -60,11 +60,12 @@ final class ValueFormatter
 
     private function formatArray(array $value, int $level = 0): string
     {
+        $indentation = str_repeat('    ', $level);
+
         if ($this->hasStringKeys($value)) {
             $arrayValues = [];
 
             foreach ($value as $key => $arrayValue) {
-                $indentation = str_repeat('    ', $level);
                 $separator = ' ';
 
                 if (is_array($arrayValue)) {
@@ -84,7 +85,17 @@ final class ValueFormatter
             return implode("\n", $arrayValues);
         }
 
-        return implode("\n", $value);
+        $arrayValues = [];
+
+        foreach ($value as $arrayValue) {
+            $arrayValues[] = sprintf(
+                '%s%s',
+                $indentation,
+                $arrayValue
+            );
+        }
+
+        return implode("\n", $arrayValues);
     }
 
     private function formatDateTime(\DateTimeInterface $value): string

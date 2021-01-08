@@ -30,32 +30,52 @@ final class ValueFormatter
     public function format($value): string
     {
         if (is_null($value)) {
-            return '';
+            return $this->formatNull($value);
         }
 
         if (is_scalar($value)) {
-            return (string)$value;
+            return $this->formatScalar($value);
         }
 
         if (is_array($value)) {
-            if ($this->hasStringKeys($value)) {
-                $arrayValues = [];
-
-                foreach ($value as $key => $arrayValue) {
-                    $arrayValues[] = sprintf('%s: %s', $key, $arrayValue);
-                }
-
-                return implode("\n", $arrayValues);
-            }
-
-            return implode("\n", $value);
+            return $this->formatArray($value);
         }
 
         if ($value instanceof \DateTimeInterface) {
-            return $value->format($this->dateTimeFormat);
+            return $this->formatDateTime($value);
         }
 
         throw new \UnexpectedValueException(sprintf('Cannot format value of type "%s"', gettype($value)), 1610097797);
+    }
+
+    private function formatNull($value): string
+    {
+        return '';
+    }
+
+    private function formatScalar($value): string
+    {
+        return (string)$value;
+    }
+
+    private function formatArray(array $value): string
+    {
+        if ($this->hasStringKeys($value)) {
+            $arrayValues = [];
+
+            foreach ($value as $key => $arrayValue) {
+                $arrayValues[] = sprintf('%s: %s', $key, $arrayValue);
+            }
+
+            return implode("\n", $arrayValues);
+        }
+
+        return implode("\n", $value);
+    }
+
+    private function formatDateTime(\DateTimeInterface $value): string
+    {
+        return $value->format($this->dateTimeFormat);
     }
 
     /**

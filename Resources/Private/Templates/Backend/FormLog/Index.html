@@ -132,7 +132,7 @@
                 </td>
 
                 <f:for each="{settings.list.columns}" as="column">
-                  <td><f:render section="columnValue" contentAs="value">{entry.{column.property}}</f:render></td>
+                  <td><f:format.nl2br><fl:format.formValue>{entry.{column.property}}</fl:format.formValue></f:format.nl2br></td>
                 </f:for>
               </tr>
 
@@ -168,16 +168,3 @@
 
   </f:else>
 </f:if>
-
-<f:section name="columnValue">
-
-  <f:if condition="{value.0}">
-    <f:then>
-      <f:for each="{value}" as="singleValue" iteration="i">
-        {singleValue}<f:if condition="!{i.isLast}">,</f:if>
-      </f:for>
-    </f:then>
-    <f:else>{value}</f:else>
-  </f:if>
-
-</f:section>

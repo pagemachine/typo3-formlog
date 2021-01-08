@@ -58,13 +58,27 @@ final class ValueFormatter
         return (string)$value;
     }
 
-    private function formatArray(array $value): string
+    private function formatArray(array $value, int $level = 0): string
     {
         if ($this->hasStringKeys($value)) {
             $arrayValues = [];
 
             foreach ($value as $key => $arrayValue) {
-                $arrayValues[] = sprintf('%s: %s', $key, $arrayValue);
+                $indentation = str_repeat('    ', $level);
+                $separator = ' ';
+
+                if (is_array($arrayValue)) {
+                    $separator = "\n";
+                    $arrayValue = $this->formatArray($arrayValue, $level + 1);
+                }
+
+                $arrayValues[] = sprintf(
+                    '%s%s:%s%s',
+                    $indentation,
+                    $key,
+                    $separator,
+                    $arrayValue
+                );
             }
 
             return implode("\n", $arrayValues);

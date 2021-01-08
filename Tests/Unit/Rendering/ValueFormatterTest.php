@@ -83,6 +83,24 @@ TEXT
 ,
         ];
 
+        yield 'nested associative array' => [
+            [
+                '1st' => [
+                    '2nd' => [
+                        '3rd' => 'foo',
+                    ],
+                    '4th' => 'bar',
+                ],
+            ],
+            <<<TEXT
+1st:
+    2nd:
+        3rd: foo
+    4th: bar
+TEXT
+,
+        ];
+
         yield 'date' => [
             new \DateTime('@1610102035'),
             '2021-01-08T10:33:55+00:00',

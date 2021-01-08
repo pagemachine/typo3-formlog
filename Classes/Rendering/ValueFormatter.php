@@ -45,7 +45,10 @@ final class ValueFormatter
             return $this->formatDateTime($value);
         }
 
-        throw new \UnexpectedValueException(sprintf('Cannot format value of type "%s"', gettype($value)), 1610097797);
+        throw new \UnexpectedValueException(
+            sprintf('Could not convert value of type "%s" to string', is_object($value) ? get_class($value) : gettype($value)),
+            1610097797
+        );
     }
 
     private function formatNull($value): string

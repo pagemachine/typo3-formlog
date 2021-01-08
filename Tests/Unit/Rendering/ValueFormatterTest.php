@@ -8,30 +8,32 @@ namespace Pagemachine\Formlog\Tests\Unit\ViewHelpers\Format;
  */
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use Pagemachine\Formlog\ViewHelpers\Format\FormValueViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Pagemachine\Formlog\Rendering\ValueFormatter;
 
 /**
- * Testcase for Pagemachine\Formlog\ViewHelpers\Format\FormValueViewHelper
+ * Testcase for Pagemachine\Formlog\Rendering\ValueFormatter
  */
-final class FormValueViewHelperTest extends UnitTestCase
+final class ValueFormatterTest extends UnitTestCase
 {
+    /**
+     * @var ValueFormatter
+     */
+    protected $valueFormatter;
+
+    /**
+     * Set up this testcase
+     */
+    protected function setUp()
+    {
+        $this->valueFormatter = new ValueFormatter();
+    }
     /**
      * @test
      * @dataProvider formValues
      */
     public function formatsSupportedValues($value, string $expected): void
     {
-        $renderChildrenClosure = function () use ($value) {
-            return $value;
-        };
-
-        $result = FormValueViewHelper::renderStatic(
-            [],
-            $renderChildrenClosure,
-            $this->prophesize(RenderingContextInterface::class)->reveal()
-        );
+        $result = $this->valueFormatter->format($value);
 
         $this->assertEquals($expected, $result);
     }
@@ -87,16 +89,8 @@ TEXT
      */
     public function throwsExceptionOnUnsupportedValues(): void
     {
-        $renderChildrenClosure = function () use ($value) {
-            return new \stdClass;
-        };
-
         $this->expectException(\UnexpectedValueException::class);
 
-        FormValueViewHelper::renderStatic(
-            [],
-            $renderChildrenClosure,
-            $this->prophesize(RenderingContextInterface::class)->reveal()
-        );
+        $this->valueFormatter->format(new \stdClass);
     }
 }

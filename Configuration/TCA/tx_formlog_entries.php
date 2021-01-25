@@ -29,7 +29,7 @@ return [
         ],
         'crdate' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.creationDate',
+            'label' => sprintf('LLL:EXT:%s/Resources/Private/Language/locallang_general.xlf:LGL.creationDate', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('lang') ? 'lang' : 'core'),
             'config' => [
                 'type' => 'none',
                 'format' => 'datetime',

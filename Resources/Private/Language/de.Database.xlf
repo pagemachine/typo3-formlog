@@ -8,6 +8,10 @@
         <source>Log form data</source>
         <target>Formulardaten loggen</target>
       </trans-unit>
+      <trans-unit id="formEditor.elements.Form.editor.finishers.LogFormData.saveHiddenElements.label">
+        <source>Save hidden data?</source>
+        <target>Versteckte Formulardaten speichern?</target>
+      </trans-unit>
 
     </body>
   </file>

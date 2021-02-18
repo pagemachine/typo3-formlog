@@ -11,6 +11,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
+use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -23,6 +24,7 @@ class LoggerFinisher extends AbstractFinisher
      */
     protected $defaultOptions = [
         'finisherVariables' => [],
+        'saveHiddenElements' => true,
     ];
 
     /**
@@ -45,7 +47,7 @@ class LoggerFinisher extends AbstractFinisher
      */
     protected function executeInternal()
     {
-        $formValues = $this->finisherContext->getFormValues();
+        $formValues = $this->getFormValues();
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
         $data = [
             'pid' => $this->frontendController->id,
@@ -84,6 +86,47 @@ class LoggerFinisher extends AbstractFinisher
         }
 
         return $finisherVariables;
+    }
+
+    /**
+     * Returns all form values
+     * Hidden fields will be rejected, if selected in finisher.
+     *
+     * @return array
+     */
+    protected function getFormValues(): array
+    {
+        $formValues = $this->finisherContext->getFormValues();
+
+        if ($this->parseOption('saveHiddenElements')) {
+            return $formValues;
+        }
+
+        $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
+
+        foreach ($formValues as $formIdentifier => $value) {
+            $element = $formDefinition->getElementByIdentifier($formIdentifier);
+            $renderingOptions = $element->getRenderingOptions();
+
+            if (!$element instanceof FormElementInterface
+                || (
+                    isset($renderingOptions['_isCompositeFormElement'])
+                    && $renderingOptions['_isCompositeFormElement'] === true
+                )
+                || (
+                    isset($renderingOptions['_isHiddenFormElement'])
+                    && $renderingOptions['_isHiddenFormElement'] === true
+                )
+                || (
+                    isset($renderingOptions['_isReadOnlyFormElement'])
+                    && $renderingOptions['_isReadOnlyFormElement'] === true
+                )
+            ) {
+                unset($formValues[$formIdentifier]);
+            }
+        }
+
+        return $formValues;
     }
 
     /**

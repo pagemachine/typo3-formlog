@@ -22,9 +22,17 @@ TYPO3:
                           10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
                         100:
                           label: 'formEditor.elements.Form.editor.finishers.LogFormData.label'
+                        200:
+                          identifier: 'saveHiddenElements'
+                          templateName: 'Inspector-CheckboxEditor'
+                          label: 'formEditor.elements.Form.editor.finishers.LogFormData.saveHiddenElements.label'
+                          propertyPath: 'options.saveHiddenElements'
 
           finishersDefinition:
             LogFormData:
               formEditor:
                 iconIdentifier: t3-form-icon-finisher
                 label: 'formEditor.elements.Form.editor.finishers.LogFormData.label'
+                predefinedDefaults:
+                  options:
+                    saveHiddenElements: true

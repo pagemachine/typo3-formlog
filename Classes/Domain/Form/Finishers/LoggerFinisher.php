@@ -9,7 +9,9 @@ namespace Pagemachine\Formlog\Domain\Form\Finishers;
 
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -45,15 +47,18 @@ class LoggerFinisher extends AbstractFinisher
      */
     protected function executeInternal()
     {
-        $formValues = $this->finisherContext->getFormValues();
-        $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
+        $formRuntime = $this->finisherContext->getFormRuntime();
+        $formDefinition = $formRuntime->getFormDefinition();
+
+        $normalizedFormValues = $this->normalizeFormValues($this->finisherContext->getFormValues());
+
         $data = [
             'pid' => $this->frontendController->id,
             'crdate' => $GLOBALS['EXEC_TIME'],
             'tstamp' => $GLOBALS['EXEC_TIME'],
             'language' => $this->getLanguageUid(),
             'identifier' => $formDefinition->getIdentifier(),
-            'data' => json_encode($formValues),
+            'data' => json_encode($normalizedFormValues),
             'finisher_variables' => json_encode($this->getFinisherVariables()),
         ];
 
@@ -101,5 +106,34 @@ class LoggerFinisher extends AbstractFinisher
         }
 
         return $this->frontendController->sys_language_uid; // @phpstan-ignore-line
+    }
+
+    /**
+     * @param array $formValues
+     *
+     * @return array
+     */
+    protected function normalizeFormValues(array $formValues): array
+    {
+        $normalizedFormValues = [];
+        foreach ($formValues as $identifier => $formValue) {
+            if (is_object($formValue) &&
+                ($formValue instanceof FileReference || $formValue instanceof CoreFileReference)
+            ) {
+                if ($formValue instanceof FileReference) {
+                    $formValue = $formValue->getOriginalResource();
+                }
+
+                $normalizedFormValues[$identifier] = [
+                    'file' => [
+                        'name' => $formValue->getName(),
+                    ],
+                ];
+            } else {
+                $normalizedFormValues[$identifier] = $formValue;
+            }
+        }
+
+        return $normalizedFormValues;
     }
 }

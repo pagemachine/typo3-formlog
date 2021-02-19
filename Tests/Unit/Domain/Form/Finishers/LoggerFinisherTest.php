@@ -13,6 +13,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\LanguageAspect;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Form\Domain\Finishers\FinisherContext;
 use TYPO3\CMS\Form\Domain\Finishers\FinisherVariableProvider;
@@ -90,24 +91,51 @@ class LoggerFinisherTest extends UnitTestCase
     }
 
     /**
+     * @dataProvider formValuesToDatabase
      * @test
      */
-    public function logsFormValuesToDatabase()
+    public function logsFormValuesToDatabase(array $formValues, array $expectedData)
     {
-        $this->finisherContext->getFormValues()->willReturn(['foo' => 'bar', 'qux' => 10]);
+        $this->finisherContext->getFormValues()->willReturn($formValues);
         $this->finisherContext->getFinisherVariableProvider()->willReturn(new FinisherVariableProvider());
 
-        $this->connection->insert('tx_formlog_entries', [
-            'pid' => 2,
-            'crdate' => 1490191502,
-            'tstamp' => 1490191502,
-            'language' => 20,
-            'identifier' => 'test-form',
-            'data' => '{"foo":"bar","qux":10}',
-            'finisher_variables' => '[]',
-        ])->shouldBeCalled();
+        $this->connection->insert('tx_formlog_entries', $expectedData)->shouldBeCalled();
 
         $this->loggerFinisher->execute($this->finisherContext->reveal());
+    }
+
+    /**
+     * @return \Traversable
+     */
+    public function formValuesToDatabase()
+    {
+        yield 'Log form values without uploads' => [
+            ['foo' => 'bar', 'qux' => 10],
+            [
+                'pid' => 2,
+                'crdate' => 1490191502,
+                'tstamp' => 1490191502,
+                'language' => 20,
+                'identifier' => 'test-form',
+                'data' => '{"foo":"bar","qux":10}',
+                'finisher_variables' => '[]',
+            ],
+        ];
+
+        $fileReference = $this->prophesize(FileReference::class);
+        $fileReference->getName()->willReturn('filename.jpg');
+        yield 'Log form values with file uploads' => [
+            ['foo' => 'bar', 'qux' => 10, 'fileupload' => $fileReference->reveal()],
+            [
+                'pid' => 2,
+                'crdate' => 1490191502,
+                'tstamp' => 1490191502,
+                'language' => 20,
+                'identifier' => 'test-form',
+                'data' => '{"foo":"bar","qux":10,"fileupload":{"file":{"name":"filename.jpg"}}}',
+                'finisher_variables' => '[]',
+            ],
+        ];
     }
 
     /**

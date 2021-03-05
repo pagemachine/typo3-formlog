@@ -11,7 +11,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -77,18 +77,18 @@ class LoggerFinisher extends AbstractFinisher
         $normalizedFormValues = [];
 
         foreach ($this->finisherContext->getFormValues() as $identifier => $formValue) {
-            if (is_object($formValue) &&
-                ($formValue instanceof FileReference || $formValue instanceof CoreFileReference)
-            ) {
-                if ($formValue instanceof FileReference) {
+            if (is_object($formValue)) {
+                if ($formValue instanceof ExtbaseFileReference) {
                     $formValue = $formValue->getOriginalResource();
                 }
 
-                $normalizedFormValues[$identifier] = [
-                    'file' => [
-                        'name' => $formValue->getName(),
-                    ],
-                ];
+                if ($formValue instanceof CoreFileReference) {
+                    $normalizedFormValues[$identifier] = [
+                        'file' => [
+                            'name' => $formValue->getName(),
+                        ],
+                    ];
+                }
             } else {
                 $normalizedFormValues[$identifier] = $formValue;
             }

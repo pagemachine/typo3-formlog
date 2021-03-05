@@ -50,15 +50,13 @@ class LoggerFinisher extends AbstractFinisher
         $formRuntime = $this->finisherContext->getFormRuntime();
         $formDefinition = $formRuntime->getFormDefinition();
 
-        $normalizedFormValues = $this->normalizeFormValues($this->finisherContext->getFormValues());
-
         $data = [
             'pid' => $this->frontendController->id,
             'crdate' => $GLOBALS['EXEC_TIME'],
             'tstamp' => $GLOBALS['EXEC_TIME'],
             'language' => $this->getLanguageUid(),
             'identifier' => $formDefinition->getIdentifier(),
-            'data' => json_encode($normalizedFormValues),
+            'data' => json_encode($this->getFormValues()),
             'finisher_variables' => json_encode($this->getFinisherVariables()),
         ];
 
@@ -69,6 +67,34 @@ class LoggerFinisher extends AbstractFinisher
         $connection->insert('tx_formlog_entries', $data);
 
         return null;
+    }
+
+    /**
+     * Get normalized form values
+     */
+    protected function getFormValues(): array
+    {
+        $normalizedFormValues = [];
+
+        foreach ($this->finisherContext->getFormValues() as $identifier => $formValue) {
+            if (is_object($formValue) &&
+                ($formValue instanceof FileReference || $formValue instanceof CoreFileReference)
+            ) {
+                if ($formValue instanceof FileReference) {
+                    $formValue = $formValue->getOriginalResource();
+                }
+
+                $normalizedFormValues[$identifier] = [
+                    'file' => [
+                        'name' => $formValue->getName(),
+                    ],
+                ];
+            } else {
+                $normalizedFormValues[$identifier] = $formValue;
+            }
+        }
+
+        return $normalizedFormValues;
     }
 
     /**
@@ -106,34 +132,5 @@ class LoggerFinisher extends AbstractFinisher
         }
 
         return $this->frontendController->sys_language_uid; // @phpstan-ignore-line
-    }
-
-    /**
-     * @param array $formValues
-     *
-     * @return array
-     */
-    protected function normalizeFormValues(array $formValues): array
-    {
-        $normalizedFormValues = [];
-        foreach ($formValues as $identifier => $formValue) {
-            if (is_object($formValue) &&
-                ($formValue instanceof FileReference || $formValue instanceof CoreFileReference)
-            ) {
-                if ($formValue instanceof FileReference) {
-                    $formValue = $formValue->getOriginalResource();
-                }
-
-                $normalizedFormValues[$identifier] = [
-                    'file' => [
-                        'name' => $formValue->getName(),
-                    ],
-                ];
-            } else {
-                $normalizedFormValues[$identifier] = $formValue;
-            }
-        }
-
-        return $normalizedFormValues;
     }
 }

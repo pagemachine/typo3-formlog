@@ -109,8 +109,11 @@ class LoggerFinisherTest extends UnitTestCase
      */
     public function formValuesToDatabase()
     {
-        yield 'Log form values without uploads' => [
-            ['foo' => 'bar', 'qux' => 10],
+        yield 'Plain form values' => [
+            [
+                'foo' => 'bar',
+                'qux' => 10,
+            ],
             [
                 'pid' => 2,
                 'crdate' => 1490191502,
@@ -124,8 +127,13 @@ class LoggerFinisherTest extends UnitTestCase
 
         $fileReference = $this->prophesize(FileReference::class);
         $fileReference->getName()->willReturn('filename.jpg');
-        yield 'Log form values with file uploads' => [
-            ['foo' => 'bar', 'qux' => 10, 'fileupload' => $fileReference->reveal()],
+
+        yield 'Form values with file upload' => [
+            [
+                'foo' => 'bar',
+                'qux' => 10,
+                'fileupload' => $fileReference->reveal(),
+            ],
             [
                 'pid' => 2,
                 'crdate' => 1490191502,
@@ -133,6 +141,24 @@ class LoggerFinisherTest extends UnitTestCase
                 'language' => 20,
                 'identifier' => 'test-form',
                 'data' => '{"foo":"bar","qux":10,"fileupload":{"file":{"name":"filename.jpg"}}}',
+                'finisher_variables' => '[]',
+            ],
+        ];
+
+        yield 'Form values with unsupported object type' => [
+            [
+                'foo' => 'bar',
+                'qux' => 10,
+                'object' => new class {
+                },
+            ],
+            [
+                'pid' => 2,
+                'crdate' => 1490191502,
+                'tstamp' => 1490191502,
+                'language' => 20,
+                'identifier' => 'test-form',
+                'data' => '{"foo":"bar","qux":10}',
                 'finisher_variables' => '[]',
             ],
         ];

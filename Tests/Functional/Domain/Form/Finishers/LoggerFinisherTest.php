@@ -15,6 +15,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Form\Domain\Configuration\ConfigurationService;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
+use TYPO3\CMS\Form\Domain\Runtime\FormRuntime\FormSession;
 use TYPO3\CMS\Form\Domain\Runtime\FormState;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -168,6 +169,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $formDefinition->getIdentifier() => [
                 '__currentPage' => 1,
                 '__state' => $this->objectManager->get(HashService::class)->appendHmac(base64_encode(serialize($formState))),
+                '__session' => $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier(),
             ],
         ]);
         $response = $this->objectManager->get(Response::class);

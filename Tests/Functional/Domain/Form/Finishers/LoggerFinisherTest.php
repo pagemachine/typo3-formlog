@@ -163,17 +163,22 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $formState->setFormValue($name, $value);
         }
 
+        $requestArguments = array_merge(
+            $formValues,
+            [
+                '__currentPage' => 1,
+                '__state' => $this->objectManager->get(HashService::class)->appendHmac(base64_encode(serialize($formState))),
+            ]
+        );
+
+        if (class_exists(FormSession::class)) {
+            $requestArguments['__session'] = $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier();
+        }
+
         $request = $this->objectManager->get(Request::class);
         $request->setMethod('POST');
         $request->setArguments([
-            $formDefinition->getIdentifier() => array_merge(
-                $formValues,
-                [
-                    '__currentPage' => 1,
-                    '__state' => $this->objectManager->get(HashService::class)->appendHmac(base64_encode(serialize($formState))),
-                    '__session' => $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier(),
-                ]
-            ),
+            $formDefinition->getIdentifier() => $requestArguments,
         ]);
         $response = $this->objectManager->get(Response::class);
         $formRuntime = $formDefinition->bind($request, $response);

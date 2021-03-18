@@ -8,13 +8,16 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Form\Domain\Configuration\ConfigurationService;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
+use TYPO3\CMS\Form\Domain\Runtime\FormRuntime\FormSession;
 use TYPO3\CMS\Form\Domain\Runtime\FormState;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -52,6 +55,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
         }
 
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $configurationManager = $this->objectManager->get(ConfigurationManagerInterface::class);
+        $contentObjectRenderer = new ContentObjectRenderer();
+        $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
+        $configurationManager->setContentObject($contentObjectRenderer);
 
         $this->getDatabaseConnection()->insertArray('pages', ['uid' => 123]);
         $this->setUpFrontendRootPage(123);
@@ -156,12 +163,22 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $formState->setFormValue($name, $value);
         }
 
-        $request = $this->objectManager->get(Request::class);
-        $request->setArguments([
-            $formDefinition->getIdentifier() => [
+        $requestArguments = array_merge(
+            $formValues,
+            [
                 '__currentPage' => 1,
                 '__state' => $this->objectManager->get(HashService::class)->appendHmac(base64_encode(serialize($formState))),
-            ],
+            ]
+        );
+
+        if (class_exists(FormSession::class)) {
+            $requestArguments['__session'] = $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier();
+        }
+
+        $request = $this->objectManager->get(Request::class);
+        $request->setMethod('POST');
+        $request->setArguments([
+            $formDefinition->getIdentifier() => $requestArguments,
         ]);
         $response = $this->objectManager->get(Response::class);
         $formRuntime = $formDefinition->bind($request, $response);

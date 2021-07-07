@@ -89,6 +89,9 @@ class LoggerFinisher extends AbstractFinisher
                         ],
                     ];
                 }
+                if ($formValue instanceof \DateTime) {
+                    $normalizedFormValues[$identifier] = $formValue->format('d.m.Y H:i:s');
+                }
             } else {
                 $normalizedFormValues[$identifier] = $formValue;
             }

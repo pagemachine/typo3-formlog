@@ -76,6 +76,10 @@ class LoggerFinisher extends AbstractFinisher
                         ],
                     ];
                 }
+
+                if ($formValue instanceof \DateTimeInterface) {
+                    $normalizedFormValues[$identifier] = $formValue->format(\DateTimeInterface::W3C);
+                }
             } else {
                 $normalizedFormValues[$identifier] = $formValue;
             }

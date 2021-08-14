@@ -18,10 +18,13 @@ TYPO3:
                     29:
                       identifier: LogFormData
                       editors:
-                        __inheritances:
-                          10: TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin
                         100:
+                          identifier: header
+                          templateName: Inspector-CollectionElementHeaderEditor
                           label: formEditor.elements.Form.editor.finishers.LogFormData.label
+                        9999:
+                          identifier: removeButton
+                          templateName: Inspector-RemoveElementEditor
 
           finishersDefinition:
             LogFormData:

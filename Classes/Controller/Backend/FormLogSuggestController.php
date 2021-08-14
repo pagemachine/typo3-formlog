@@ -8,9 +8,9 @@ namespace Pagemachine\Formlog\Controller\Backend;
  */
 
 use Pagemachine\Formlog\Domain\FormLog\Suggestions;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Http\Response;
 
 /**
  * Controller for form log suggestions
@@ -22,16 +22,23 @@ final class FormLogSuggestController
      */
     private $suggestions;
 
-    public function __construct(Suggestions $suggestions)
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
+    public function __construct(Suggestions $suggestions, ResponseFactoryInterface $responseFactory)
     {
         $this->suggestions = $suggestions;
+        $this->responseFactory = $responseFactory;
     }
 
     public function searchAction(ServerRequestInterface $request): ResponseInterface
     {
         $body = (array)$request->getParsedBody();
         $suggestions = $this->suggestions->getForProperty($body['property']);
-        $response = (new Response())->withHeader('Content-Type', 'application/json; charset=utf-8');
+        $response = $this->responseFactory->createResponse()
+            ->withHeader('Content-Type', 'application/json; charset=utf-8');
         $response->getBody()->write(json_encode($suggestions));
 
         return $response;

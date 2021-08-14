@@ -70,13 +70,9 @@ class LoggerFinisherTest extends UnitTestCase
         $this->frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
         $this->frontendController->id = '2';
 
-        if (class_exists(Context::class)) {
-            $languageAspect = GeneralUtility::makeInstance(LanguageAspect::class, 20);
-            $context = GeneralUtility::makeInstance(Context::class, ['language' => $languageAspect]);
-            GeneralUtility::setSingletonInstance(Context::class, $context);
-        } else {
-            $this->frontendController->sys_language_uid = 20;
-        }
+        $languageAspect = GeneralUtility::makeInstance(LanguageAspect::class, 20);
+        $context = GeneralUtility::makeInstance(Context::class, ['language' => $languageAspect]);
+        GeneralUtility::setSingletonInstance(Context::class, $context);
 
         $this->loggerFinisher = new LoggerFinisher('test', $this->frontendController);
     }

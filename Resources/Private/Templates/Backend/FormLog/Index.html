@@ -16,151 +16,151 @@
   addInlineSettings="{inlineSettings}"
 />
 
-<h1><f:translate key="formlog.title"/> <span class="label label-{f:if(condition: filters.empty, then: 'default', else: 'primary')}">{entries -> f:count()}</span></h1>
+<h1><f:translate key="formlog.title"/> <span class="label label-{f:if(condition: filters.empty, then: 'default', else: 'primary')}">{entriesCount}</span></h1>
 
-<f:if condition="{entries -> f:count()} > 0">
+<f:if condition="{entriesCount} > 0">
   <f:then>
 
-    <fl:iterator.paginate iterable="{entries}" as="paginatedEntries" currentPage="{pagination.currentPage}">
+    <f:form objectName="filters" object="{filters}" id="filter-form" class="form-inline">
+      <f:form.hidden id="submissiondate-start" property="submissionDate.startDate" value="{filters.submissionDate.startDate -> f:format.date(format: isoDateFormat)}"/>
+      <f:form.hidden id="submissiondate-end" property="submissionDate.endDate" value="{filters.submissionDate.endDate -> f:format.date(format: isoDateFormat)}"/>
 
-      <f:form objectName="filters" object="{filters}" id="filter-form" class="form-inline">
-        <f:form.hidden id="submissiondate-start" property="submissionDate.startDate" value="{filters.submissionDate.startDate -> f:format.date(format: isoDateFormat)}"/>
-        <f:form.hidden id="submissiondate-end" property="submissionDate.endDate" value="{filters.submissionDate.endDate -> f:format.date(format: isoDateFormat)}"/>
+      <div class="panel panel-default">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th><f:translate key="formlog.entry.uid"/></th>
+              <th class="formlog-select-filter">
+                <f:render partial="Backend/FormLog/SelectFilter" arguments="{
+                  title: 'formlog.entry.page.title',
+                  filter: filters.pageTitle,
+                  filterProperty: 'pageTitle',
+                  property: 'page.title'
+                }"/>
+              </th>
+              <th class="formlog-select-filter">
+                <f:render partial="Backend/FormLog/SelectFilter" arguments="{
+                  title: 'formlog.entry.identifier',
+                  filter: filters.identifier,
+                  filterProperty: 'identifier',
+                  property: 'identifier'
+                }"/>
+              </th>
+              <th><f:translate key="formlog.entry.language"/></th>
+              <th>
+                <button
+                  type="button"
+                  id="submissiondate-filter"
+                  class="btn btn-{f:if(condition: filters.submissionDate.empty, then: 'default', else: 'primary')}"
+                  data-start-date-field="#submissiondate-start"
+                  data-end-date-field="#submissiondate-end"
+                  data-translations="{daterangepickerTranslations -> f:format.json()}"
+                >
+                  <b><f:translate key="formlog.entry.submissionDate"/></b>
+                  <i class="fa fa-filter" aria-hidden="true"></i>
+                </button>
+              </th>
 
-        <div class="panel panel-default">
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th></th>
-                <th><f:translate key="formlog.entry.uid"/></th>
-                <th class="formlog-select-filter">
-                  <f:render partial="Backend/FormLog/SelectFilter" arguments="{
-                    title: 'formlog.entry.page.title',
-                    filter: filters.pageTitle,
-                    filterProperty: 'pageTitle',
-                    property: 'page.title'
-                  }"/>
-                </th>
-                <th class="formlog-select-filter">
-                  <f:render partial="Backend/FormLog/SelectFilter" arguments="{
-                    title: 'formlog.entry.identifier',
-                    filter: filters.identifier,
-                    filterProperty: 'identifier',
-                    property: 'identifier'
-                  }"/>
-                </th>
-                <th><f:translate key="formlog.entry.language"/></th>
-                <th>
-                  <button
-                    type="button"
-                    id="submissiondate-filter"
-                    class="btn btn-{f:if(condition: filters.submissionDate.empty, then: 'default', else: 'primary')}"
-                    data-start-date-field="#submissiondate-start"
-                    data-end-date-field="#submissiondate-end"
-                    data-translations="{daterangepickerTranslations -> f:format.json()}"
-                  >
-                    <b><f:translate key="formlog.entry.submissionDate"/></b>
-                    <i class="fa fa-filter" aria-hidden="true"></i>
-                  </button>
-                </th>
+              <f:for each="{settings.list.columns}" as="column">
+                <th><f:translate key="{column.label}">{column.label}</f:translate></th>
+              </f:for>
+            </tr>
+          </thead>
 
-                <f:for each="{settings.list.columns}" as="column">
-                  <th><f:translate key="{column.label}">{column.label}</f:translate></th>
-                </f:for>
-              </tr>
-            </thead>
+          <f:alias map="{
+            defaultLanguageLabel: '{f:translate(key: \'formlog.entry.language.default\')}'
+          }">
+          <f:for each="{entries}" as="entry">
 
-            <f:alias map="{
-              defaultLanguageLabel: '{f:translate(key: \'formlog.entry.language.default\')}'
-            }">
-            <f:for each="{paginatedEntries}" as="entry">
-
-              <tr>
-                <td><a href="{be:uri.editRecord(uid: entry.uid, table: 'tx_formlog_entries')}" class="btn btn-default btn-sm"><core:icon identifier="actions-document-view"/></a></td>
-                <td>{entry.uid}</td>
-                <td title="{entry.page.uid}">
-                  {entry.page.title}
-                  <f:link.action
-                    arguments="{
-                      filters: {
-                        pageTitle: {
-                          value: entry.page.title
-                        }
+            <tr>
+              <td><a href="{be:uri.editRecord(uid: entry.uid, table: 'tx_formlog_entries')}" class="btn btn-default btn-sm"><core:icon identifier="actions-document-view"/></a></td>
+              <td>{entry.uid}</td>
+              <td title="{entry.page.uid}">
+                {entry.page.title}
+                <f:link.action
+                  arguments="{
+                    filters: {
+                      pageTitle: {
+                        value: entry.page.title
                       }
-                    }"
-                    class="btn btn-default filter-button"
-                    title="{f:translate(key: 'formlog.filters.this')}"
-                    addQueryString="true"
-                  >
-                    <i class="fa fa-filter" aria-hidden="true"></i>
-                  </f:link.action>
-                </td>
-                <td>
-                  {entry.identifier}
-                  <f:link.action
-                    arguments="{
-                      filters: {
-                        identifier: {
-                          value: entry.identifier
-                        }
+                    }
+                  }"
+                  class="btn btn-default filter-button"
+                  title="{f:translate(key: 'formlog.filters.this')}"
+                  addQueryString="true"
+                >
+                  <i class="fa fa-filter" aria-hidden="true"></i>
+                </f:link.action>
+              </td>
+              <td>
+                {entry.identifier}
+                <f:link.action
+                  arguments="{
+                    filters: {
+                      identifier: {
+                        value: entry.identifier
                       }
-                    }"
-                    class="btn btn-default filter-button"
-                    title="{f:translate(key: 'formlog.filters.this')}"
-                    addQueryString="true"
-                  >
-                    <i class="fa fa-filter" aria-hidden="true"></i>
-                  </f:link.action>
-                </td>
-                <td>{entry.language.title -> f:or(alternative: defaultLanguageLabel)}</td>
-                <td>
-                  {entry.submissionDate -> f:format.date(format: dateFormat)}
-                  <f:link.action
-                    arguments="{
-                      filters: {
-                        submissionDate: {
-                          startDate: '{entry.submissionDate -> f:format.date(format: \'Y-m-d\T00:00:00P\')}',
-                          endDate: '{entry.submissionDate -> f:format.date(format: \'Y-m-d\T23:59:59P\')}'
-                        }
+                    }
+                  }"
+                  class="btn btn-default filter-button"
+                  title="{f:translate(key: 'formlog.filters.this')}"
+                  addQueryString="true"
+                >
+                  <i class="fa fa-filter" aria-hidden="true"></i>
+                </f:link.action>
+              </td>
+              <td>{entry.language.title -> f:or(alternative: defaultLanguageLabel)}</td>
+              <td>
+                {entry.submissionDate -> f:format.date(format: dateFormat)}
+                <f:link.action
+                  arguments="{
+                    filters: {
+                      submissionDate: {
+                        startDate: '{entry.submissionDate -> f:format.date(format: \'Y-m-d\T00:00:00P\')}',
+                        endDate: '{entry.submissionDate -> f:format.date(format: \'Y-m-d\T23:59:59P\')}'
                       }
-                    }"
-                    class="btn btn-default filter-button"
-                    title="{f:translate(key: 'formlog.filters.this')}"
-                    addQueryString="true"
-                  >
-                    <i class="fa fa-filter" aria-hidden="true"></i>
-                  </f:link.action>
-                </td>
+                    }
+                  }"
+                  class="btn btn-default filter-button"
+                  title="{f:translate(key: 'formlog.filters.this')}"
+                  addQueryString="true"
+                >
+                  <i class="fa fa-filter" aria-hidden="true"></i>
+                </f:link.action>
+              </td>
 
-                <f:for each="{settings.list.columns}" as="column">
-                  <td style="white-space: pre"><fl:format.formValue>{entry.{column.property}}</fl:format.formValue></td>
-                </f:for>
-              </tr>
+              <f:for each="{settings.list.columns}" as="column">
+                <td style="white-space: pre"><fl:format.formValue>{entry.{column.property}}</fl:format.formValue></td>
+              </f:for>
+            </tr>
 
-            </f:for>
-            </f:alias>
+          </f:for>
+          </f:alias>
 
-          </table>
+        </table>
 
-          <div class="panel-footer">
-            <div class="row">
-              <div class="col-sm-8">
-                <f:render partial="Pagination" arguments="{pagination: pagination}"/>
-              </div>
-              <div class="col-sm-4 text-right">
-                <f:render partial="Backend/FormLog/FiltersActions" arguments="{filters: filters}"/>
-                <f:render partial="Backend/FormLog/ExportActions" arguments="{filters: filters}"/>
-              </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-8">
+              <f:render partial="Pagination" arguments="{
+                pagination: pagination,
+                currentPageNumber: currentPageNumber,
+                entriesCount: entriesCount
+              }"/>
             </div>
-
-            <f:render partial="Backend/FormLog/FiltersInfo" arguments="{filters: filters, dateFormat: dateFormat}"/>
-
+            <div class="col-sm-4 text-right">
+              <f:render partial="Backend/FormLog/FiltersActions" arguments="{filters: filters}"/>
+              <f:render partial="Backend/FormLog/ExportActions" arguments="{filters: filters}"/>
+            </div>
           </div>
+
+          <f:render partial="Backend/FormLog/FiltersInfo" arguments="{filters: filters, dateFormat: dateFormat}"/>
+
         </div>
+      </div>
 
-      </f:form>
-
-    </fl:iterator.paginate>
+    </f:form>
 
   </f:then>
   <f:else>

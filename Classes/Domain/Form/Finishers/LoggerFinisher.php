@@ -124,13 +124,8 @@ class LoggerFinisher extends AbstractFinisher
      */
     private function getLanguageUid(): int
     {
-        if (class_exists(Context::class)) {
-            /** @var Context */
-            $context = GeneralUtility::makeInstance(Context::class); // @phpstan-ignore-line
+        $context = GeneralUtility::makeInstance(Context::class);
 
-            return (int)$context->getPropertyFromAspect('language', 'id', 0);
-        }
-
-        return $this->frontendController->sys_language_uid; // @phpstan-ignore-line
+        return (int)$context->getPropertyFromAspect('language', 'id', 0);
     }
 }

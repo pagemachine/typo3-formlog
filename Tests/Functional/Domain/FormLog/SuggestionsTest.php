@@ -5,6 +5,8 @@ namespace Pagemachine\Formlog\Tests\Functional\Domain\FormLog;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Pagemachine\Formlog\Domain\FormLog\Suggestions;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Testcase for Pagemachine\Formlog\Domain\FormLog\Suggestions
@@ -65,7 +67,7 @@ final class SuggestionsTest extends FunctionalTestCase
             }
         }
 
-        $suggestions = new Suggestions();
+        $suggestions = new Suggestions(GeneralUtility::makeInstance(ConnectionPool::class));
 
         $result = $suggestions->getForProperty($property);
 

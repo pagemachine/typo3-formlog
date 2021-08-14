@@ -8,25 +8,20 @@ namespace Pagemachine\Formlog\Domain\FormLog;
  */
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Provider for form log suggestions
  */
-class Suggestions
+final class Suggestions
 {
     /**
-     * @var QueryBuilder
+     * @var ConnectionPool
      */
-    protected $query;
+    private $connectionPool;
 
-    /**
-     * @param QueryBuilder|null $query
-     */
-    public function __construct(QueryBuilder $query = null)
+    public function __construct(ConnectionPool $connectionPool)
     {
-        $this->query = $query ?: $this->getConnectionPool()->getQueryBuilderForTable('tx_formlog_entries');
+        $this->connectionPool = $connectionPool;
     }
 
     /**
@@ -37,29 +32,24 @@ class Suggestions
      */
     public function getForProperty(string $property): array
     {
-        $rows = $this->query
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tx_formlog_entries');
+        $queryBuilder
             ->select($property)
             ->from('tx_formlog_entries')
             ->join(
                 'tx_formlog_entries',
                 'pages',
                 'page',
-                $this->query->expr()->eq('page.uid', $this->query->quoteIdentifier('tx_formlog_entries.pid'))
+                $queryBuilder->expr()->eq('page.uid', $queryBuilder->quoteIdentifier('tx_formlog_entries.pid'))
             )
             ->orderBy($property)
-            ->groupBy($property)
+            ->groupBy($property);
+
+        $rows = $queryBuilder
             ->execute()
             ->fetchAll(\PDO::FETCH_NUM);
         $suggestions = array_column($rows, 0);
 
         return $suggestions;
-    }
-
-    private function getConnectionPool(): ConnectionPool
-    {
-        /** @var ConnectionPool */
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-
-        return $connectionPool;
     }
 }

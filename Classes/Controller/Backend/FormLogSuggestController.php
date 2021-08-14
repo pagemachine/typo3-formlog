@@ -11,30 +11,22 @@ use Pagemachine\Formlog\Domain\FormLog\Suggestions;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\Response;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Controller for form log suggestions
  */
-class FormLogSuggestController
+final class FormLogSuggestController
 {
     /**
      * @var Suggestions
      */
-    protected $suggestions;
+    private $suggestions;
 
-    /**
-     * @param Suggestions|null $suggestions
-     */
-    public function __construct(Suggestions $suggestions = null)
+    public function __construct(Suggestions $suggestions)
     {
-        $this->suggestions = $suggestions ?: GeneralUtility::makeInstance(Suggestions::class);
+        $this->suggestions = $suggestions;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @return ResponseInterface
-     */
     public function searchAction(ServerRequestInterface $request): ResponseInterface
     {
         $body = (array)$request->getParsedBody();

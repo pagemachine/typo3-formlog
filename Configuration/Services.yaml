@@ -6,3 +6,6 @@ services:
 
   Pagemachine\Formlog\:
     resource: '../Classes/*'
+
+  Pagemachine\Formlog\Controller\Backend\FormLogSuggestController:
+    public: true

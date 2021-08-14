@@ -10,6 +10,7 @@ namespace Pagemachine\Formlog\Tests\Unit\Domain\Form\Finishers;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Domain\Form\Finishers\LoggerFinisher;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\DateTimeAspect;
 use TYPO3\CMS\Core\Context\LanguageAspect;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -51,8 +52,6 @@ class LoggerFinisherTest extends UnitTestCase
      */
     protected function setUp()
     {
-        $GLOBALS['EXEC_TIME'] = 1490191502;
-
         $formDefinition = $this->prophesize(FormDefinition::class);
         $formDefinition->getIdentifier()->willReturn('test-form');
 
@@ -70,8 +69,12 @@ class LoggerFinisherTest extends UnitTestCase
         $this->frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
         $this->frontendController->id = '2';
 
+        $dateAspect = GeneralUtility::makeInstance(DateTimeAspect::class, new \DateTimeImmutable('@1490191502'));
         $languageAspect = GeneralUtility::makeInstance(LanguageAspect::class, 20);
-        $context = GeneralUtility::makeInstance(Context::class, ['language' => $languageAspect]);
+        $context = GeneralUtility::makeInstance(Context::class, [
+            'date' => $dateAspect,
+            'language' => $languageAspect,
+        ]);
         GeneralUtility::setSingletonInstance(Context::class, $context);
 
         $this->loggerFinisher = new LoggerFinisher('test', $this->frontendController);

@@ -49,12 +49,14 @@ class LoggerFinisher extends AbstractFinisher
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
         $formDefinition = $formRuntime->getFormDefinition();
+        $context = GeneralUtility::makeInstance(Context::class);
+        $now = $context->getPropertyFromAspect('date', 'timestamp');
 
         $data = [
             'pid' => $this->frontendController->id,
-            'crdate' => $GLOBALS['EXEC_TIME'],
-            'tstamp' => $GLOBALS['EXEC_TIME'],
-            'language' => $this->getLanguageUid(),
+            'crdate' => $now,
+            'tstamp' => $now,
+            'language' => (int)$context->getPropertyFromAspect('language', 'id', 0),
             'identifier' => $formDefinition->getIdentifier(),
             'data' => json_encode($this->getFormValues()),
             'finisher_variables' => json_encode($this->getFinisherVariables()),
@@ -115,17 +117,5 @@ class LoggerFinisher extends AbstractFinisher
         }
 
         return $finisherVariables;
-    }
-
-    /**
-     * Gets the current language UID
-     *
-     * @return int
-     */
-    private function getLanguageUid(): int
-    {
-        $context = GeneralUtility::makeInstance(Context::class);
-
-        return (int)$context->getPropertyFromAspect('language', 'id', 0);
     }
 }

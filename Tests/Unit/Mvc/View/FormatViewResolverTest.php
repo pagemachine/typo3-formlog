@@ -13,7 +13,6 @@ use Prophecy\Argument;
 use Prophecy\Prophet;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Extbase\Mvc\View\ViewResolverInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\TemplateView;
 
@@ -32,10 +31,6 @@ final class FormatViewResolverTest extends UnitTestCase
      */
     protected function setUp()
     {
-        if (!interface_exists(ViewResolverInterface::class)) {
-            $this->markTestSkipped('TYPO3v10+ only');
-        }
-
         $this->objectManager = $this->prophesize(ObjectManager::class);
         $this->objectManager
             ->get(Argument::type('string'))

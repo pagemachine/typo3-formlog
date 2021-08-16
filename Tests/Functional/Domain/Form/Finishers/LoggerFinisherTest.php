@@ -7,7 +7,6 @@ use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
@@ -131,15 +130,11 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $page1 = $formDefinition->createPage('page1');
         $name = $page1->createElement('name', 'Text');
 
-        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '10', '>=')) {
-            $_SERVER['HTTP_HOST'] = 'localhost';
-            $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
-            $siteLanguage = $site->getLanguageById(1);
-            $GLOBALS['TSFE'] = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $site, $siteLanguage);
-            $GLOBALS['TSFE']->id = 123;
-        } else {
-            $GLOBALS['TSFE'] = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 123, 1);
-        }
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
+        $siteLanguage = $site->getLanguageById(1);
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $site, $siteLanguage);
+        $GLOBALS['TSFE']->id = 123;
 
         foreach ($finishers as $finisherIdentifier => $options) {
             $formDefinition->createFinisher($finisherIdentifier, $options);

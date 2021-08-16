@@ -3,21 +3,29 @@
     <f:then>
       <li>
         <f:render section="paginationLink" arguments="{page: pagination.firstPageNumber}" contentAs="text">
-          <core:icon identifier="actions-view-paging-first" />
+          <core:icon identifier="actions-view-paging-first"/>
+          <f:translate key="pagination.first"/>
         </f:render>
       </li>
       <li>
         <f:render section="paginationLink" arguments="{page: pagination.previousPageNumber}" contentAs="text">
-          <core:icon identifier="actions-view-paging-previous" />
+          <core:icon identifier="actions-view-paging-previous"/>
+          <f:translate key="pagination.previous"/>
         </f:render>
       </li>
     </f:then>
     <f:else>
       <li class="disabled">
-        <span><core:icon identifier="actions-view-paging-first" /></span>
+        <span>
+          <core:icon identifier="actions-view-paging-first"/>
+          <f:translate key="pagination.first"/>
+        </span>
       </li>
       <li class="disabled">
-        <span><core:icon identifier="actions-view-paging-previous" /></span>
+        <span>
+          <core:icon identifier="actions-view-paging-previous"/>
+          <f:translate key="pagination.previous"/>
+        </span>
       </li>
     </f:else>
   </f:if>
@@ -33,8 +41,13 @@
           max: pagination.lastPageNumber
         }"
         class="form-control text-right"
-      />
-      <div class="input-group-addon">/ {pagination.lastPageNumber}</div>
+     />
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <core:icon identifier="actions-arrow-right"/>
+          <f:translate key="pagination.go"/>
+        </button>
+      </span>
     </div>
   </li>
 
@@ -42,21 +55,29 @@
     <f:then>
       <li>
         <f:render section="paginationLink" arguments="{page: pagination.nextPageNumber}" contentAs="text">
-          <core:icon identifier="actions-view-paging-next" />
+          <f:translate key="pagination.next"/>
+          <core:icon identifier="actions-view-paging-next"/>
         </f:render>
       </li>
       <li>
         <f:render section="paginationLink" arguments="{page: pagination.lastPageNumber}" contentAs="text">
-          <core:icon identifier="actions-view-paging-last" />
+          <f:translate key="pagination.last"/>
+          <core:icon identifier="actions-view-paging-last"/>
         </f:render>
       </li>
     </f:then>
     <f:else>
       <li class="disabled">
-        <span><core:icon identifier="actions-view-paging-next" /></span>
+        <span>
+          <f:translate key="pagination.next"/>
+          <core:icon identifier="actions-view-paging-next"/>
+        </span>
       </li>
       <li class="disabled">
-        <span><core:icon identifier="actions-view-paging-last" /></span>
+        <span>
+          <f:translate key="pagination.last"/>
+          <core:icon identifier="actions-view-paging-last"/>
+        </span>
       </li>
     </f:else>
   </f:if>

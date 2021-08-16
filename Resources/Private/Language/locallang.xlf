@@ -116,6 +116,26 @@
         <source>Form</source>
       </trans-unit>
 
+      <trans-unit id="pagination.first">
+        <source>First</source>
+      </trans-unit>
+
+      <trans-unit id="pagination.last">
+        <source>Last</source>
+      </trans-unit>
+
+      <trans-unit id="pagination.previous">
+        <source>Previous</source>
+      </trans-unit>
+
+      <trans-unit id="pagination.next">
+        <source>Next</source>
+      </trans-unit>
+
+      <trans-unit id="pagination.go">
+        <source>Go to page</source>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

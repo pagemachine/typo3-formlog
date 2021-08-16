@@ -14,8 +14,10 @@ use Pagemachine\Formlog\Mvc\View\Export\XlsxView;
 use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -75,18 +77,22 @@ class FormLogController extends ActionController
      * Main overview action
      *
      * @param Filters $filters
-     * @param array $pagination
+     * @param int $currentPageNumber
      * @return void
      */
-    public function indexAction(Filters $filters, array $pagination = [])
+    public function indexAction(Filters $filters, int $currentPageNumber = 1)
     {
+        $entries = $this->formLogEntryRepository->findAllFiltered($filters);
+        $paginator = new QueryResultPaginator($entries, $currentPageNumber);
         /** @var UriBuilder */
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
         $this->view->assignMultiple([
-            'entries' => $this->formLogEntryRepository->findAllFiltered($filters),
+            'entries' => $paginator->getPaginatedItems(),
+            'entriesCount' => count($entries),
             'filters' => $filters,
-            'pagination' => $pagination,
+            'pagination' => new SimplePagination($paginator),
+            'currentPageNumber' => $currentPageNumber,
             'dateFormat' => $this->settings['dateTimeFormat'] ?: \DateTime::W3C,
             'isoDateFormat' => \DateTime::W3C,
             'daterangepickerTranslations' => $this->prepareDaterangepickerTranslations(),

@@ -1,58 +1,93 @@
 <ul class="pagination">
-  <f:if condition="{pagination.previousPage}">
+  <f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
     <f:then>
-      <li><f:render section="paginationLink" arguments="{page: pagination.previousPage}" contentAs="text">«</f:render></li>
+      <li>
+        <f:render section="paginationLink" arguments="{page: pagination.firstPageNumber}" contentAs="text">
+          <core:icon identifier="actions-view-paging-first"/>
+          <f:translate key="pagination.first"/>
+        </f:render>
+      </li>
+      <li>
+        <f:render section="paginationLink" arguments="{page: pagination.previousPageNumber}" contentAs="text">
+          <core:icon identifier="actions-view-paging-previous"/>
+          <f:translate key="pagination.previous"/>
+        </f:render>
+      </li>
     </f:then>
     <f:else>
-      <li class="disabled"><span>«</span></li>
+      <li class="disabled">
+        <span>
+          <core:icon identifier="actions-view-paging-first"/>
+          <f:translate key="pagination.first"/>
+        </span>
+      </li>
+      <li class="disabled">
+        <span>
+          <core:icon identifier="actions-view-paging-previous"/>
+          <f:translate key="pagination.previous"/>
+        </span>
+      </li>
     </f:else>
   </f:if>
 
-  <f:if condition="{pagination.displayRangeStart} > 1">
-    <li><f:render section="paginationLink" arguments="{page: 1}"/></li>
-  </f:if>
+  <li>
+    <div class="input-group pull-left">
+      <f:form.textfield
+        type="number"
+        name="currentPageNumber"
+        value="{currentPageNumber}"
+        additionalAttributes="{
+          min: pagination.firstPageNumber,
+          max: pagination.lastPageNumber
+        }"
+        class="form-control text-right"
+     />
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <core:icon identifier="actions-arrow-right"/>
+          <f:translate key="pagination.go"/>
+        </button>
+      </span>
+    </div>
+  </li>
 
-  <f:if condition="{pagination.hasLessPages}">
-    <li class="disabled"><span>…</span></li>
-  </f:if>
-
-  <f:for each="{pagination.pages}" as="page">
-    <f:if condition="{page.isCurrent}">
-      <f:then>
-        <li class="active">
-          <span>{page.number}</span>
-        </li>
-      </f:then>
-      <f:else>
-        <li><f:render section="paginationLink" arguments="{page: page.number}"/></li>
-      </f:else>
-    </f:if>
-  </f:for>
-
-  <f:if condition="{pagination.hasMorePages}">
-    <li class="disabled"><span>…</span></li>
-  </f:if>
-
-  <f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
-    <li><f:render section="paginationLink" arguments="{page: pagination.numberOfPages}"/></li>
-  </f:if>
-
-  <f:if condition="{pagination.nextPage}">
+  <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
     <f:then>
-      <li><f:render section="paginationLink" arguments="{page: pagination.nextPage}" contentAs="text">»</f:render></li>
+      <li>
+        <f:render section="paginationLink" arguments="{page: pagination.nextPageNumber}" contentAs="text">
+          <f:translate key="pagination.next"/>
+          <core:icon identifier="actions-view-paging-next"/>
+        </f:render>
+      </li>
+      <li>
+        <f:render section="paginationLink" arguments="{page: pagination.lastPageNumber}" contentAs="text">
+          <f:translate key="pagination.last"/>
+          <core:icon identifier="actions-view-paging-last"/>
+        </f:render>
+      </li>
     </f:then>
     <f:else>
-      <li class="disabled"><span>»</span></li>
+      <li class="disabled">
+        <span>
+          <f:translate key="pagination.next"/>
+          <core:icon identifier="actions-view-paging-next"/>
+        </span>
+      </li>
+      <li class="disabled">
+        <span>
+          <f:translate key="pagination.last"/>
+          <core:icon identifier="actions-view-paging-last"/>
+        </span>
+      </li>
     </f:else>
   </f:if>
 </ul>
 
 <f:section name="paginationLink">
   <f:link.action
-    arguments="{pagination: {currentPage: page}}"
+    arguments="{currentPageNumber: page}"
     addQueryString="true"
-    title="{title}"
   >
-    {text -> f:or(alternative: page)}
+    {text -> f:or(alternative: page) -> f:format.raw()}
   </f:link.action>
 </f:section>

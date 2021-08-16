@@ -11,7 +11,6 @@ module {
     settings {
       yamlConfigurations {
         1520412939 = EXT:formlog/Configuration/Form/Setup.yaml
-        1520412954 = EXT:formlog/Configuration/Form/EditorSetup.yaml
       }
     }
   }

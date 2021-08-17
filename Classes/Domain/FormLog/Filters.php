@@ -27,13 +27,11 @@ class Filters implements \IteratorAggregate, \Countable
      */
     protected $submissionDate;
 
-    /**
-     * @param ValueFilter|null $pageTitle
-     * @param ValueFilter|null $identifier
-     * @param DateRangeFilter|null $submissionDate
-     */
-    public function __construct(ValueFilter $pageTitle = null, ValueFilter $identifier = null, DateRangeFilter $submissionDate = null)
-    {
+    public function __construct(
+        ValueFilter $pageTitle = null,
+        ValueFilter $identifier = null,
+        DateRangeFilter $submissionDate = null
+    ) {
         $this->pageTitle = $pageTitle ?: new ValueFilter();
         $this->identifier = $identifier ?: new ValueFilter();
         $this->submissionDate = $submissionDate ?: new DateRangeFilter();
@@ -65,17 +63,12 @@ class Filters implements \IteratorAggregate, \Countable
 
     /**
      * Returns whether no filter is set
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {
         return count($this) === 0;
     }
 
-    /**
-     * @return \Traversable
-     */
     public function getIterator(): \Traversable
     {
         if (!$this->pageTitle->isEmpty()) {
@@ -93,9 +86,6 @@ class Filters implements \IteratorAggregate, \Countable
         yield from [];
     }
 
-    /**
-     * @return int
-     */
     public function count(): int
     {
         return count(iterator_to_array($this));

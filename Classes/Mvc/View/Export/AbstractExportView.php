@@ -131,7 +131,6 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
      * Convert supported values to string
      *
      * @param mixed $value value to convert
-     * @return string
      */
     protected function convertValueToString($value): string
     {

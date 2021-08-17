@@ -32,10 +32,6 @@ class LoggerFinisher extends AbstractFinisher
      */
     protected $frontendController;
 
-    /**
-     * @param string $finisherIdentifier
-     * @param TypoScriptFrontendController|null $frontendController
-     */
     public function __construct(string $finisherIdentifier = '', TypoScriptFrontendController $frontendController = null)
     {
         parent::__construct($finisherIdentifier);

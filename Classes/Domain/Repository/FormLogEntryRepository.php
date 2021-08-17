@@ -39,9 +39,6 @@ class FormLogEntryRepository extends Repository
 
     /**
      * Find all objects optionally filtered
-     *
-     * @param Filters $filters
-     * @return QueryResultInterface
      */
     public function findAllFiltered(Filters $filters): QueryResultInterface
     {

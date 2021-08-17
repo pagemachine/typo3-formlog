@@ -16,8 +16,6 @@ interface ConfigurableViewInterface extends ExtbaseViewInterface
 {
     /**
      * Set configuration for this view
-     *
-     * @param array $configuration
      */
     public function setConfiguration(array $configuration);
 }

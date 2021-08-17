@@ -22,10 +22,6 @@ class DateRangeFilter implements FilterInterface
      */
     protected $endDate;
 
-    /**
-     * @param \DateTime $startDate
-     * @param \DateTime $endDate
-     */
     public function __construct(\DateTime $startDate = null, \DateTime $endDate = null)
     {
         $this->startDate = $startDate;
@@ -50,8 +46,6 @@ class DateRangeFilter implements FilterInterface
 
     /**
      * Returns whether the filter is set
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {

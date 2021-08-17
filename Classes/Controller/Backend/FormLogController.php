@@ -48,9 +48,6 @@ class FormLogController extends ActionController
      */
     protected $formLogEntryRepository;
 
-    /**
-     * @param FormLogEntryRepository $formLogEntryRepository
-     */
     public function injectFormLogEntryRepository(FormLogEntryRepository $formLogEntryRepository)
     {
         $this->formLogEntryRepository = $formLogEntryRepository;

@@ -66,10 +66,7 @@
     "autoload-dev": {
         "psr-4": {
             "Pagemachine\\Formlog\\Tests\\": "Tests/"
-        },
-        "classmap": [
-            "Tests/StaticAnalysis/Stubs/ViewResolverInterface.php"
-        ]
+        }
     },
     "scripts": {
         "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",

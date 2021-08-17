@@ -28,7 +28,6 @@ final class Suggestions
      * Get suggestions for a form log property
      *
      * @param string $property the form log property, may use "nested.notation"
-     * @return array
      */
     public function getForProperty(string $property): array
     {

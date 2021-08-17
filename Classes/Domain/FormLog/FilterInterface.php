@@ -11,8 +11,6 @@ interface FilterInterface
 {
     /**
      * Returns whether the filter is set
-     *
-     * @return bool
      */
     public function isEmpty(): bool;
 

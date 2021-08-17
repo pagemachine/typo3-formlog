@@ -12,20 +12,11 @@ namespace Pagemachine\Formlog\Domain\FormLog;
  */
 class Filters implements \IteratorAggregate, \Countable
 {
-    /**
-     * @var ValueFilter
-     */
-    protected $pageTitle;
+    protected ValueFilter $pageTitle;
 
-    /**
-     * @var ValueFilter
-     */
-    protected $identifier;
+    protected ValueFilter $identifier;
 
-    /**
-     * @var DateRangeFilter
-     */
-    protected $submissionDate;
+    protected DateRangeFilter $submissionDate;
 
     public function __construct(
         ValueFilter $pageTitle = null,

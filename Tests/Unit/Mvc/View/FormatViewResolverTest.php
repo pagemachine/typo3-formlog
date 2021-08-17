@@ -21,10 +21,7 @@ use TYPO3\CMS\Fluid\View\TemplateView;
  */
 final class FormatViewResolverTest extends UnitTestCase
 {
-    /**
-     * @var FormatViewResolver
-     */
-    protected $formatViewResolver;
+    protected FormatViewResolver $formatViewResolver;
 
     /**
      * Set up this testcase

@@ -17,12 +17,9 @@ final class FormatViewResolver implements ViewResolverInterface
     /**
      * @var string[]
      */
-    private $formatMap = [];
+    private array $formatMap = [];
 
-    /**
-     * @var ObjectManager
-     */
-    private $objectManager;
+    private ObjectManager $objectManager;
 
     public function __construct(ObjectManager $objectManager)
     {

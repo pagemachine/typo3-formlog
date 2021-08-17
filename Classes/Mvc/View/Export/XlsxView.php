@@ -15,10 +15,7 @@ use OneSheet\Writer;
  */
 class XlsxView extends AbstractExportView
 {
-    /**
-     * @var string
-     */
-    protected $fileExtension = 'xlsx';
+    protected string $fileExtension = 'xlsx';
 
     /**
      * Transform view value to a XLSX representation

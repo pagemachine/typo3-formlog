@@ -12,10 +12,7 @@ namespace Pagemachine\Formlog\Domain\FormLog;
  */
 class ValueFilter implements FilterInterface
 {
-    /**
-     * @var string
-     */
-    protected $value;
+    protected string $value;
 
     public function __construct(string $value = '')
     {

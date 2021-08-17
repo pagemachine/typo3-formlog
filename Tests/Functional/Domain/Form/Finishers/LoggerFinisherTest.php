@@ -38,10 +38,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         'typo3conf/ext/formlog',
     ];
 
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
+    protected ObjectManager $objectManager;
 
     protected function setUp()
     {

@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: thecodingmachine/php:${PHP_VERSION:-7.2}-v3-fpm
+    image: thecodingmachine/php:${PHP_VERSION:-7.2}-v4-fpm
     environment:
       PHP_INI_PHAR__READONLY: "Off"
       TYPO3_VERSION: ${TYPO3_VERSION:-^10.4}

@@ -29,29 +29,20 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
      */
     protected $configuration = [];
 
-    /**
-     * @return array
-     */
-    public function getConfiguration()
+    public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
-    /**
-     * @param array $configuration
-     * @return void
-     */
-    public function setConfiguration(array $configuration)
+    public function setConfiguration(array $configuration): void
     {
         $this->configuration = $configuration;
     }
 
     /**
      * Get the list of CSV headers
-     *
-     * @return array
      */
-    protected function getHeaders()
+    protected function getHeaders(): array
     {
         $headers = array_column($this->getColumns(), 'label');
         $headers = array_map(function ($header) {
@@ -64,10 +55,8 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
 
     /**
      * Get the list of CSV column paths
-     *
-     * @return array
      */
-    protected function getColumnPaths()
+    protected function getColumnPaths(): array
     {
         $columnPaths = array_column($this->getColumns(), 'property');
 
@@ -76,10 +65,8 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
 
     /**
      * Get the CSV output filename
-     *
-     * @return string
      */
-    protected function getOutputFilename()
+    protected function getOutputFilename(): string
     {
         $fileBasename = 'output';
 
@@ -92,10 +79,8 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
 
     /**
      * Get the preferred date/time format
-     *
-     * @return string
      */
-    protected function getDateTimeFormat()
+    protected function getDateTimeFormat(): string
     {
         $dateTimeFormat = \DateTime::W3C;
 
@@ -111,9 +96,8 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
      *
      * @param array|\Traversable $iterable iterable value
      * @param array $columnPaths List of property paths per column
-     * @return \Traversable
      */
-    protected function generateRows($iterable, array $columnPaths)
+    protected function generateRows($iterable, array $columnPaths): iterable
     {
         foreach ($iterable as $item) {
             $record = [];

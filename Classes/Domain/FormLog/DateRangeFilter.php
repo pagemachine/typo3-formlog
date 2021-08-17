@@ -28,18 +28,12 @@ class DateRangeFilter implements FilterInterface
         $this->endDate = $endDate;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getStartDate()
+    public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getEndDate()
+    public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
     }

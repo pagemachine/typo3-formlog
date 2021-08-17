@@ -15,10 +15,7 @@ use League\Csv\Writer;
  */
 class CsvView extends AbstractExportView
 {
-    /**
-     * @var string
-     */
-    protected $fileExtension = 'csv';
+    protected string $fileExtension = 'csv';
 
     /**
      * Transform view value to a CSV representation

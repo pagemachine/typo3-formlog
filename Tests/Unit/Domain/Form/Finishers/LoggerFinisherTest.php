@@ -27,10 +27,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 class LoggerFinisherTest extends UnitTestCase
 {
-    /**
-     * @var LoggerFinisher
-     */
-    protected $loggerFinisher;
+    protected LoggerFinisher $loggerFinisher;
 
     /**
      * @var FinisherContext|\Prophecy\Prophecy\ObjectProphecy
@@ -42,10 +39,7 @@ class LoggerFinisherTest extends UnitTestCase
      */
     protected $connection;
 
-    /**
-     * @var TypoScriptFrontendController
-     */
-    protected $frontendController;
+    protected TypoScriptFrontendController $frontendController;
 
     /**
      * Set up this testcase

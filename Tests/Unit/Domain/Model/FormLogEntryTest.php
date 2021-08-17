@@ -16,10 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FormLogEntryTest extends UnitTestCase
 {
-    /**
-     * @var FormLogEntry
-     */
-    protected $formLogEntry;
+    protected FormLogEntry $formLogEntry;
 
     /**
      * Set up this testcase

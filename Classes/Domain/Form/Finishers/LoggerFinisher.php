@@ -27,10 +27,7 @@ class LoggerFinisher extends AbstractFinisher
         'finisherVariables' => [],
     ];
 
-    /**
-     * @var TypoScriptFrontendController
-     */
-    protected $frontendController;
+    protected TypoScriptFrontendController $frontendController;
 
     public function __construct(string $finisherIdentifier = '', TypoScriptFrontendController $frontendController = null)
     {

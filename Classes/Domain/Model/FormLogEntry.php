@@ -7,6 +7,8 @@ namespace Pagemachine\Formlog\Domain\Model;
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
+use Pagemachine\Formlog\Domain\Model\FormLogEntry\Language;
+use Pagemachine\Formlog\Domain\Model\FormLogEntry\Page;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -14,73 +16,24 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class FormLogEntry extends AbstractEntity
 {
-    /**
-     * @var \Pagemachine\Formlog\Domain\Model\FormLogEntry\Page
-     */
-    protected $page;
+    public ?Page $page = null;
 
-    /**
-     * @return \Pagemachine\Formlog\Domain\Model\FormLogEntry\Page
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
+    public ?\DateTime $submissionDate = null;
 
-    /**
-     * @var \DateTime
-     */
-    protected $submissionDate;
+    public ?Language $language = null;
 
-    /**
-     * @return \DateTime
-     */
-    public function getSubmissionDate()
-    {
-        return $this->submissionDate;
-    }
-
-    /**
-     * @var \Pagemachine\Formlog\Domain\Model\FormLogEntry\Language
-     */
-    protected $language;
-
-    /**
-     * @return \Pagemachine\Formlog\Domain\Model\FormLogEntry\Language
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
+    public string $identifier = '';
 
     /**
      * @var string
      */
-    protected $identifier = '';
-
-    /**
-     * @return string
-     */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * @var string
-     */
-    protected $data = '';
+    protected string $data = '';
 
     /**
      * Runtime cache for loaded data
-     *
-     * @var array
      */
-    protected $cachedData;
+    protected ?array $cachedData = null;
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         if (!is_array($this->cachedData)) {
@@ -93,18 +46,13 @@ class FormLogEntry extends AbstractEntity
     /**
      * @var string
      */
-    protected $finisherVariables = '';
+    protected string $finisherVariables = '';
 
     /**
      * Runtime cache for loaded finisher variables
-     *
-     * @var array
      */
-    protected $cachedFinisherVariables;
+    protected ?array $cachedFinisherVariables = null;
 
-    /**
-     * @return array
-     */
     public function getFinisherVariables(): array
     {
         if (!is_array($this->cachedFinisherVariables)) {

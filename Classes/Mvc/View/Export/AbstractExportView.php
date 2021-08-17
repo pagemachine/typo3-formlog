@@ -19,15 +19,9 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 abstract class AbstractExportView extends AbstractView implements ConfigurableViewInterface
 {
-    /**
-     * @var string
-     */
-    protected $fileExtension;
+    protected string $fileExtension;
 
-    /**
-     * @var array
-     */
-    protected $configuration = [];
+    protected array $configuration = [];
 
     public function getConfiguration(): array
     {

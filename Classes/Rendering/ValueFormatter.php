@@ -12,10 +12,7 @@ namespace Pagemachine\Formlog\Rendering;
  */
 final class ValueFormatter
 {
-    /**
-     * @var string
-     */
-    protected $dateTimeFormat = \DateTimeInterface::W3C;
+    private string $dateTimeFormat = \DateTimeInterface::W3C;
 
     public function setDateTimeFormat(string $dateTimeFormat): self
     {

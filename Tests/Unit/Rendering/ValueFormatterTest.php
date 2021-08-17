@@ -15,10 +15,7 @@ use Pagemachine\Formlog\Rendering\ValueFormatter;
  */
 final class ValueFormatterTest extends UnitTestCase
 {
-    /**
-     * @var ValueFormatter
-     */
-    protected $valueFormatter;
+    protected ValueFormatter $valueFormatter;
 
     /**
      * Set up this testcase

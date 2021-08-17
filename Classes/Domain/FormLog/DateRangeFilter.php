@@ -12,15 +12,9 @@ namespace Pagemachine\Formlog\Domain\FormLog;
  */
 class DateRangeFilter implements FilterInterface
 {
-    /**
-     * @var \DateTime|null
-     */
-    protected $startDate;
+    protected ?\DateTime $startDate;
 
-    /**
-     * @var \DateTime|null
-     */
-    protected $endDate;
+    protected ?\DateTime $endDate;
 
     public function __construct(\DateTime $startDate = null, \DateTime $endDate = null)
     {

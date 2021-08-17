@@ -30,10 +30,7 @@ class FormLogController extends ActionController
      */
     protected $view = null;
 
-    /**
-     * @var array
-     */
-    protected $viewFormatToObjectNameMap = [
+    protected array $viewFormatToObjectNameMap = [
         'csv' => CsvView::class,
         'xlsx' => XlsxView::class,
     ];
@@ -43,10 +40,7 @@ class FormLogController extends ActionController
      */
     protected $defaultViewObjectName = BackendTemplateView::class;
 
-    /**
-     * @var FormLogEntryRepository $formLogEntryRepository
-     */
-    protected $formLogEntryRepository;
+    protected FormLogEntryRepository $formLogEntryRepository;
 
     public function injectFormLogEntryRepository(FormLogEntryRepository $formLogEntryRepository)
     {

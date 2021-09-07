@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Pagemachine\Formlog\Controller\Backend;
 
+use Psr\Http\Message\ResponseInterface;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
@@ -71,7 +72,7 @@ class FormLogController extends ActionController
      * @param int $currentPageNumber
      * @return void
      */
-    public function indexAction(Filters $filters, int $currentPageNumber = 1)
+    public function indexAction(Filters $filters, int $currentPageNumber = 1): ResponseInterface
     {
         $entries = $this->formLogEntryRepository->findAllFiltered($filters);
         $paginator = new QueryResultPaginator($entries, $currentPageNumber);
@@ -95,6 +96,7 @@ class FormLogController extends ActionController
                 ],
             ],
         ]);
+        return $this->htmlResponse();
     }
 
     public function initializeExportAction(): void
@@ -114,7 +116,7 @@ class FormLogController extends ActionController
      * @param Filters $filters
      * @return void
      */
-    public function exportAction(Filters $filters)
+    public function exportAction(Filters $filters): ResponseInterface
     {
         $now = new \DateTime();
         $fileBasename = sprintf('formlog-%s', $now->format('Y-m-d-H-i-s'));
@@ -125,6 +127,7 @@ class FormLogController extends ActionController
             'fileBasename' => $fileBasename,
         ]);
         $this->view->assign('items', $this->formLogEntryRepository->findAllFiltered($filters));
+        return $this->htmlResponse();
     }
 
     /**

@@ -1,18 +1,14 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Controller\Backend;
-
-use Psr\Http\Message\ResponseInterface;
-/*
- * This file is part of the Pagemachine TYPO3 Formlog project.
- */
 
 use Pagemachine\Formlog\Domain\FormLog\Filters;
 use Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository;
 use Pagemachine\Formlog\Mvc\View\Export\CsvView;
 use Pagemachine\Formlog\Mvc\View\Export\XlsxView;
 use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -20,6 +16,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
+/*
+ * This file is part of the Pagemachine TYPO3 Formlog project.
+ */
 
 /**
  * Controller for form log management
@@ -61,7 +61,7 @@ class FormLogController extends ActionController
             $filtersArgument->getPropertyMappingConfiguration()
                 ->allowAllProperties()
                 ->forProperty('*')
-                    ->allowAllProperties();
+                ->allowAllProperties();
         }
     }
 
@@ -96,6 +96,7 @@ class FormLogController extends ActionController
                 ],
             ],
         ]);
+
         return $this->htmlResponse();
     }
 
@@ -127,6 +128,7 @@ class FormLogController extends ActionController
             'fileBasename' => $fileBasename,
         ]);
         $this->view->assign('items', $this->formLogEntryRepository->findAllFiltered($filters));
+
         return $this->htmlResponse();
     }
 

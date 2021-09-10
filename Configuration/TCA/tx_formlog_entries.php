@@ -12,9 +12,6 @@ return [
         'readOnly' => true,
         'iconfile' => 'EXT:formlog/Resources/Public/Icons/tx_formlog_entries.svg',
     ],
-    'interface' => [
-        'showRecordFieldList' => 'crdate, language, identifier, data',
-    ],
     'types' => [
         '0' => [
             'showitem' => 'crdate, language, identifier, data, finisher_variables',

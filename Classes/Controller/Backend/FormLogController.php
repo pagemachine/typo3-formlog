@@ -69,9 +69,10 @@ class FormLogController extends ActionController
      *
      * @return mixed
      */
-    protected function compatibleHtmlResponse() {
+    protected function compatibleHtmlResponse()
+    {
         return method_exists($this, 'htmlResponse') ?
-            $this->htmlResponse()   :
+            $this->htmlResponse() :
             $this->view->render();
     }
 

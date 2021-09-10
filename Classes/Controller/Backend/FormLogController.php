@@ -3,6 +3,10 @@ declare(strict_types = 1);
 
 namespace Pagemachine\Formlog\Controller\Backend;
 
+/*
+ * This file is part of the Pagemachine TYPO3 Formlog project.
+ */
+
 use Pagemachine\Formlog\Domain\FormLog\Filters;
 use Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository;
 use Pagemachine\Formlog\Mvc\View\Export\CsvView;
@@ -16,10 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-
-/*
- * This file is part of the Pagemachine TYPO3 Formlog project.
- */
 
 /**
  * Controller for form log management

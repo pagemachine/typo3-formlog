@@ -12,7 +12,6 @@ use Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository;
 use Pagemachine\Formlog\Mvc\View\Export\CsvView;
 use Pagemachine\Formlog\Mvc\View\Export\XlsxView;
 use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
-use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -66,13 +65,24 @@ class FormLogController extends ActionController
     }
 
     /**
+     * Compatibility wrapper to ensure backward compatibility with TYPO3 v10
+     *
+     * @return mixed
+     */
+    protected function compatibleHtmlResponse() {
+        return method_exists($this, 'htmlResponse') ?
+            $this->htmlResponse()   :
+            $this->view->render();
+    }
+
+    /**
      * Main overview action
      *
      * @param Filters $filters
      * @param int $currentPageNumber
      * @return void
      */
-    public function indexAction(Filters $filters, int $currentPageNumber = 1): ResponseInterface
+    public function indexAction(Filters $filters, int $currentPageNumber = 1)
     {
         $entries = $this->formLogEntryRepository->findAllFiltered($filters);
         $paginator = new QueryResultPaginator($entries, $currentPageNumber);
@@ -97,7 +107,7 @@ class FormLogController extends ActionController
             ],
         ]);
 
-        return $this->htmlResponse();
+        return $this->compatibleHtmlResponse();
     }
 
     public function initializeExportAction(): void
@@ -117,7 +127,7 @@ class FormLogController extends ActionController
      * @param Filters $filters
      * @return void
      */
-    public function exportAction(Filters $filters): ResponseInterface
+    public function exportAction(Filters $filters)
     {
         $now = new \DateTime();
         $fileBasename = sprintf('formlog-%s', $now->format('Y-m-d-H-i-s'));
@@ -129,7 +139,7 @@ class FormLogController extends ActionController
         ]);
         $this->view->assign('items', $this->formLogEntryRepository->findAllFiltered($filters));
 
-        return $this->htmlResponse();
+        return $this->compatibleHtmlResponse();
     }
 
     /**

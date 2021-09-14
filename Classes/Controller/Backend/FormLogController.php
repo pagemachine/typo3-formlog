@@ -60,7 +60,7 @@ class FormLogController extends ActionController
             $filtersArgument->getPropertyMappingConfiguration()
                 ->allowAllProperties()
                 ->forProperty('*')
-                ->allowAllProperties();
+                  ->allowAllProperties();
         }
     }
 

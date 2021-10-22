@@ -72,12 +72,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         $logEntry = $this->getDatabaseConnection()->selectSingleRow('*', 'tx_formlog_entries', '1=1');
 
-        $this->assertArraySubset([
-            'pid' => 123,
-            'identifier' => $formDefinition->getIdentifier(),
-            'data' => '{"name":"Tester"}',
-            'finisher_variables' => '[]',
-        ], $logEntry);
+        $this->assertSame(123, $logEntry['pid'] ?? null);
+        $this->assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
+        $this->assertSame('{"name":"Tester"}', $logEntry['data'] ?? null);
+        $this->assertSame('[]', $logEntry['finisher_variables'] ?? null);
     }
 
     /**
@@ -109,12 +107,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         $logEntry = $this->getDatabaseConnection()->selectSingleRow('*', 'tx_formlog_entries', '1=1');
 
-        $this->assertArraySubset([
-            'pid' => 123,
-            'identifier' => $formDefinition->getIdentifier(),
-            'data' => '{"name":"Tester"}',
-            'finisher_variables' => '{"SaveToDatabase":{"insertedUids.0":124}}',
-        ], $logEntry);
+        $this->assertSame(123, $logEntry['pid'] ?? null);
+        $this->assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
+        $this->assertSame('{"name":"Tester"}', $logEntry['data'] ?? null);
+        $this->assertSame('{"SaveToDatabase":{"insertedUids.0":124}}', $logEntry['finisher_variables'] ?? null);
     }
 
     protected function buildFormDefinition(array $finishers = []): FormDefinition

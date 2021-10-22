@@ -153,10 +153,10 @@ class FiltersTest extends UnitTestCase
         $result = $filters->toArray();
 
         $this->assertArrayHasKey('pageTitle', $result);
-        $this->assertInternalType('array', $result['pageTitle']);
+        $this->assertIsArray($result['pageTitle']);
         $this->assertArrayHasKey('identifier', $result);
-        $this->assertInternalType('array', $result['identifier']);
+        $this->assertIsArray($result['identifier']);
         $this->assertArrayHasKey('submissionDate', $result);
-        $this->assertInternalType('array', $result['submissionDate']);
+        $this->assertIsArray($result['submissionDate']);
     }
 }

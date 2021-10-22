@@ -30,7 +30,7 @@
         "typo3-ter/formlog": "self.version"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^3.0",
+        "cakephp/cakephp-codesniffer": "^4.0",
         "ergebnis/composer-normalize": "^2.3",
         "helmich/typo3-typoscript-lint": "^1.3",
         "jangregor/phpstan-prophecy": "^0.8.0",

@@ -30,7 +30,6 @@
 
   <rule ref="CakePHP.Commenting.DocBlockAlignment"/>
   <rule ref="CakePHP.Formatting.BlankLineBeforeReturn"/>
-  <rule ref="CakePHP.Strings.ConcatenationSpacing"/>
   <rule ref="CakePHP.WhiteSpace.EmptyLines"/>
 
   <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>

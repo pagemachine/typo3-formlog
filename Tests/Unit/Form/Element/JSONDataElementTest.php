@@ -11,6 +11,7 @@ namespace Pagemachine\Formlog\Tests\Unit\Form\Element;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Form\Element\JSONDataElement;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Backend\Form\NodeFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -21,6 +22,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class JSONDataElementTest extends UnitTestCase
 {
+    use ProphecyTrait;
+
     /**
      * Tear down this testcase
      */

@@ -1,4 +1,6 @@
+<?xml version="1.0"?>
 <phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   backupGlobals="true"
   backupStaticAttributes="false"
   bootstrap="vendor/nimut/testing-framework/res/Configuration/FunctionalTestsBootstrap.php"
@@ -12,8 +14,13 @@
   stopOnIncomplete="false"
   stopOnSkipped="false"
   verbose="false"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
-
+  <coverage>
+    <include>
+      <directory suffix=".php">Classes/</directory>
+    </include>
+  </coverage>
   <php>
     <env name="TYPO3_PATH_WEB" value="web"/>
     <env name="typo3DatabaseName" value="typo3_functional"/>
@@ -21,17 +28,9 @@
     <env name="typo3DatabaseUsername" value="root"/>
     <env name="typo3DatabasePassword" value=""/>
   </php>
-
   <testsuites>
     <testsuite name="Functional tests">
       <directory>Tests/Functional/</directory>
     </testsuite>
   </testsuites>
-
-  <filter>
-    <whitelist>
-      <directory suffix=".php">Classes/</directory>
-    </whitelist>
-  </filter>
-
 </phpunit>

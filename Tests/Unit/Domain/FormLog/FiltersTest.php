@@ -12,6 +12,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Domain\FormLog\DateRangeFilter;
 use Pagemachine\Formlog\Domain\FormLog\Filters;
 use Pagemachine\Formlog\Domain\FormLog\ValueFilter;
+use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -21,6 +22,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FiltersTest extends UnitTestCase
 {
+    use ProphecyTrait;
+
     /**
      * Tear down this testcase
      */
@@ -150,10 +153,10 @@ class FiltersTest extends UnitTestCase
         $result = $filters->toArray();
 
         $this->assertArrayHasKey('pageTitle', $result);
-        $this->assertInternalType('array', $result['pageTitle']);
+        $this->assertIsArray($result['pageTitle']);
         $this->assertArrayHasKey('identifier', $result);
-        $this->assertInternalType('array', $result['identifier']);
+        $this->assertIsArray($result['identifier']);
         $this->assertArrayHasKey('submissionDate', $result);
-        $this->assertInternalType('array', $result['submissionDate']);
+        $this->assertIsArray($result['submissionDate']);
     }
 }

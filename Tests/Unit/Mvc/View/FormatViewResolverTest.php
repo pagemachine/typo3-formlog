@@ -11,6 +11,7 @@ namespace Pagemachine\Formlog\Tests\Unit\Mvc\View;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophet;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -22,6 +23,8 @@ use TYPO3\CMS\Fluid\View\TemplateView;
  */
 final class FormatViewResolverTest extends UnitTestCase
 {
+    use ProphecyTrait;
+
     protected FormatViewResolver $formatViewResolver;
 
     /**

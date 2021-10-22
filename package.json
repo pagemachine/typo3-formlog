@@ -8,7 +8,7 @@
     "grunt-contrib-uglify": "^5.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-umd": "^3.0.0",
-    "load-grunt-config": "^0.19.2"
+    "load-grunt-config": "^4.0.0"
   },
   "private": true
 }

@@ -52,11 +52,5 @@
   <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints"/>
   <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
   <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
-  <rule ref="SlevomatCodingStandard.Types.EmptyLinesAroundTypeBraces">
-    <properties>
-      <property name="linesCountAfterOpeningBrace" type="int" value="0"/>
-      <property name="linesCountBeforeClosingBrace" type="int" value="0"/>
-    </properties>
-  </rule>
 
 </ruleset>

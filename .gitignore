@@ -1,3 +1,4 @@
+/.phpunit.result.cache
 /bower_components
 /composer.lock
 /node_modules

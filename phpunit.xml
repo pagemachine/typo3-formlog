@@ -1,4 +1,6 @@
+<?xml version="1.0"?>
 <phpunit
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   backupGlobals="true"
   backupStaticAttributes="false"
   bootstrap="vendor/nimut/testing-framework/res/Configuration/UnitTestsBootstrap.php"
@@ -11,22 +13,20 @@
   stopOnFailure="false"
   stopOnIncomplete="false"
   stopOnSkipped="false"
-  verbose="false">
-
+  verbose="false"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+>
+  <coverage>
+    <include>
+      <directory suffix=".php">Classes/</directory>
+    </include>
+  </coverage>
   <php>
     <env name="TYPO3_PATH_WEB" value="web"/>
   </php>
-
   <testsuites>
     <testsuite name="Unit tests">
       <directory>Tests/Unit/</directory>
     </testsuite>
   </testsuites>
-
-  <filter>
-    <whitelist>
-      <directory suffix=".php">Classes/</directory>
-    </whitelist>
-  </filter>
-
 </phpunit>

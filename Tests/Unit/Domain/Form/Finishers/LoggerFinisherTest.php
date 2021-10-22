@@ -10,6 +10,7 @@ namespace Pagemachine\Formlog\Tests\Unit\Domain\Form\Finishers;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Domain\Form\Finishers\LoggerFinisher;
+use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\DateTimeAspect;
 use TYPO3\CMS\Core\Context\LanguageAspect;
@@ -28,6 +29,8 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 class LoggerFinisherTest extends UnitTestCase
 {
+    use ProphecyTrait;
+
     protected LoggerFinisher $loggerFinisher;
 
     /**

@@ -45,7 +45,7 @@ class LoggerFinisherTest extends UnitTestCase
     /**
      * Set up this testcase
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $formDefinition = $this->prophesize(FormDefinition::class);
         $formDefinition->getIdentifier()->willReturn('test-form');
@@ -78,7 +78,7 @@ class LoggerFinisherTest extends UnitTestCase
     /**
      * Tear down this testcase
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
         unset($GLOBALS['EXEC_TIME']);

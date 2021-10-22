@@ -41,7 +41,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
     protected ObjectManager $objectManager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -21,7 +21,7 @@ final class ValueFormatterTest extends UnitTestCase
     /**
      * Set up this testcase
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->valueFormatter = new ValueFormatter();
     }

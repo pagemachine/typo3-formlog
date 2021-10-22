@@ -27,7 +27,7 @@ final class FormatViewResolverTest extends UnitTestCase
     /**
      * Set up this testcase
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->objectManager = $this->prophesize(ObjectManager::class);
         $this->objectManager
@@ -41,7 +41,7 @@ final class FormatViewResolverTest extends UnitTestCase
     /**
      * Tear down this testcase
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
     }

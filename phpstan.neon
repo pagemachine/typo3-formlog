@@ -15,6 +15,15 @@ parameters:
   ignoreErrors:
     - message: '#Variable \$_EXTKEY might not be defined#'
       path: '*/ext_emconf.php'
+    - message: '#Right side of || is always false.#'
+      path: Configuration/TCA/*.php
+      count: 1
+    - message: '#Right side of || is always false.#'
+      path: ext_localconf.php
+      count: 1
+    - message: '#Right side of || is always false.#'
+      path: ext_tables.php
+      count: 1
     - message: '#Parameter .+ expects .+, PHPUnit\\Framework\\MockObject\\MockObject given\.#'
       path: '*/PaginateViewHelperTest.php'
     - message: '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'

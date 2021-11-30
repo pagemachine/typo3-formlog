@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Finisher which logs all form values into the database
@@ -28,14 +27,6 @@ class LoggerFinisher extends AbstractFinisher
         'finisherVariables' => [],
     ];
 
-    protected TypoScriptFrontendController $frontendController;
-
-    public function __construct(string $finisherIdentifier = '', TypoScriptFrontendController $frontendController = null)
-    {
-        parent::__construct($finisherIdentifier);
-        $this->frontendController = $frontendController ?: $GLOBALS['TSFE'];
-    }
-
     /**
      * @return string|null
      */
@@ -47,7 +38,7 @@ class LoggerFinisher extends AbstractFinisher
         $now = $context->getPropertyFromAspect('date', 'timestamp');
 
         $data = [
-            'pid' => $this->frontendController->id,
+            'pid' => $this->getTypoScriptFrontendController()->id,
             'crdate' => $now,
             'tstamp' => $now,
             'language' => (int)$context->getPropertyFromAspect('language', 'id', 0),

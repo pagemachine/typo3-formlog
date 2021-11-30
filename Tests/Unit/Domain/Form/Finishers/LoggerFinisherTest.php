@@ -64,8 +64,8 @@ class LoggerFinisherTest extends UnitTestCase
         $connectionPool->getConnectionForTable('tx_formlog_entries')->willReturn($this->connection->reveal());
         GeneralUtility::addInstance(ConnectionPool::class, $connectionPool->reveal());
 
-        $this->frontendController = $this->prophesize(TypoScriptFrontendController::class)->reveal();
-        $this->frontendController->id = '2';
+        $GLOBALS['TSFE'] = $this->prophesize(TypoScriptFrontendController::class)->reveal();
+        $GLOBALS['TSFE']->id = '2';
 
         $dateAspect = GeneralUtility::makeInstance(DateTimeAspect::class, new \DateTimeImmutable('@1490191502'));
         $languageAspect = GeneralUtility::makeInstance(LanguageAspect::class, 20);
@@ -75,7 +75,7 @@ class LoggerFinisherTest extends UnitTestCase
         ]);
         GeneralUtility::setSingletonInstance(Context::class, $context);
 
-        $this->loggerFinisher = new LoggerFinisher('test', $this->frontendController);
+        $this->loggerFinisher = new LoggerFinisher();
     }
 
     /**
@@ -84,7 +84,7 @@ class LoggerFinisherTest extends UnitTestCase
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
-        unset($GLOBALS['EXEC_TIME']);
+        unset($GLOBALS['EXEC_TIME'], $GLOBALS['TSFE']);
     }
 
     /**

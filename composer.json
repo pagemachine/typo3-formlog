@@ -1,13 +1,13 @@
 {
     "name": "pagemachine/typo3-formlog",
-    "type": "typo3-cms-extension",
     "description": "Form log for TYPO3",
+    "license": "GPL-3.0-or-later",
+    "type": "typo3-cms-extension",
     "keywords": [
         "typo3",
         "form",
         "log"
     ],
-    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Mathias Brodala",
@@ -26,9 +26,6 @@
         "typo3/cms-frontend": "^10.4",
         "typo3fluid/fluid": "^2.3"
     },
-    "replace": {
-        "typo3-ter/formlog": "self.version"
-    },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
         "ergebnis/composer-normalize": "^2.3",
@@ -46,18 +43,11 @@
         "squizlabs/php_codesniffer": "^3.1",
         "typo3/cms-scheduler": "^10.4"
     },
+    "replace": {
+        "typo3-ter/formlog": "self.version"
+    },
     "suggest": {
         "typo3/cms-scheduler": "Allows automatic deletion of old form log entries."
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "typo3/cms": {
-            "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "extension-key": "formlog",
-            "web-dir": "web"
-        }
     },
     "autoload": {
         "psr-4": {
@@ -67,6 +57,16 @@
     "autoload-dev": {
         "psr-4": {
             "Pagemachine\\Formlog\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "extension-key": "formlog",
+            "web-dir": "web"
         }
     },
     "scripts": {

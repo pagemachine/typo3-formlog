@@ -48,6 +48,8 @@ final class LoggerFinisherTest extends FunctionalTestCase
     {
         parent::setUp();
 
+        $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] = ORIGINAL_ROOT;
+
         Bootstrap::initializeLanguageObject();
 
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);

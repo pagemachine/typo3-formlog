@@ -60,6 +60,25 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         $this->getDatabaseConnection()->insertArray('pages', ['uid' => 123]);
         $this->setUpFrontendRootPage(123);
+
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
+        $siteLanguage = $site->getLanguageById(0);
+
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+            TypoScriptFrontendController::class,
+            GeneralUtility::makeInstance(Context::class),
+            $site,
+            $siteLanguage,
+            new PageArguments(123, '0', []),
+            GeneralUtility::makeInstance(FrontendUserAuthentication::class),
+        );
+        $GLOBALS['TSFE']->determineId();
+    }
+
+    protected function tearDown(): void
+    {
+        unset($GLOBALS['TSFE']);
     }
 
     /**
@@ -129,24 +148,9 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $page1 = $formDefinition->createPage('page1');
         $name = $page1->createElement('name', 'Text');
 
-        $_SERVER['HTTP_HOST'] = 'localhost';
-        $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
-        $siteLanguage = $site->getLanguageById(1);
-        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            TypoScriptFrontendController::class,
-            GeneralUtility::makeInstance(Context::class),
-            $site,
-            $siteLanguage,
-            new PageArguments(123, '0', []),
-            GeneralUtility::makeInstance(FrontendUserAuthentication::class)
-        );
-        $GLOBALS['TSFE']->id = 123;
-
         foreach ($finishers as $finisherIdentifier => $options) {
             $formDefinition->createFinisher($finisherIdentifier, $options);
         }
-
-        unset($GLOBALS['TSFE']);
 
         return $formDefinition;
     }

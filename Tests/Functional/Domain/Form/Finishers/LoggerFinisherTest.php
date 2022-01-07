@@ -5,7 +5,9 @@ declare(strict_types = 1);
 namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -17,6 +19,7 @@ use TYPO3\CMS\Form\Domain\Configuration\ConfigurationService;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime\FormSession;
 use TYPO3\CMS\Form\Domain\Runtime\FormState;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -127,7 +130,14 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $_SERVER['HTTP_HOST'] = 'localhost';
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
         $siteLanguage = $site->getLanguageById(1);
-        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, $site, $siteLanguage);
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+            TypoScriptFrontendController::class,
+            GeneralUtility::makeInstance(Context::class),
+            $site,
+            $siteLanguage,
+            new PageArguments(123, '0', []),
+            GeneralUtility::makeInstance(FrontendUserAuthentication::class)
+        );
         $GLOBALS['TSFE']->id = 123;
 
         foreach ($finishers as $finisherIdentifier => $options) {

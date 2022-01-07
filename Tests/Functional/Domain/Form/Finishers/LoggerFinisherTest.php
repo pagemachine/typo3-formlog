@@ -10,9 +10,11 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
-use TYPO3\CMS\Extbase\Mvc\Web\Response;
+use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
+use TYPO3\CMS\Extbase\Mvc\Web\Request as ExtbaseWebRequest;
+use TYPO3\CMS\Extbase\Mvc\Web\Response as ExtbaseWebResponse;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Form\Domain\Configuration\ConfigurationService;
@@ -181,13 +183,22 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $requestArguments['__session'] = $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier();
         }
 
-        $request = $this->objectManager->get(Request::class);
-        $request->setMethod('POST');
-        $request->setArguments([
-            $formDefinition->getIdentifier() => $requestArguments,
-        ]);
-        $response = $this->objectManager->get(Response::class);
-        $formRuntime = $formDefinition->bind($request, $response);
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '<')) {
+            $request = $this->objectManager->get(ExtbaseWebRequest::class);
+            $request->setMethod('POST');
+            $request->setArguments([
+                $formDefinition->getIdentifier() => $requestArguments,
+            ]);
+            $response = $this->objectManager->get(ExtbaseWebResponse::class);
+            $formRuntime = $formDefinition->bind($request, $response);
+        } else {
+            $request = GeneralUtility::makeInstance(ExtbaseRequest::class)
+                ->withMethod('POST')
+                ->withArguments([
+                    $formDefinition->getIdentifier() => $requestArguments,
+                ]);
+            $formRuntime = $formDefinition->bind($request);
+        }
 
         $formRuntime->render();
     }

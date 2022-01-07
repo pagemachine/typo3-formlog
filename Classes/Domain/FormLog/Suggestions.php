@@ -42,10 +42,9 @@ final class Suggestions
             ->orderBy($property)
             ->groupBy($property);
 
-        $rows = $queryBuilder
-            ->execute()
-            ->fetchAll(\PDO::FETCH_NUM);
-        $suggestions = array_column($rows, 0);
+        /** @var \Doctrine\DBAL\ForwardCompatibility\Result */
+        $result = $queryBuilder->execute();
+        $suggestions = $result->fetchFirstColumn();
 
         return $suggestions;
     }

@@ -64,6 +64,11 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $_SERVER['HTTP_HOST'] = 'localhost';
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
         $siteLanguage = $site->getLanguageById(0);
+        $frontendUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
+
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '>=')) {
+            $frontendUser->initializeUserSessionManager();
+        }
 
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
@@ -71,7 +76,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $site,
             $siteLanguage,
             new PageArguments(123, '0', []),
-            GeneralUtility::makeInstance(FrontendUserAuthentication::class),
+            $frontendUser,
         );
         $GLOBALS['TSFE']->determineId();
     }

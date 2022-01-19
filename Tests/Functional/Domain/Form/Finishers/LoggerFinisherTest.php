@@ -10,9 +10,11 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
-use TYPO3\CMS\Extbase\Mvc\Web\Response;
+use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
+use TYPO3\CMS\Extbase\Mvc\Web\Request as ExtbaseWebRequest;
+use TYPO3\CMS\Extbase\Mvc\Web\Response as ExtbaseWebResponse;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Form\Domain\Configuration\ConfigurationService;
@@ -48,6 +50,8 @@ final class LoggerFinisherTest extends FunctionalTestCase
     {
         parent::setUp();
 
+        $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] = ORIGINAL_ROOT;
+
         Bootstrap::initializeLanguageObject();
 
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
@@ -58,6 +62,30 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         $this->getDatabaseConnection()->insertArray('pages', ['uid' => 123]);
         $this->setUpFrontendRootPage(123);
+
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
+        $siteLanguage = $site->getLanguageById(0);
+        $frontendUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
+
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '>=')) {
+            $frontendUser->initializeUserSessionManager();
+        }
+
+        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
+            TypoScriptFrontendController::class,
+            GeneralUtility::makeInstance(Context::class),
+            $site,
+            $siteLanguage,
+            new PageArguments(123, '0', []),
+            $frontendUser,
+        );
+        $GLOBALS['TSFE']->determineId();
+    }
+
+    protected function tearDown(): void
+    {
+        unset($GLOBALS['TSFE']);
     }
 
     /**
@@ -127,24 +155,9 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $page1 = $formDefinition->createPage('page1');
         $name = $page1->createElement('name', 'Text');
 
-        $_SERVER['HTTP_HOST'] = 'localhost';
-        $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
-        $siteLanguage = $site->getLanguageById(1);
-        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            TypoScriptFrontendController::class,
-            GeneralUtility::makeInstance(Context::class),
-            $site,
-            $siteLanguage,
-            new PageArguments(123, '0', []),
-            GeneralUtility::makeInstance(FrontendUserAuthentication::class)
-        );
-        $GLOBALS['TSFE']->id = 123;
-
         foreach ($finishers as $finisherIdentifier => $options) {
             $formDefinition->createFinisher($finisherIdentifier, $options);
         }
-
-        unset($GLOBALS['TSFE']);
 
         return $formDefinition;
     }
@@ -170,13 +183,22 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $requestArguments['__session'] = $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier();
         }
 
-        $request = $this->objectManager->get(Request::class);
-        $request->setMethod('POST');
-        $request->setArguments([
-            $formDefinition->getIdentifier() => $requestArguments,
-        ]);
-        $response = $this->objectManager->get(Response::class);
-        $formRuntime = $formDefinition->bind($request, $response);
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '<')) {
+            $request = $this->objectManager->get(ExtbaseWebRequest::class);
+            $request->setMethod('POST');
+            $request->setArguments([
+                $formDefinition->getIdentifier() => $requestArguments,
+            ]);
+            $response = $this->objectManager->get(ExtbaseWebResponse::class);
+            $formRuntime = $formDefinition->bind($request, $response);
+        } else {
+            $request = GeneralUtility::makeInstance(ExtbaseRequest::class)
+                ->withMethod('POST')
+                ->withArguments([
+                    $formDefinition->getIdentifier() => $requestArguments,
+                ]);
+            $formRuntime = $formDefinition->bind($request);
+        }
 
         $formRuntime->render();
     }

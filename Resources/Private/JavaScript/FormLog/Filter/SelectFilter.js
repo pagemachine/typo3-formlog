@@ -31,12 +31,15 @@ define([
           }
         );
 
-      $(this).find('button')
+      var $toggleButton = $(this).find('button');
+
+      $toggleButton
         .popover({
+          container: $toggleButton.parent(),
           content: '...',
           placement: 'bottom',
         }).on('inserted.bs.popover', function() {
-          $(this).next('.popover').children('.popover-content')
+          $(this).siblings('.popover').children('.popover-content, .popover-body')
             .empty()
             .append($selectField);
         });

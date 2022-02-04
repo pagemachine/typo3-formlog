@@ -81,6 +81,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $frontendUser,
         );
         $GLOBALS['TSFE']->determineId();
+
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '<')) {
+            $this->setUpBackendUserFromFixture(1);
+        }
     }
 
     protected function tearDown(): void
@@ -90,18 +94,14 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
     /**
      * @test
+     * @dataProvider formData
      */
-    public function logsSubmittedFormData()
+    public function logsSubmittedFormData(array $fields, array $formValues, string $expectedData)
     {
         $formDefinition = $this->buildFormDefinition([
             'renderables' => [
                 'page' => [
-                    'renderables' => [
-                        [
-                            'identifier' => 'name',
-                            'type' => 'Text',
-                        ],
-                    ],
+                    'renderables' => $fields,
                 ],
             ],
             'finishers' => [
@@ -111,16 +111,58 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ],
         ]);
 
-        $this->submitForm($formDefinition, [
-            'name' => 'Tester',
-        ]);
+        $this->submitForm($formDefinition, $formValues);
 
         $logEntry = $this->getDatabaseConnection()->selectSingleRow('*', 'tx_formlog_entries', '1=1');
 
         $this->assertSame(123, $logEntry['pid'] ?? null);
         $this->assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
-        $this->assertSame('{"name":"Tester"}', $logEntry['data'] ?? null);
+        $this->assertSame($expectedData, $logEntry['data'] ?? null);
         $this->assertSame('[]', $logEntry['finisher_variables'] ?? null);
+    }
+
+    public function formData(): \Generator
+    {
+        yield 'basic' => [
+            [
+                [
+                    'identifier' => 'name',
+                    'type' => 'Text',
+                ],
+            ],
+            [
+                'name' => 'Tester',
+            ],
+            '{"name":"Tester"}',
+        ];
+
+        $temporaryFilePath = tempnam(sys_get_temp_dir(), 'LoggerFinisherTest');
+        file_put_contents($temporaryFilePath, 'Test file for upload');
+
+        yield 'file upload' => [
+            [
+                [
+                    'identifier' => 'upload',
+                    'type' => 'FileUpload',
+                    'properties' => [
+                        'saveToFileMount' => '1:/',
+                        'allowedMimeTypes' => [
+                            'text/plain',
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'upload' => [
+                    'name' => 'test.txt',
+                    'type' => 'text/plain',
+                    'size' => filesize($temporaryFilePath),
+                    'tmp_name' => $temporaryFilePath,
+                    'error' => UPLOAD_ERR_OK,
+                ],
+            ],
+            '{"upload":{"file":{"name":"test.txt"}}}',
+        ];
     }
 
     /**

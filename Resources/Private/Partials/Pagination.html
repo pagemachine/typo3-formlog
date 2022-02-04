@@ -1,13 +1,13 @@
 <ul class="pagination">
   <f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
     <f:then>
-      <li>
+      <li class="page-item">
         <f:render section="paginationLink" arguments="{page: pagination.firstPageNumber}" contentAs="text">
           <core:icon identifier="actions-view-paging-first"/>
           <f:translate key="pagination.first"/>
         </f:render>
       </li>
-      <li>
+      <li class="page-item">
         <f:render section="paginationLink" arguments="{page: pagination.previousPageNumber}" contentAs="text">
           <core:icon identifier="actions-view-paging-previous"/>
           <f:translate key="pagination.previous"/>
@@ -15,14 +15,14 @@
       </li>
     </f:then>
     <f:else>
-      <li class="disabled">
-        <span>
+      <li class="page-item disabled">
+        <span class="page-link">
           <core:icon identifier="actions-view-paging-first"/>
           <f:translate key="pagination.first"/>
         </span>
       </li>
-      <li class="disabled">
-        <span>
+      <li class="page-item disabled">
+        <span class="page-link">
           <core:icon identifier="actions-view-paging-previous"/>
           <f:translate key="pagination.previous"/>
         </span>
@@ -30,7 +30,7 @@
     </f:else>
   </f:if>
 
-  <li>
+  <li class="page-item">
     <div class="input-group pull-left">
       <f:form.textfield
         type="number"
@@ -53,13 +53,13 @@
 
   <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
     <f:then>
-      <li>
+      <li class="page-item">
         <f:render section="paginationLink" arguments="{page: pagination.nextPageNumber}" contentAs="text">
           <f:translate key="pagination.next"/>
           <core:icon identifier="actions-view-paging-next"/>
         </f:render>
       </li>
-      <li>
+      <li class="page-item">
         <f:render section="paginationLink" arguments="{page: pagination.lastPageNumber}" contentAs="text">
           <f:translate key="pagination.last"/>
           <core:icon identifier="actions-view-paging-last"/>
@@ -67,14 +67,14 @@
       </li>
     </f:then>
     <f:else>
-      <li class="disabled">
-        <span>
+      <li class="page-item disabled">
+        <span class="page-link">
           <f:translate key="pagination.next"/>
           <core:icon identifier="actions-view-paging-next"/>
         </span>
       </li>
-      <li class="disabled">
-        <span>
+      <li class="page-item disabled">
+        <span class="page-link">
           <f:translate key="pagination.last"/>
           <core:icon identifier="actions-view-paging-last"/>
         </span>
@@ -87,6 +87,7 @@
   <f:link.action
     arguments="{currentPageNumber: page}"
     addQueryString="true"
+    class="page-link"
   >
     {text -> f:or(alternative: page) -> f:format.raw()}
   </f:link.action>

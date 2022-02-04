@@ -131,6 +131,34 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ],
             '{"name":"Tester"}',
         ];
+
+        $temporaryFilePath = tempnam(sys_get_temp_dir(), 'LoggerFinisherTest');
+        file_put_contents($temporaryFilePath, 'Test file for upload');
+
+        yield 'file upload' => [
+            [
+                [
+                    'identifier' => 'upload',
+                    'type' => 'FileUpload',
+                    'properties' => [
+                        'saveToFileMount' => '1:/',
+                        'allowedMimeTypes' => [
+                            'text/plain',
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'upload' => [
+                    'name' => 'test.txt',
+                    'type' => 'text/plain',
+                    'size' => filesize($temporaryFilePath),
+                    'tmp_name' => $temporaryFilePath,
+                    'error' => UPLOAD_ERR_OK,
+                ],
+            ],
+            '{"upload":{"file":{"name":"test.txt"}}}',
+        ];
     }
 
     /**

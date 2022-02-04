@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Request as ExtbaseWebRequest;
 use TYPO3\CMS\Extbase\Mvc\Web\Response as ExtbaseWebResponse;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
-use TYPO3\CMS\Form\Domain\Configuration\ConfigurationService;
+use TYPO3\CMS\Form\Domain\Factory\ArrayFormFactory;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
 use TYPO3\CMS\Form\Domain\Runtime\FormRuntime\FormSession;
 use TYPO3\CMS\Form\Domain\Runtime\FormState;
@@ -94,7 +94,21 @@ final class LoggerFinisherTest extends FunctionalTestCase
     public function logsSubmittedFormData()
     {
         $formDefinition = $this->buildFormDefinition([
-            'LogFormData' => [],
+            'renderables' => [
+                'page' => [
+                    'renderables' => [
+                        [
+                            'identifier' => 'name',
+                            'type' => 'Text',
+                        ],
+                    ],
+                ],
+            ],
+            'finishers' => [
+                [
+                    'identifier' => 'LogFormData',
+                ],
+            ],
         ]);
 
         $this->submitForm($formDefinition, [
@@ -115,18 +129,36 @@ final class LoggerFinisherTest extends FunctionalTestCase
     public function logsFinisherVariables()
     {
         $formDefinition = $this->buildFormDefinition([
-            'SaveToDatabase' => [
-                'table' => 'pages',
-                'databaseColumnMappings' => [
-                    'title' => [
-                        'value' => 'Page created by form',
+            'renderables' => [
+                'page' => [
+                    'renderables' => [
+                        [
+                            'identifier' => 'name',
+                            'type' => 'Text',
+                        ],
                     ],
                 ],
             ],
-            'LogFormData' => [
-                'finisherVariables' => [
-                    'SaveToDatabase' => [
-                        'insertedUids.0',
+            'finishers' => [
+                [
+                    'identifier' => 'SaveToDatabase',
+                    'options' => [
+                        'table' => 'pages',
+                        'databaseColumnMappings' => [
+                            'title' => [
+                                'value' => 'Page created by form',
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'identifier' => 'LogFormData',
+                    'options' => [
+                        'finisherVariables' => [
+                            'SaveToDatabase' => [
+                                'insertedUids.0',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -144,20 +176,21 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $this->assertSame('{"SaveToDatabase":{"insertedUids.0":124}}', $logEntry['finisher_variables'] ?? null);
     }
 
-    protected function buildFormDefinition(array $finishers = []): FormDefinition
+    protected function buildFormDefinition(array $configuration): FormDefinition
     {
-        $formDefinition = $this->objectManager->get(
-            FormDefinition::class,
-            'LogsSubmittedFormData',
-            $this->objectManager->get(ConfigurationService::class)->getPrototypeConfiguration('standard')
-        );
-        $formDefinition->setRenderingOption('controllerAction', 'index');
-        $page1 = $formDefinition->createPage('page1');
-        $name = $page1->createElement('name', 'Text');
+        $commonConfiguration = [
+            'prototypeName' => 'standard',
+            'identifier' => 'LoggerFinisherTest',
+            'renderables' => [
+                'page' => [
+                    'identifier' => 'page1',
+                    'type' => 'Page',
+                ],
+            ],
+        ];
 
-        foreach ($finishers as $finisherIdentifier => $options) {
-            $formDefinition->createFinisher($finisherIdentifier, $options);
-        }
+        $arrayFormFactory = $this->objectManager->get(ArrayFormFactory::class);
+        $formDefinition = $arrayFormFactory->build(array_merge_recursive($commonConfiguration, $configuration));
 
         return $formDefinition;
     }

@@ -81,6 +81,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $frontendUser,
         );
         $GLOBALS['TSFE']->determineId();
+
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '<')) {
+            $this->setUpBackendUserFromFixture(1);
+        }
     }
 
     protected function tearDown(): void

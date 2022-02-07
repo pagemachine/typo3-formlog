@@ -14,6 +14,7 @@ use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
+use TYPO3\CMS\Form\Domain\Model\FormElements\StringableFormElementInterface;
 
 /**
  * Finisher which logs all form values into the database
@@ -62,6 +63,7 @@ class LoggerFinisher extends AbstractFinisher
     protected function getFormValues(): array
     {
         $normalizedFormValues = [];
+        $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
 
         foreach ($this->finisherContext->getFormValues() as $identifier => $formValue) {
             if (is_object($formValue)) {
@@ -75,6 +77,14 @@ class LoggerFinisher extends AbstractFinisher
                             'name' => $formValue->getName(),
                         ],
                     ];
+                    continue;
+                }
+
+                $element = $formDefinition->getElementByIdentifier($identifier);
+
+                if ($element instanceof StringableFormElementInterface) {
+                    $normalizedFormValues[$identifier] = $element->valueToString($formValue);
+                    continue;
                 }
             } else {
                 $normalizedFormValues[$identifier] = $formValue;

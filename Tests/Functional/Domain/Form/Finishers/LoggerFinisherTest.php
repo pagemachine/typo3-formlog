@@ -136,6 +136,37 @@ final class LoggerFinisherTest extends FunctionalTestCase
             '{"name":"Tester"}',
         ];
 
+        yield 'date' => [
+            [
+                [
+                    'identifier' => 'date',
+                    'type' => 'Date',
+                ],
+            ],
+            [
+                'date' => '2022-02-07',
+            ],
+            '{"date":"07.02.2022"}',
+        ];
+
+        yield 'date with custom display format' => [
+            [
+                [
+                    'identifier' => 'date',
+                    'type' => 'Date',
+                    'properties' => [
+                        'displayFormat' => 'Y-m-d',
+                    ],
+                ],
+            ],
+            [
+                'date' => '2022-02-07',
+            ],
+            '{"date":"2022-02-07"}',
+        ];
+
+        // TODO: Research why "DatePicker" fails completely
+
         $temporaryFilePath = tempnam(sys_get_temp_dir(), 'LoggerFinisherTest');
         file_put_contents($temporaryFilePath, 'Test file for upload');
 

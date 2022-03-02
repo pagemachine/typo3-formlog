@@ -6,8 +6,8 @@ services:
     environment:
       PHP_INI_PHAR__READONLY: "Off"
       TYPO3_VERSION: ${TYPO3_VERSION:-^10.4}
-      TYPO3_ORG_PASSWORD:
-      TYPO3_ORG_USERNAME:
+      TYPO3_API_PASSWORD:
+      TYPO3_API_USERNAME:
       TRAVIS_TAG:
       typo3DatabaseHost: mysql
       typo3DatabasePassword: root

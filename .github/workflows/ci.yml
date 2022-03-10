@@ -24,7 +24,9 @@ jobs:
         typo3:
           - ^10.4
           - ^11.5
-
+        exclude:
+          - php: 8.1
+            typo3: ^10.4
     steps:
       - uses: actions/checkout@v3
 

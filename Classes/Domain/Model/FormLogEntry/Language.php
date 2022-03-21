@@ -15,5 +15,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Language extends AbstractEntity
 {
+    /**
+     * @var string
+     */
     public string $title = '';
 }

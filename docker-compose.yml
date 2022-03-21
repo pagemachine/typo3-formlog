@@ -8,7 +8,7 @@ services:
       TYPO3_VERSION: ${TYPO3_VERSION:-^10.4}
       TYPO3_API_PASSWORD:
       TYPO3_API_USERNAME:
-      TRAVIS_TAG:
+      TAG:
       typo3DatabaseHost: mysql
       typo3DatabasePassword: root
     depends_on:

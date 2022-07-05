@@ -39,7 +39,7 @@
         "phpunit/phpunit": "^9.0",
         "saschaegerer/phpstan-typo3": "^1.0.0",
         "sclable/xml-lint": "^0.5.0",
-        "slevomat/coding-standard": "^7.0",
+        "slevomat/coding-standard": "^8.0",
         "squizlabs/php_codesniffer": "^3.1",
         "typo3/cms-scheduler": "^10.4.11 || ^11.5"
     },

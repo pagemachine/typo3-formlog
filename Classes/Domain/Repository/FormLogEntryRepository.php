@@ -20,9 +20,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class FormLogEntryRepository extends Repository
 {
-    /**
-     * @var array
-     */
     protected $defaultOrderings = [
         'submissionDate' => QueryInterface::ORDER_DESCENDING,
     ];

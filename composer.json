@@ -27,7 +27,7 @@
         "typo3fluid/fluid": "^2.3"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^4.0",
+        "cakephp/cakephp-codesniffer": "^5.0",
         "ergebnis/composer-normalize": "^2.3",
         "helmich/typo3-typoscript-lint": "^3.0",
         "jangregor/phpstan-prophecy": "^1.0.0",

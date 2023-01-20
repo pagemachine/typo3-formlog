@@ -29,7 +29,7 @@
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
         "ergebnis/composer-normalize": "^2.3",
-        "helmich/typo3-typoscript-lint": "^2.0",
+        "helmich/typo3-typoscript-lint": "^3.0",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "nimut/testing-framework": "^6.0",
         "php-parallel-lint/php-console-highlighter": "^1.0.0",

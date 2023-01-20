@@ -14,10 +14,6 @@ final class JsonData extends \ArrayObject implements TypeInterface
 {
     public function __construct(string $jsonString)
     {
-        // if string is empty, convert it into a valid json
-        if (empty($jsonString)) {
-            $jsonString = '{}';
-        }
         $data = json_decode($jsonString, true, 512, \JSON_THROW_ON_ERROR);
 
         parent::__construct($data);

@@ -8,12 +8,14 @@ namespace Pagemachine\Formlog\Domain\Form\Finishers;
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
+use Pagemachine\Formlog\Json;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
+use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
 use TYPO3\CMS\Form\Domain\Model\FormElements\StringableFormElementInterface;
 
 /**
@@ -37,6 +39,20 @@ class LoggerFinisher extends AbstractFinisher
         $formDefinition = $formRuntime->getFormDefinition();
         $context = GeneralUtility::makeInstance(Context::class);
         $now = $context->getPropertyFromAspect('date', 'timestamp');
+        $formValues = $this->getFormValues();
+        $finisherVariables = $this->getFinisherVariables();
+
+        try {
+            $encodedFormValues = Json::encode($formValues);
+        } catch (\JsonException $e) {
+            throw new FinisherException(sprintf('Failed to encode form values: %s', $e->getMessage()), 1677581834, $e);
+        }
+
+        try {
+            $encodedFinisherVariables = Json::encode($finisherVariables);
+        } catch (\JsonException $e) {
+            throw new FinisherException(sprintf('Failed to encode finisher variables: %s', $e->getMessage()), 1677581959, $e);
+        }
 
         $data = [
             'pid' => $this->getTypoScriptFrontendController()->id,
@@ -44,8 +60,8 @@ class LoggerFinisher extends AbstractFinisher
             'tstamp' => $now,
             'language' => (int)$context->getPropertyFromAspect('language', 'id', 0),
             'identifier' => $formDefinition->getIdentifier(),
-            'data' => json_encode($this->getFormValues()),
-            'finisher_variables' => json_encode($this->getFinisherVariables()),
+            'data' => $encodedFormValues,
+            'finisher_variables' => $encodedFinisherVariables,
         ];
 
         /** @var ConnectionPool */

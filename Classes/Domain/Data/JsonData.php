@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Pagemachine\Formlog\Domain\Data;
 
+use Pagemachine\Formlog\Json;
 use TYPO3\CMS\Core\Type\TypeInterface;
 
 /*
@@ -14,13 +15,13 @@ final class JsonData extends \ArrayObject implements TypeInterface
 {
     public function __construct(string $jsonString)
     {
-        $data = json_decode($jsonString, true, 512, \JSON_THROW_ON_ERROR);
+        $data = Json::decode($jsonString);
 
         parent::__construct($data);
     }
 
     public function __toString(): string
     {
-        return json_encode($this);
+        return Json::encode($this);
     }
 }

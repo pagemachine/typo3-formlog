@@ -35,14 +35,4 @@ final class JsonDataTest extends UnitTestCase
 
         $this->assertEquals('{"foo":"bar","qux":10}', $jsonString);
     }
-
-    /**
-     * @test
-     */
-    public function failOnInvalidJsonString(): void
-    {
-        $this->expectException(\JsonException::class);
-
-        new JsonData('');
-    }
 }

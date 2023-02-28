@@ -9,6 +9,8 @@ namespace Pagemachine\Formlog\Domain\Form\Finishers;
  */
 
 use Pagemachine\Formlog\Json;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
@@ -21,8 +23,10 @@ use TYPO3\CMS\Form\Domain\Model\FormElements\StringableFormElementInterface;
 /**
  * Finisher which logs all form values into the database
  */
-class LoggerFinisher extends AbstractFinisher
+class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     /**
      * @var array
      */
@@ -45,12 +49,22 @@ class LoggerFinisher extends AbstractFinisher
         try {
             $encodedFormValues = Json::encode($formValues);
         } catch (\JsonException $e) {
+            $this->logger->critical('Failed to encode form values', [
+                'exception' => $e,
+                'formValues' => serialize($formValues),
+            ]);
+
             throw new FinisherException(sprintf('Failed to encode form values: %s', $e->getMessage()), 1677581834, $e);
         }
 
         try {
             $encodedFinisherVariables = Json::encode($finisherVariables);
         } catch (\JsonException $e) {
+            $this->logger->critical('Failed to encode finisher variables', [
+                'exception' => $e,
+                'finisherVariables' => serialize($finisherVariables),
+            ]);
+
             throw new FinisherException(sprintf('Failed to encode finisher variables: %s', $e->getMessage()), 1677581959, $e);
         }
 

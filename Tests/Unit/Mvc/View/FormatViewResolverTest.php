@@ -9,12 +9,9 @@ namespace Pagemachine\Formlog\Tests\Unit\Mvc\View;
  */
 
 use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
-use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophet;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -32,13 +29,7 @@ final class FormatViewResolverTest extends UnitTestCase
      */
     protected function setUp(): void
     {
-        $this->objectManager = $this->prophesize(ObjectManager::class);
-        $this->objectManager
-            ->get(Argument::type('string'))
-            ->will(function (array $arguments): object {
-                return (new Prophet())->prophesize($arguments[0]);
-            });
-        $this->formatViewResolver = new FormatViewResolver($this->objectManager->reveal());
+        $this->formatViewResolver = new FormatViewResolver();
     }
 
     /**
@@ -54,6 +45,8 @@ final class FormatViewResolverTest extends UnitTestCase
      */
     public function returnsTemplateViewForUnknownFormats(): void
     {
+        GeneralUtility::addInstance(TemplateView::class, $this->prophesize(TemplateView::class)->reveal());
+        
         $result = $this->formatViewResolver->resolve('TestController', 'testAction', 'foo');
 
         $this->assertInstanceOf(TemplateView::class, $result);

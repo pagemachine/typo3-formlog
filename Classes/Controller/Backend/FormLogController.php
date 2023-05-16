@@ -100,7 +100,7 @@ class FormLogController extends ActionController
 
     public function initializeExportAction(): void
     {
-        $viewResolver = $this->objectManager->get(FormatViewResolver::class);
+        $viewResolver = GeneralUtility::makeInstance(FormatViewResolver::class);
 
         foreach ($this->viewFormatToObjectNameMap as $format => $viewClassName) {
             $viewResolver->map($format, $viewClassName);

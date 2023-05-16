@@ -10,9 +10,8 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Form\Domain\Factory\ArrayFormFactory;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
@@ -42,8 +41,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
         'typo3conf/ext/formlog',
     ];
 
-    protected ObjectManager $objectManager;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -52,8 +49,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         Bootstrap::initializeLanguageObject();
 
-        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $configurationManager = $this->objectManager->get(ConfigurationManagerInterface::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
         $contentObjectRenderer = new ContentObjectRenderer();
         $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
         $configurationManager->setContentObject($contentObjectRenderer);
@@ -260,7 +256,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ],
         ];
 
-        $arrayFormFactory = $this->objectManager->get(ArrayFormFactory::class);
+        $arrayFormFactory = GeneralUtility::makeInstance(ArrayFormFactory::class);
         $formDefinition = $arrayFormFactory->build(array_merge_recursive($commonConfiguration, $configuration));
 
         return $formDefinition;
@@ -268,7 +264,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
     protected function submitForm(FormDefinition $formDefinition, array $formValues = [])
     {
-        $formState = $this->objectManager->get(FormState::class);
+        $formState = GeneralUtility::makeInstance(FormState::class);
         $formState->setLastDisplayedPageIndex(0);
 
         foreach ($formValues as $name => $value) {
@@ -279,12 +275,12 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $formValues,
             [
                 '__currentPage' => 1,
-                '__state' => $this->objectManager->get(HashService::class)->appendHmac(base64_encode(serialize($formState))),
+                '__state' => GeneralUtility::makeInstance(HashService::class)->appendHmac(base64_encode(serialize($formState))),
             ]
         );
 
         if (class_exists(FormSession::class)) {
-            $requestArguments['__session'] = $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier();
+            $requestArguments['__session'] = GeneralUtility::makeInstance(FormSession::class)->getAuthenticatedIdentifier();
         }
 
         $request = GeneralUtility::makeInstance(ExtbaseRequest::class)

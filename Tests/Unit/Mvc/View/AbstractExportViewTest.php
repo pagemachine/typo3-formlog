@@ -8,8 +8,8 @@ namespace Pagemachine\Formlog\Tests\Unit\Mvc\View;
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Mvc\View\Export\AbstractExportView;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Mvc\View\Export\AbstractExportView

@@ -8,12 +8,12 @@ namespace Pagemachine\Formlog\Tests\Unit\Domain\FormLog;
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Domain\FormLog\DateRangeFilter;
 use Pagemachine\Formlog\Domain\FormLog\Filters;
 use Pagemachine\Formlog\Domain\FormLog\ValueFilter;
 use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Domain\FormLog\Filters

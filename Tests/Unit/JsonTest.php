@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Pagemachine\Formlog\Tests\Unit;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Json;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Json

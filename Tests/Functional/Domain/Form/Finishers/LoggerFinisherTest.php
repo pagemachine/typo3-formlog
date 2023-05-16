@@ -10,12 +10,8 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
-use TYPO3\CMS\Extbase\Mvc\Web\Request as ExtbaseWebRequest;
-use TYPO3\CMS\Extbase\Mvc\Web\Response as ExtbaseWebResponse;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Form\Domain\Factory\ArrayFormFactory;
 use TYPO3\CMS\Form\Domain\Model\FormDefinition;
@@ -45,8 +41,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
         'typo3conf/ext/formlog',
     ];
 
-    protected ObjectManager $objectManager;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -55,8 +49,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         Bootstrap::initializeLanguageObject();
 
-        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $configurationManager = $this->objectManager->get(ConfigurationManagerInterface::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
         $contentObjectRenderer = new ContentObjectRenderer();
         $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
         $configurationManager->setContentObject($contentObjectRenderer);
@@ -71,10 +64,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
         $siteLanguage = $site->getLanguageById(0);
         $frontendUser = GeneralUtility::makeInstance(FrontendUserAuthentication::class);
-
-        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '>=')) {
-            $frontendUser->initializeUserSessionManager();
-        }
+        $frontendUser->initializeUserSessionManager();
 
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
@@ -85,10 +75,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $frontendUser,
         );
         $GLOBALS['TSFE']->determineId();
-
-        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '<')) {
-            $this->setUpBackendUserFromFixture(1);
-        }
     }
 
     protected function tearDown(): void
@@ -270,7 +256,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ],
         ];
 
-        $arrayFormFactory = $this->objectManager->get(ArrayFormFactory::class);
+        $arrayFormFactory = GeneralUtility::makeInstance(ArrayFormFactory::class);
         $formDefinition = $arrayFormFactory->build(array_merge_recursive($commonConfiguration, $configuration));
 
         return $formDefinition;
@@ -278,7 +264,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
     protected function submitForm(FormDefinition $formDefinition, array $formValues = [])
     {
-        $formState = $this->objectManager->get(FormState::class);
+        $formState = GeneralUtility::makeInstance(FormState::class);
         $formState->setLastDisplayedPageIndex(0);
 
         foreach ($formValues as $name => $value) {
@@ -289,30 +275,20 @@ final class LoggerFinisherTest extends FunctionalTestCase
             $formValues,
             [
                 '__currentPage' => 1,
-                '__state' => $this->objectManager->get(HashService::class)->appendHmac(base64_encode(serialize($formState))),
+                '__state' => GeneralUtility::makeInstance(HashService::class)->appendHmac(base64_encode(serialize($formState))),
             ]
         );
 
         if (class_exists(FormSession::class)) {
-            $requestArguments['__session'] = $this->objectManager->get(FormSession::class)->getAuthenticatedIdentifier();
+            $requestArguments['__session'] = GeneralUtility::makeInstance(FormSession::class)->getAuthenticatedIdentifier();
         }
 
-        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11', '<')) {
-            $request = $this->objectManager->get(ExtbaseWebRequest::class);
-            $request->setMethod('POST');
-            $request->setArguments([
+        $request = GeneralUtility::makeInstance(ExtbaseRequest::class)
+            ->withMethod('POST')
+            ->withArguments([
                 $formDefinition->getIdentifier() => $requestArguments,
             ]);
-            $response = $this->objectManager->get(ExtbaseWebResponse::class);
-            $formRuntime = $formDefinition->bind($request, $response);
-        } else {
-            $request = GeneralUtility::makeInstance(ExtbaseRequest::class)
-                ->withMethod('POST')
-                ->withArguments([
-                    $formDefinition->getIdentifier() => $requestArguments,
-                ]);
-            $formRuntime = $formDefinition->bind($request);
-        }
+        $formRuntime = $formDefinition->bind($request);
 
         $formRuntime->render();
     }

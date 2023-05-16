@@ -2,32 +2,32 @@
 
 declare(strict_types = 1);
 
-namespace Pagemachine\Formlog\Tests\Unit\Mvc\View;
+namespace Pagemachine\Formlog\Tests\Unit\Export;
 
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
-use Pagemachine\Formlog\Mvc\View\Export\AbstractExportView;
+use Pagemachine\Formlog\Export\AbstractExport;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * Testcase for Pagemachine\Formlog\Mvc\View\Export\AbstractExportView
+ * Testcase for Pagemachine\Formlog\Export\AbstractExport
  */
-final class AbstractExportViewTest extends UnitTestCase
+final class AbstractExportTest extends UnitTestCase
 {
     /**
      * @test
      */
     public function sortsColumns(): void
     {
-        $view = new class extends AbstractExportView {
+        $export = new class extends AbstractExport {
             public function exposeColumnPaths(): array
             {
                 return $this->getColumnPaths();
             }
 
-            public function render()
+            public function dump(iterable $items): void
             {
             }
         };
@@ -45,9 +45,9 @@ final class AbstractExportViewTest extends UnitTestCase
                 ],
             ],
         ];
-        $view->setConfiguration($configuration);
+        $export->setConfiguration($configuration);
 
-        $result = $view->exposeColumnPaths();
+        $result = $export->exposeColumnPaths();
         $expected = [
             'uid',
             'page.title',

@@ -42,8 +42,7 @@ final class Suggestions
             ->orderBy($property)
             ->groupBy($property);
 
-        /** @var \Doctrine\DBAL\ForwardCompatibility\Result */
-        $result = $queryBuilder->execute();
+        $result = $queryBuilder->executeQuery();
         $suggestions = $result->fetchFirstColumn();
 
         return $suggestions;

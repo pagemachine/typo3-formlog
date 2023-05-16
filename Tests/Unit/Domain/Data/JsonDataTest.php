@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Pagemachine\Formlog\Tests\Unit\Domain\Data;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Pagemachine\Formlog\Domain\Data\JsonData;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Domain\Data\JsonData

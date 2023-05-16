@@ -28,4 +28,7 @@ parameters:
       path: '*/PaginateViewHelperTest.php'
     - message: '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'
       path: '*LoggerFinisher*'
+    - message: "#^Method TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\QueryInterface\\<Pagemachine\\\\Formlog\\\\Domain\\\\Model\\\\FormLogEntry\\>\\:\\:logicalAnd\\(\\) invoked with 2 parameters, 1 required\\.$#"
+      count: 1
+      path: Classes/Domain/Repository/FormLogEntryRepository.php
   reportUnmatchedIgnoredErrors: false

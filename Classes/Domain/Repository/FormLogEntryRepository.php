@@ -54,14 +54,14 @@ class FormLogEntryRepository extends Repository
             if ($filter instanceof ValueFilter) {
                 $constraints[] = $query->equals($propertyName, $filter->getValue());
             } elseif ($filter instanceof DateRangeFilter) {
-                $constraints[] = $query->logicalAnd([
+                $constraints[] = $query->logicalAnd(
                     $query->greaterThanOrEqual($propertyName, $filter->getStartDate()),
                     $query->lessThanOrEqual($propertyName, $filter->getEndDate()),
-                ]);
+                );
             }
         }
 
-        $query->matching($query->logicalAnd($constraints));
+        $query->matching($query->logicalAnd(...$constraints));
 
         return $query->execute();
     }

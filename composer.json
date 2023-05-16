@@ -18,12 +18,12 @@
         "php": "^7.4 || ^8.0",
         "league/csv": "^9.1",
         "nimmneun/onesheet": "^1.0",
-        "typo3/cms-backend": "^10.4.11 || ^11.5",
-        "typo3/cms-core": "^10.4.11 || ^11.5",
-        "typo3/cms-extbase": "^10.4.11 || ^11.5",
-        "typo3/cms-fluid": "^10.4.11 || ^11.5",
-        "typo3/cms-form": "^10.4.11 || ^11.5",
-        "typo3/cms-frontend": "^10.4.11 || ^11.5",
+        "typo3/cms-backend": "^11.5",
+        "typo3/cms-core": "^11.5",
+        "typo3/cms-extbase": "^11.5",
+        "typo3/cms-fluid": "^11.5",
+        "typo3/cms-form": "^11.5",
+        "typo3/cms-frontend": "^11.5",
         "typo3fluid/fluid": "^2.3"
     },
     "require-dev": {
@@ -40,7 +40,7 @@
         "sclable/xml-lint": "^0.5.0",
         "slevomat/coding-standard": "^8.0",
         "squizlabs/php_codesniffer": "^3.1",
-        "typo3/cms-scheduler": "^10.4.11 || ^11.5",
+        "typo3/cms-scheduler": "^11.5",
         "typo3/testing-framework": "^6.0"
     },
     "replace": {

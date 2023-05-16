@@ -2,23 +2,21 @@
 
 declare(strict_types = 1);
 
-namespace Pagemachine\Formlog\Mvc\View\Export;
+namespace Pagemachine\Formlog\Export;
 
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
-use Pagemachine\Formlog\Mvc\View\ConfigurableViewInterface;
 use Pagemachine\Formlog\Rendering\ValueFormatter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\View\AbstractView;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- * Base class for export views (CSV, ...)
+ * Base class for exports (CSV, ...)
  */
-abstract class AbstractExportView extends AbstractView implements ConfigurableViewInterface
+abstract class AbstractExport
 {
     protected string $fileExtension;
 
@@ -33,6 +31,8 @@ abstract class AbstractExportView extends AbstractView implements ConfigurableVi
     {
         $this->configuration = $configuration;
     }
+
+    abstract public function dump(iterable $items): void;
 
     /**
      * Get the list of CSV headers

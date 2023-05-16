@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Pagemachine\Formlog\Mvc\View\Export;
+namespace Pagemachine\Formlog\Export;
 
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
@@ -11,19 +11,11 @@ namespace Pagemachine\Formlog\Mvc\View\Export;
 use OneSheet\Style\Style;
 use OneSheet\Writer;
 
-/**
- * A view for XLSX export
- */
-class XlsxView extends AbstractExportView
+final class XlsxExport extends AbstractExport
 {
     protected string $fileExtension = 'xlsx';
 
-    /**
-     * Transform view value to a XLSX representation
-     *
-     * @return string
-     */
-    public function render()
+    public function dump(iterable $items): void
     {
         $headers = $this->getHeaders();
         $columnPaths = $this->getColumnPaths();
@@ -36,10 +28,8 @@ class XlsxView extends AbstractExportView
         $writer->enableCellAutosizing();
         $writer->addRow($headers, $headerStyle);
         $writer->setFreezePaneCellId('A2');
-        $writer->addRows($this->generateRows($this->variables['items'], $columnPaths));
+        $writer->addRows($this->generateRows($items, $columnPaths));
 
         $writer->writeToBrowser($filename);
-
-        return '';
     }
 }

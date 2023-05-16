@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Pagemachine\Formlog\Mvc\View\Export;
+namespace Pagemachine\Formlog\Export;
 
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
@@ -11,19 +11,11 @@ namespace Pagemachine\Formlog\Mvc\View\Export;
 use League\Csv\EscapeFormula;
 use League\Csv\Writer;
 
-/**
- * A view for CSV export
- */
-class CsvView extends AbstractExportView
+final class CsvExport extends AbstractExport
 {
     protected string $fileExtension = 'csv';
 
-    /**
-     * Transform view value to a CSV representation
-     *
-     * @return string
-     */
-    public function render()
+    public function dump(iterable $items): void
     {
         $headers = $this->getHeaders();
         $columnPaths = $this->getColumnPaths();
@@ -32,10 +24,8 @@ class CsvView extends AbstractExportView
         $csv = Writer::createFromString('');
         $csv->addFormatter(new EscapeFormula());
         $csv->insertOne($headers);
-        $csv->insertAll($this->generateRows($this->variables['items'], $columnPaths));
+        $csv->insertAll($this->generateRows($items, $columnPaths));
 
         $csv->output($filename);
-
-        return '';
     }
 }

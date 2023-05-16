@@ -10,13 +10,11 @@ namespace Pagemachine\Formlog\Controller\Backend;
 
 use Pagemachine\Formlog\Domain\FormLog\Filters;
 use Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository;
-use Pagemachine\Formlog\Mvc\View\Export\CsvView;
-use Pagemachine\Formlog\Mvc\View\Export\XlsxView;
-use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
+use Pagemachine\Formlog\Export\CsvExport;
+use Pagemachine\Formlog\Export\XlsxExport;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -28,14 +26,10 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class FormLogController extends ActionController
 {
-    /**
-     * @var \Pagemachine\Formlog\Mvc\View\ConfigurableViewInterface
-     */
-    protected $view = null;
 
-    protected array $viewFormatToObjectNameMap = [
-        'csv' => CsvView::class,
-        'xlsx' => XlsxView::class,
+    protected array $viewFormatToExportMap = [
+        'csv' => CsvExport::class,
+        'xlsx' => XlsxExport::class,
     ];
     protected ModuleTemplateFactory $moduleTemplateFactory;
 
@@ -106,34 +100,28 @@ class FormLogController extends ActionController
         return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
-    public function initializeExportAction(): void
-    {
-        $viewResolver = GeneralUtility::makeInstance(FormatViewResolver::class);
-
-        foreach ($this->viewFormatToObjectNameMap as $format => $viewClassName) {
-            $viewResolver->map($format, $viewClassName);
-        }
-
-        $this->injectViewResolver($viewResolver);
-    }
-
     /**
      * Export CSV of form log entries
      *
      * @param Filters $filters
-     * @return void
      */
-    public function exportAction(Filters $filters)
+    public function exportAction(Filters $filters): ResponseInterface
     {
+        $export = GeneralUtility::makeInstance($this->viewFormatToExportMap[$this->request->getFormat()]);
+
         $now = new \DateTime();
         $fileBasename = sprintf('formlog-%s', $now->format('Y-m-d-H-i-s'));
+        $logEntries = $this->formLogEntryRepository->findAllFiltered($filters);
 
-        $this->view->setConfiguration([
+        $export->setConfiguration([
             'columns' => $this->settings['export']['columns'],
             'dateTimeFormat' => $this->settings['dateTimeFormat'],
             'fileBasename' => $fileBasename,
         ]);
-        $this->view->assign('items', $this->formLogEntryRepository->findAllFiltered($filters));
+
+        $export->dump($logEntries);
+
+        return $this->responseFactory->createResponse();
     }
 
     /**

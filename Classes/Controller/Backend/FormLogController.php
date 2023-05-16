@@ -13,7 +13,9 @@ use Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository;
 use Pagemachine\Formlog\Mvc\View\Export\CsvView;
 use Pagemachine\Formlog\Mvc\View\Export\XlsxView;
 use Pagemachine\Formlog\Mvc\View\FormatViewResolver;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -35,13 +37,15 @@ class FormLogController extends ActionController
         'csv' => CsvView::class,
         'xlsx' => XlsxView::class,
     ];
-
-    /**
-     * @var string
-     */
-    protected $defaultViewObjectName = BackendTemplateView::class;
+    protected ModuleTemplateFactory $moduleTemplateFactory;
 
     protected FormLogEntryRepository $formLogEntryRepository;
+
+    public function __construct(
+        ModuleTemplateFactory $moduleTemplateFactory
+    ) {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
+    }
 
     public function injectFormLogEntryRepository(FormLogEntryRepository $formLogEntryRepository)
     {
@@ -70,9 +74,8 @@ class FormLogController extends ActionController
      *
      * @param Filters $filters
      * @param int $currentPageNumber
-     * @return void
      */
-    public function indexAction(Filters $filters, int $currentPageNumber = 1)
+    public function indexAction(Filters $filters, int $currentPageNumber = 1): ResponseInterface
     {
         $entries = $this->formLogEntryRepository->findAllFiltered($filters);
         $paginator = new QueryResultPaginator($entries, $currentPageNumber);
@@ -96,6 +99,11 @@ class FormLogController extends ActionController
                 ],
             ],
         ]);
+
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setContent($this->view->render());
+
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
     public function initializeExportAction(): void

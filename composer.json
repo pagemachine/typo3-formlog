@@ -81,7 +81,7 @@
     },
     "scripts": {
         "post-autoload-dump": [
-            "Nimut\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+            "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
         ],
         "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "build": [

@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Pagemachine\Formlog\Tests\Functional\Domain\FormLog;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Pagemachine\Formlog\Domain\FormLog\Suggestions;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Domain\FormLog\Suggestions
@@ -60,11 +60,11 @@ final class SuggestionsTest extends FunctionalTestCase
                 ],
             ],
         ];
-        $datbaseConnection = $this->getDatabaseConnection();
+        $datbaseConnection = $this->getConnectionPool()->getConnectionByName('Default');
 
         foreach ($data as $table => $records) {
             foreach ($records as $record) {
-                $datbaseConnection->insertArray($table, $record);
+                $datbaseConnection->insert($table, $record);
             }
         }
 

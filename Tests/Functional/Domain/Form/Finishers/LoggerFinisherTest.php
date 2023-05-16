@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Routing\PageArguments;
@@ -24,6 +24,7 @@ use TYPO3\CMS\Form\Domain\Runtime\FormState;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Domain\Form\Finishers\LoggerFinisher
@@ -60,8 +61,11 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
         $configurationManager->setContentObject($contentObjectRenderer);
 
-        $this->getDatabaseConnection()->insertArray('pages', ['uid' => 123]);
+        $this->getConnectionPool()->getConnectionForTable('pages')->insert('pages', ['uid' => 123]);
         $this->setUpFrontendRootPage(123);
+
+        $siteConfiguration = GeneralUtility::makeInstance(SiteConfiguration::class);
+        $siteConfiguration->createNewBasicSite('123', 123, 'http://localhost/');
 
         $_SERVER['HTTP_HOST'] = 'localhost';
         $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByRootPageId(123);
@@ -113,7 +117,9 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         $this->submitForm($formDefinition, $formValues);
 
-        $logEntry = $this->getDatabaseConnection()->selectSingleRow('*', 'tx_formlog_entries', '1=1');
+        $logEntry = $this->getConnectionPool()->getConnectionForTable('tx_formlog_entries')
+            ->select(['*'], 'tx_formlog_entries')
+            ->fetchAssociative();
 
         $this->assertSame(123, $logEntry['pid'] ?? null);
         $this->assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
@@ -241,7 +247,9 @@ final class LoggerFinisherTest extends FunctionalTestCase
             'name' => 'Tester',
         ]);
 
-        $logEntry = $this->getDatabaseConnection()->selectSingleRow('*', 'tx_formlog_entries', '1=1');
+        $logEntry = $this->getConnectionPool()->getConnectionForTable('tx_formlog_entries')
+            ->select(['*'], 'tx_formlog_entries')
+            ->fetchAssociative();
 
         $this->assertSame(123, $logEntry['pid'] ?? null);
         $this->assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);

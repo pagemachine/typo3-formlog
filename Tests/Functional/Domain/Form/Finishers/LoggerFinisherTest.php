@@ -7,6 +7,7 @@ namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -68,7 +69,11 @@ final class LoggerFinisherTest extends FunctionalTestCase
             new PageArguments(123, '0', []),
             $frontendUser,
         );
-        $GLOBALS['TSFE']->determineId();
+
+        $requestFactory = GeneralUtility::makeInstance(ServerRequestFactory::class);
+        $request = $requestFactory->createServerRequest('get', 'http://localhost');
+
+        $GLOBALS['TSFE']->determineId($request);
     }
 
     protected function tearDown(): void

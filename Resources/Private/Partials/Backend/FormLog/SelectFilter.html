@@ -3,7 +3,7 @@
   class="btn btn-{f:if(condition: '{filter.empty}', then: 'default', else: 'primary')}"
 >
   <b><f:translate key="{title}">{title}</f:translate></b>
-  <i class="fa fa-filter" aria-hidden="true"></i>
+  <core:icon identifier="actions-filter" size="small"/>
 </button>
 <div class="hidden">
   <f:form.select

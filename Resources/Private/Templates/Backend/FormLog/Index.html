@@ -16,7 +16,13 @@
   addInlineSettings="{inlineSettings}"
 />
 
-<h1><f:translate key="formlog.title"/> <span class="label label-{f:if(condition: filters.empty, then: 'default', else: 'primary')}">{entriesCount}</span></h1>
+<h1>
+  <f:translate key="formlog.title"/>
+  <span class="
+    label label-{f:if(condition: filters.empty, then: 'default', else: 'primary')}
+    badge text-bg-{f:if(condition: filters.empty, then: 'default', else: 'primary')}
+  ">{entriesCount}</span>
+</h1>
 
 <f:if condition="{entriesCount} > 0">
   <f:then>

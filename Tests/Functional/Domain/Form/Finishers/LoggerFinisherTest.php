@@ -7,11 +7,14 @@ namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
 use TYPO3\CMS\Form\Domain\Factory\ArrayFormFactory;
@@ -43,11 +46,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] = ORIGINAL_ROOT;
 
         Bootstrap::initializeLanguageObject();
-
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
-        $contentObjectRenderer = new ContentObjectRenderer();
-        $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
-        $configurationManager->setContentObject($contentObjectRenderer);
 
         $this->getConnectionPool()->getConnectionForTable('pages')->insert('pages', ['uid' => 123]);
         $this->setUpFrontendRootPage(123);
@@ -275,18 +273,32 @@ final class LoggerFinisherTest extends FunctionalTestCase
             [
                 '__currentPage' => 1,
                 '__state' => GeneralUtility::makeInstance(HashService::class)->appendHmac(base64_encode(serialize($formState))),
+                '__session' => GeneralUtility::makeInstance(FormSession::class)->getAuthenticatedIdentifier(),
             ]
         );
 
-        if (class_exists(FormSession::class)) {
-            $requestArguments['__session'] = GeneralUtility::makeInstance(FormSession::class)->getAuthenticatedIdentifier();
+        $contentObjectRenderer = new ContentObjectRenderer();
+        $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
+
+        if ((new Typo3Version())->getMajorVersion() < 12) {
+            $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+            $configurationManager->setContentObject($contentObjectRenderer);
+
+            $request = GeneralUtility::makeInstance(ExtbaseRequest::class)
+                ->withMethod('POST');
+        } else {
+            $requestFactory = GeneralUtility::makeInstance(ServerRequestFactory::class);
+            $serverRequest = $requestFactory->createServerRequest('POST', 'http://localhost')
+                ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+                ->withAttribute('extbase', GeneralUtility::makeInstance(ExtbaseRequestParameters::class))
+                ->withAttribute('currentContentObject', $contentObjectRenderer);
+    
+            $request = GeneralUtility::makeInstance(ExtbaseRequest::class, $serverRequest);
         }
 
-        $request = GeneralUtility::makeInstance(ExtbaseRequest::class)
-            ->withMethod('POST')
-            ->withArguments([
-                $formDefinition->getIdentifier() => $requestArguments,
-            ]);
+        $request = $request->withArguments([
+            $formDefinition->getIdentifier() => $requestArguments,
+        ]);
         $formRuntime = $formDefinition->bind($request);
 
         $formRuntime->render();

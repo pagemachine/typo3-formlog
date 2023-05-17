@@ -80,9 +80,6 @@
         }
     },
     "scripts": {
-        "post-autoload-dump": [
-            "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
-        ],
         "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "build": [
             "@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",

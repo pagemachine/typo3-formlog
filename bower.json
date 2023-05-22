@@ -2,9 +2,14 @@
   "name": "typo3-formlog",
   "private": true,
   "dependencies": {
+    "daterangepicker": "dangrossman/daterangepicker#^3.0",
     "knockout-daterangepicker": "^0.1.0"
   },
   "exportsOverride": {
+    "daterangepicker": {
+      "Css": "daterangepicker.css",
+      "JavaScript": "daterangepicker.js"
+    },
     "jquery": {},
     "knockout": {
       "JavaScript": "dist/knockout.js"

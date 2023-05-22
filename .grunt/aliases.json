@@ -4,6 +4,7 @@
     "clean:js",
     "bower",
     "less",
+    "replace",
     "umd",
     "uglify"
   ]

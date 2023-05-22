@@ -34,4 +34,6 @@ parameters:
     - message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\RequestInterface\\:\\:setArgument\\(\\)\\.$#"
       count: 1
       path: Classes/Controller/Backend/FormLogController.php
+    - message: '#Call to static method .+ on an unknown class .+#'
+      path: Configuration/ContentSecurityPolicies.php
   reportUnmatchedIgnoredErrors: false

@@ -16,6 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -99,6 +100,12 @@ class FormLogController extends ActionController
                     'language' => $GLOBALS['BE_USER']->uc['lang'],
                     'timeZone' => date_default_timezone_get(),
                 ],
+            ],
+        ]);
+
+        GeneralUtility::makeInstance(PageRenderer::class)->addRequireJsConfiguration([
+            'paths' => [
+                'TYPO3/CMS/Formlog/moment' => 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min',
             ],
         ]);
 

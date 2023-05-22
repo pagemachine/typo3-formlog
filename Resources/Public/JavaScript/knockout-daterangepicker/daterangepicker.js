@@ -2,7 +2,7 @@
   if (root === undefined && window !== undefined) root = window;
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module unless amdModuleId is set
-    define(["jquery","moment","TYPO3/CMS/Formlog/knockout/knockout"], function (a0,b1,c2) {
+    define(["jquery","TYPO3/CMS/Formlog/moment","TYPO3/CMS/Formlog/knockout/knockout"], function (a0,b1,c2) {
       return (factory(a0,b1,c2));
     });
   } else if (typeof module === 'object' && module.exports) {

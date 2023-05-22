@@ -1,6 +1,6 @@
 define([
   'jquery',
-  'moment',
+  'TYPO3/CMS/Formlog/moment',
   '../Settings',
   'TYPO3/CMS/Formlog/knockout-daterangepicker/daterangepicker'
 ], function($, moment, settings) {

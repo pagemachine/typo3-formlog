@@ -1,0 +1,46 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\QueryInterface\\<Pagemachine\\\\Formlog\\\\Domain\\\\Model\\\\FormLogEntry\\>\\:\\:logicalAnd\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: Classes/Domain/Repository/FormLogEntryRepository.php
+
+		-
+			message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\RequestInterface\\:\\:setArgument\\(\\)\\.$#"
+			count: 1
+			path: Classes/Controller/Backend/FormLogController.php
+
+		-
+			message: "#^Access to constant Extend on an unknown class TYPO3\\\\CMS\\\\Core\\\\Security\\\\ContentSecurityPolicy\\\\MutationMode\\.$#"
+			count: 1
+			path: Configuration/ContentSecurityPolicies.php
+
+		-
+			message: "#^Access to constant ScriptSrc on an unknown class TYPO3\\\\CMS\\\\Core\\\\Security\\\\ContentSecurityPolicy\\\\Directive\\.$#"
+			count: 1
+			path: Configuration/ContentSecurityPolicies.php
+
+		-
+			message: "#^Call to static method backend\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Security\\\\ContentSecurityPolicy\\\\Scope\\.$#"
+			count: 1
+			path: Configuration/ContentSecurityPolicies.php
+
+		-
+			message: "#^Call to static method fromEntries\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Type\\\\Map\\.$#"
+			count: 1
+			path: Configuration/ContentSecurityPolicies.php
+
+		-
+			message: "#^Instantiated class TYPO3\\\\CMS\\\\Core\\\\Security\\\\ContentSecurityPolicy\\\\Mutation not found\\.$#"
+			count: 1
+			path: Configuration/ContentSecurityPolicies.php
+
+		-
+			message: "#^Instantiated class TYPO3\\\\CMS\\\\Core\\\\Security\\\\ContentSecurityPolicy\\\\MutationCollection not found\\.$#"
+			count: 1
+			path: Configuration/ContentSecurityPolicies.php
+
+		-
+			message: "#^Instantiated class TYPO3\\\\CMS\\\\Core\\\\Security\\\\ContentSecurityPolicy\\\\UriValue not found\\.$#"
+			count: 1
+			path: Configuration/ContentSecurityPolicies.php

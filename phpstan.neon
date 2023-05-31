@@ -1,6 +1,7 @@
 includes:
     - vendor/jangregor/phpstan-prophecy/extension.neon
     - vendor/saschaegerer/phpstan-typo3/extension.neon
+    - phpstan-baseline.neon
 
 parameters:
   level: 5
@@ -28,12 +29,4 @@ parameters:
       path: '*/PaginateViewHelperTest.php'
     - message: '#Access to protected property .+TypoScriptFrontendController::\$sys_language_uid#'
       path: '*LoggerFinisher*'
-    - message: "#^Method TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\QueryInterface\\<Pagemachine\\\\Formlog\\\\Domain\\\\Model\\\\FormLogEntry\\>\\:\\:logicalAnd\\(\\) invoked with 2 parameters, 1 required\\.$#"
-      count: 1
-      path: Classes/Domain/Repository/FormLogEntryRepository.php
-    - message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\RequestInterface\\:\\:setArgument\\(\\)\\.$#"
-      count: 1
-      path: Classes/Controller/Backend/FormLogController.php
-    - message: '#Call to static method .+ on an unknown class .+#'
-      path: Configuration/ContentSecurityPolicies.php
   reportUnmatchedIgnoredErrors: false

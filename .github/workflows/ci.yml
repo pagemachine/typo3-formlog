@@ -19,11 +19,15 @@ jobs:
     strategy:
       matrix:
         php:
-          - '7.4'
-          - '8.0'
           - '8.1'
         typo3:
           - ^11.5
+          - ^12.4
+        include:
+          - php: '7.4'
+            typo3: ^11.5
+          - php: '8.0'
+            typo3: ^11.5
 
     steps:
       - uses: actions/checkout@v3

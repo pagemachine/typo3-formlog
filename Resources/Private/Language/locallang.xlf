@@ -44,20 +44,24 @@
         <source>Export is disabled: the configuration is incomplete, please contact your developer or integrator.</source>
       </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.applyButtonTitle">
+      <trans-unit id="formlog.daterangepicker.labels.applyLabel">
         <source>Apply</source>
       </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.cancelButtonTitle">
+      <trans-unit id="formlog.daterangepicker.labels.cancelLabel">
         <source>Cancel</source>
       </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.startLabel">
+      <trans-unit id="formlog.daterangepicker.labels.fromLabel">
         <source>Start</source>
       </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.endLabel">
+      <trans-unit id="formlog.daterangepicker.labels.toLabel">
         <source>End</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.daterangepicker.labels.customRangeLabel">
+        <source>Other range</source>
       </trans-unit>
 
       <trans-unit id="formlog.daterangepicker.ranges.last30days">
@@ -66,30 +70,6 @@
 
       <trans-unit id="formlog.daterangepicker.ranges.lastYear">
         <source>Last year</source>
-      </trans-unit>
-
-      <trans-unit id="formlog.daterangepicker.ranges.other">
-        <source>Other range</source>
-      </trans-unit>
-
-      <trans-unit id="formlog.daterangepicker.periods.day">
-        <source>Day</source>
-      </trans-unit>
-
-      <trans-unit id="formlog.daterangepicker.periods.week">
-        <source>Week</source>
-      </trans-unit>
-
-      <trans-unit id="formlog.daterangepicker.periods.month">
-        <source>Month</source>
-      </trans-unit>
-
-      <trans-unit id="formlog.daterangepicker.periods.quarter">
-        <source>Quarter</source>
-      </trans-unit>
-
-      <trans-unit id="formlog.daterangepicker.periods.year">
-        <source>Year</source>
       </trans-unit>
 
       <trans-unit id="formlog.entry.uid">

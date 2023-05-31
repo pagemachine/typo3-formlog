@@ -7,23 +7,25 @@
         <f:translate key="formlog.export"/>
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
-        <li class="dropdown-item">
+        <li>
           <f:link.action
             action="export"
             arguments="{filters: '{filters as array}'}"
             format="csv"
             addQueryString="true"
+            class="dropdown-item"
           >
             <c:icon identifier="mimetypes-text-csv"/>
             <f:translate key="formlog.export.csv"/>
           </f:link.action>
         </li>
-        <li class="dropdown-item">
+        <li>
           <f:link.action
             action="export"
             arguments="{filters: '{filters as array}'}"
             format="xlsx"
             addQueryString="true"
+            class="dropdown-item"
           >
             <c:icon identifier="mimetypes-excel"/>
             <f:translate key="formlog.export.xlsx"/>

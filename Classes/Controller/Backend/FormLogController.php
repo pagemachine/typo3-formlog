@@ -97,7 +97,7 @@ class FormLogController extends ActionController
             'inlineSettings' => [
                 'formlog' => [
                     'suggestUri' => (string)$uriBuilder->buildUriFromRoute('ajax_formlog_suggest'),
-                    'language' => $GLOBALS['BE_USER']->uc['lang'],
+                    'language' => $GLOBALS['BE_USER']->user['lang'],
                     'timeZone' => date_default_timezone_get(),
                 ],
             ],

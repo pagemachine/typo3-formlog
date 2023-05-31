@@ -2,7 +2,7 @@ define([
   'jquery',
   'TYPO3/CMS/Formlog/moment',
   '../Settings',
-  'TYPO3/CMS/Formlog/knockout-daterangepicker/daterangepicker'
+  'TYPO3/CMS/Formlog/daterangepicker/daterangepicker'
 ], function($, moment, settings) {
   $(function() {
     var $filterForm = $("#filter-form");
@@ -14,7 +14,6 @@ define([
     var ranges = {
       last30days: [moment().subtract(29, 'days'), moment()],
       lastYear: [moment().subtract(1, 'year').add(1,'day'), moment()],
-      other: 'custom',
     };
     var localizedRanges = {};
 
@@ -30,28 +29,20 @@ define([
 
     moment.locale(settings.language);
 
-    var originalTitleFunction = $.fn.daterangepicker.Period.title;
-    $.fn.daterangepicker.Period.title = function(period) {
-      if (period in translations.periods) {
-        return translations.periods[period];
-      }
-
-      return originalTitleFunction(period);
-    };
-
-    $dateFilterButton.daterangepicker({
-      timeZone: settings.timeZone,
-      locale: translations.labels,
-      firstDayOfWeek: moment.localeData().firstDayOfWeek(),
-      startDate: $startDateField.val(),
-      endDate: $endDateField.val(),
-      ranges: localizedRanges,
-      callback: function(startDate, endDate, period) {
+    $dateFilterButton.daterangepicker(
+      {
+        locale: translations.labels,
+        startDate: $startDateField.val() ? moment($startDateField.val(), w3cDateFormat) : undefined,
+        endDate: $endDateField.val() ? moment($endDateField.val(), w3cDateFormat) : undefined,
+        ranges: localizedRanges,
+        showCustomRangeLabel: true,
+      },
+      function (startDate, endDate) {
         $startDateField.val(startDate.format(w3cDateFormat));
         $endDateField.val(endDate.format(w3cDateFormat));
 
         $filterForm.submit();
-      }
-    });
+      },
+    );
   });
 });

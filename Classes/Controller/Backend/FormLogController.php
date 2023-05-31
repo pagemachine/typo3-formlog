@@ -98,7 +98,6 @@ class FormLogController extends ActionController
                 'formlog' => [
                     'suggestUri' => (string)$uriBuilder->buildUriFromRoute('ajax_formlog_suggest'),
                     'language' => $GLOBALS['BE_USER']->user['lang'],
-                    'timeZone' => date_default_timezone_get(),
                 ],
             ],
         ]);
@@ -148,22 +147,15 @@ class FormLogController extends ActionController
     {
         $translationIdentifiers = [
             'labels' => [
-                'applyButtonTitle',
-                'cancelButtonTitle',
-                'startLabel',
-                'endLabel',
+                'applyLabel',
+                'cancelLabel',
+                'fromLabel',
+                'toLabel',
+                'customRangeLabel',
             ],
             'ranges' => [
                 'last30days',
                 'lastYear',
-                'other',
-            ],
-            'periods' => [
-                'day',
-                'week',
-                'month',
-                'quarter',
-                'year',
             ],
         ];
         $translations = [];

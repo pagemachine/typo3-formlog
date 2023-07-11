@@ -51,14 +51,24 @@ class FormLogEntry extends AbstractEntity
      */
     public ?JsonData $finisherVariables = null;
 
-    public function getSiteLanguage(): SiteLanguage
+    public function getSiteLanguage(): ?SiteLanguage
     {
+        $site = $this->getSite();
+
+        if ($site === null) {
+            return null;
+        }
+
         return $this->getSite()->getLanguageById($this->language);
     }
 
-    private function getSite(): SiteInterface
+    private function getSite(): ?SiteInterface
     {
         $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+
+        if ($this->page === null) {
+            return null;
+        }
 
         return $siteFinder->getSiteByPageId($this->page->uid);
     }

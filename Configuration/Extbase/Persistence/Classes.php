@@ -15,7 +15,4 @@ return [
     \Pagemachine\Formlog\Domain\Model\FormLogEntry\Page::class => [
         'tableName' => 'pages',
     ],
-    \Pagemachine\Formlog\Domain\Model\FormLogEntry\Language::class => [
-        'tableName' => 'sys_language',
-    ],
 ];

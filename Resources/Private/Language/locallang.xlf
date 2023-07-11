@@ -88,10 +88,6 @@
         <source>Language</source>
       </trans-unit>
 
-      <trans-unit id="formlog.entry.language.default">
-        <source>Default</source>
-      </trans-unit>
-
       <trans-unit id="formlog.entry.identifier">
         <source>Form</source>
       </trans-unit>

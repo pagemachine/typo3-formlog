@@ -74,9 +74,6 @@
             </tr>
           </thead>
 
-          <f:alias map="{
-            defaultLanguageLabel: '{f:translate(key: \'formlog.entry.language.default\')}'
-          }">
           <f:for each="{entries}" as="entry">
 
             <tr>
@@ -116,7 +113,7 @@
                   <core:icon identifier="actions-filter" size="small"/>
                 </f:link.action>
               </td>
-              <td>{entry.language.title -> f:or(alternative: defaultLanguageLabel)}</td>
+              <td>{entry.siteLanguage.title}</td>
               <td>
                 {entry.submissionDate -> f:format.date(format: dateFormat)}
                 <f:link.action
@@ -142,7 +139,6 @@
             </tr>
 
           </f:for>
-          </f:alias>
 
         </table>
 

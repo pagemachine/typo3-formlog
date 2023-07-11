@@ -12,10 +12,6 @@
         <source>Form language</source>
       </trans-unit>
 
-      <trans-unit id="tx_formlog_entries.language.default">
-        <source>Default</source>
-      </trans-unit>
-
       <trans-unit id="tx_formlog_entries.identifier">
         <source>Form identifier</source>
       </trans-unit>

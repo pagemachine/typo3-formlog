@@ -12,7 +12,7 @@ final class Json
     public static function decode(string $jsonString): array
     {
         $decoded = json_decode(
-            $jsonString,
+            $jsonString === '' ? '[]' : $jsonString,
             true,
             512,
             \JSON_THROW_ON_ERROR

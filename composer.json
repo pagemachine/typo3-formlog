@@ -122,6 +122,8 @@
         "lint:style": "phpcs",
         "lint:typoscript": "typoscript-lint --ansi",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
+        "php:rector:fix": "rector",
+        "php:rector:lint": "rector --dry-run --no-progress-bar",
         "test": [
             "@test:unit",
             "@test:functional"

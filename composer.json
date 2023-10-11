@@ -116,6 +116,7 @@
             "@lint:typoscript",
             "@lint:style",
             "@analyze:php",
+            "@php:rector:lint",
             "@lint:xml"
         ],
         "lint:php": "parallel-lint --exclude vendor --exclude web .",

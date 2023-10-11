@@ -25,7 +25,7 @@ class JSONDataElement extends AbstractFormElement
         $result = $this->initializeResultArray();
         $parameters = $this->data['parameterArray'];
         $value = $parameters['itemFormElValue'];
-        $data = json_decode($value, true) ?: [];
+        $data = json_decode($value, true, 512, JSON_THROW_ON_ERROR) ?: [];
         $formatter = GeneralUtility::makeInstance(ValueFormatter::class);
 
         $languageService = $this->getLanguageService();

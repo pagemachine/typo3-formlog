@@ -44,7 +44,7 @@ final class ValueFormatter
         }
 
         throw new \UnexpectedValueException(
-            sprintf('Could not convert value of type "%s" to string', is_object($value) ? get_class($value) : gettype($value)),
+            sprintf('Could not convert value of type "%s" to string', get_debug_type($value)),
             1610097797
         );
     }

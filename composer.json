@@ -37,6 +37,7 @@
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^1.0.0",
         "phpunit/phpunit": "^9.0",
+        "rector/rector": "^0.18.5",
         "saschaegerer/phpstan-typo3": "^1.0.0",
         "sclable/xml-lint": "^0.6.0",
         "slevomat/coding-standard": "^8.0",
@@ -115,12 +116,15 @@
             "@lint:typoscript",
             "@lint:style",
             "@analyze:php",
+            "@php:rector:lint",
             "@lint:xml"
         ],
         "lint:php": "parallel-lint --exclude vendor --exclude web .",
         "lint:style": "phpcs",
         "lint:typoscript": "typoscript-lint --ansi",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
+        "php:rector:fix": "rector",
+        "php:rector:lint": "rector --dry-run --no-progress-bar",
         "test": [
             "@test:unit",
             "@test:functional"

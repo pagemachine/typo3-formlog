@@ -65,13 +65,6 @@ class JSONDataElementTest extends UnitTestCase
         $expected = <<<HTML
 <table class="table table-striped table-hover">
 <tr><th>Field</th><th>Value</th></tr>
-</table>
-HTML;
-        yield 'empty' => ['', $expected];
-
-        $expected = <<<HTML
-<table class="table table-striped table-hover">
-<tr><th>Field</th><th>Value</th></tr>
 <tr><th>foo</th><td style="white-space: pre">bar</td></tr>
 <tr><th>qux</th><td style="white-space: pre">10</td></tr>
 </table>

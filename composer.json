@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "league/csv": "^9.1",
         "nimmneun/onesheet": "^1.0",
         "typo3/cms-backend": "^11.5 || ^12.4",

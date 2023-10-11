@@ -8,6 +8,7 @@ namespace Pagemachine\Formlog\Form\Element;
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
 
+use Pagemachine\Formlog\Json;
 use Pagemachine\Formlog\Rendering\ValueFormatter;
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -24,8 +25,7 @@ class JSONDataElement extends AbstractFormElement
     {
         $result = $this->initializeResultArray();
         $parameters = $this->data['parameterArray'];
-        $value = $parameters['itemFormElValue'];
-        $data = json_decode($value, true, 512, JSON_THROW_ON_ERROR) ?: [];
+        $data = Json::decode($parameters['itemFormElValue']);
         $formatter = GeneralUtility::makeInstance(ValueFormatter::class);
 
         $languageService = $this->getLanguageService();

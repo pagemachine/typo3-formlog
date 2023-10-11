@@ -15,11 +15,8 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  */
 final class Suggestions
 {
-    private ConnectionPool $connectionPool;
-
-    public function __construct(ConnectionPool $connectionPool)
+    public function __construct(private ConnectionPool $connectionPool)
     {
-        $this->connectionPool = $connectionPool;
     }
 
     /**

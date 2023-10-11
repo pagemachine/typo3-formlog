@@ -33,14 +33,11 @@ class FormLogController extends ActionController
         'csv' => CsvExport::class,
         'xlsx' => XlsxExport::class,
     ];
-    protected ModuleTemplateFactory $moduleTemplateFactory;
 
     protected FormLogEntryRepository $formLogEntryRepository;
 
-    public function __construct(
-        ModuleTemplateFactory $moduleTemplateFactory
-    ) {
-        $this->moduleTemplateFactory = $moduleTemplateFactory;
+    public function __construct(protected ModuleTemplateFactory $moduleTemplateFactory)
+    {
     }
 
     public function injectFormLogEntryRepository(FormLogEntryRepository $formLogEntryRepository)
@@ -74,9 +71,6 @@ class FormLogController extends ActionController
 
     /**
      * Main overview action
-     *
-     * @param Filters $filters
-     * @param int $currentPageNumber
      */
     public function indexAction(Filters $filters, int $currentPageNumber = 1): ResponseInterface
     {
@@ -116,8 +110,6 @@ class FormLogController extends ActionController
 
     /**
      * Export CSV of form log entries
-     *
-     * @param Filters $filters
      */
     public function exportAction(Filters $filters): ResponseInterface
     {

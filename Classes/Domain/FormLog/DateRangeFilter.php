@@ -13,14 +13,8 @@ namespace Pagemachine\Formlog\Domain\FormLog;
  */
 class DateRangeFilter implements FilterInterface
 {
-    protected ?\DateTime $startDate;
-
-    protected ?\DateTime $endDate;
-
-    public function __construct(\DateTime $startDate = null, \DateTime $endDate = null)
+    public function __construct(protected ?\DateTime $startDate = null, protected ?\DateTime $endDate = null)
     {
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
     }
 
     public function getStartDate(): ?\DateTime

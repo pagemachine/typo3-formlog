@@ -40,10 +40,7 @@ abstract class AbstractExport
     protected function getHeaders(): array
     {
         $headers = array_column($this->getColumns(), 'label');
-        $headers = array_map(function ($header) {
-
-            return  LocalizationUtility::translate($header, 'Formlog') ?: $header;
-        }, $headers);
+        $headers = array_map(fn($header) => LocalizationUtility::translate($header, 'Formlog') ?: $header, $headers);
 
         return $headers;
     }
@@ -111,7 +108,7 @@ abstract class AbstractExport
      *
      * @param mixed $value value to convert
      */
-    protected function convertValueToString($value): string
+    protected function convertValueToString(mixed $value): string
     {
         $formatter = GeneralUtility::makeInstance(ValueFormatter::class);
 

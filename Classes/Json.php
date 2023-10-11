@@ -22,11 +22,9 @@ final class Json
     }
 
     /**
-     * @param mixed $value
-     *
      * @throws \JsonException if encoding fails
      */
-    public static function encode($value): string
+    public static function encode(mixed $value): string
     {
         $encoded = json_encode(
             $value,

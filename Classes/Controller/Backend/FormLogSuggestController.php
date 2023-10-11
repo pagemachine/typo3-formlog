@@ -18,14 +18,8 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 final class FormLogSuggestController
 {
-    private Suggestions $suggestions;
-
-    private ResponseFactoryInterface $responseFactory;
-
-    public function __construct(Suggestions $suggestions, ResponseFactoryInterface $responseFactory)
+    public function __construct(private Suggestions $suggestions, private ResponseFactoryInterface $responseFactory)
     {
-        $this->suggestions = $suggestions;
-        $this->responseFactory = $responseFactory;
     }
 
     public function searchAction(ServerRequestInterface $request): ResponseInterface
@@ -34,7 +28,7 @@ final class FormLogSuggestController
         $suggestions = $this->suggestions->getForProperty($body['property']);
         $response = $this->responseFactory->createResponse()
             ->withHeader('Content-Type', 'application/json; charset=utf-8');
-        $response->getBody()->write(json_encode($suggestions));
+        $response->getBody()->write(json_encode($suggestions, JSON_THROW_ON_ERROR));
 
         return $response;
     }

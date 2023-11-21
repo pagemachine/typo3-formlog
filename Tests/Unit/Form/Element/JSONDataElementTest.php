@@ -74,8 +74,8 @@ HTML;
         $expected = <<<HTML
 <table class="table table-striped table-hover">
 <tr><th>Field</th><th>Value</th></tr>
-<tr><th>foo</th><td style="white-space: pre">bar
-qux</td></tr>
+<tr><th>foo</th><td style="white-space: pre">0: bar
+1: qux</td></tr>
 </table>
 HTML;
         yield 'list of values' => ['{"foo":["bar","qux"]}', $expected];
@@ -85,8 +85,8 @@ HTML;
 <tr><th>Field</th><th>Value</th></tr>
 <tr><th>foo</th><td style="white-space: pre">bar: qux
 list:
-    first
-    second</td></tr>
+    0: first
+    1: second</td></tr>
 </table>
 HTML;
         yield 'nested values' => ['{"foo":{"bar": "qux","list":["first","second"]}}', $expected];

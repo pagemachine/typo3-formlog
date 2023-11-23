@@ -62,36 +62,21 @@ final class ValueFormatter
     private function formatArray(array $value, int $level = 0): string
     {
         $indentation = str_repeat('    ', $level);
-
-        if ($this->hasStringKeys($value)) {
-            $arrayValues = [];
-
-            foreach ($value as $key => $arrayValue) {
-                $separator = ' ';
-
-                if (is_array($arrayValue)) {
-                    $separator = "\n";
-                    $arrayValue = $this->formatArray($arrayValue, $level + 1);
-                }
-
-                $arrayValues[] = sprintf(
-                    '%s%s:%s%s',
-                    $indentation,
-                    $key,
-                    $separator,
-                    $arrayValue
-                );
-            }
-
-            return implode("\n", $arrayValues);
-        }
-
         $arrayValues = [];
 
-        foreach ($value as $arrayValue) {
+        foreach ($value as $key => $arrayValue) {
+            $separator = ' ';
+
+            if (is_array($arrayValue)) {
+                $separator = "\n";
+                $arrayValue = $this->formatArray($arrayValue, $level + 1);
+            }
+
             $arrayValues[] = sprintf(
-                '%s%s',
+                '%s%s:%s%s',
                 $indentation,
+                $key,
+                $separator,
                 $arrayValue
             );
         }
@@ -102,13 +87,5 @@ final class ValueFormatter
     private function formatDateTime(\DateTimeInterface $value): string
     {
         return $value->format($this->dateTimeFormat);
-    }
-
-    /**
-     * @see https://stackoverflow.com/a/4254008/6812729
-     */
-    private function hasStringKeys(array $array): bool
-    {
-        return count(array_filter(array_keys($array), 'is_string')) > 0;
     }
 }

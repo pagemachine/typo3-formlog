@@ -60,9 +60,9 @@ final class ValueFormatterTest extends UnitTestCase
                 'qux',
             ],
             <<<TEXT
-foo
-bar
-qux
+0: foo
+1: bar
+2: qux
 TEXT
 ,
         ];
@@ -99,7 +99,7 @@ TEXT
 ,
         ];
 
-        yield 'mixed array' => [
+        yield 'array with mixed values' => [
             [
                 '1st' => [
                     '2nd' => 'foo',
@@ -115,6 +115,32 @@ TEXT
     3rd:
         4th: bar
     5th: qux
+TEXT
+,
+        ];
+
+        yield 'array with mixed keys' => [
+            [
+                [
+                    '1st' => 'foo',
+                    '2nd' => [],
+                ],
+                [
+                    '1st' => 'bar',
+                    '2nd' => [
+                        '3rd',
+                    ],
+                ],
+            ],
+            <<<TEXT
+0:
+    1st: foo
+    2nd:
+
+1:
+    1st: bar
+    2nd:
+        0: 3rd
 TEXT
 ,
         ];

@@ -19,6 +19,5 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->skip([
         \Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::class,
-        \Rector\Php71\Rector\FuncCall\CountOnNullRector::class,
     ]);
 };

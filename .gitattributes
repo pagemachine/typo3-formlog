@@ -3,6 +3,7 @@
 .github export-ignore
 .gitignore export-ignore
 .phpunit.result.cache export-ignore
+.php-cs-fixer.* export-ignore
 bower.json export-ignore
 composer.lock export-ignore
 docker-compose.yml export-ignore

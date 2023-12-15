@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Unit\Export;
 
@@ -21,15 +21,13 @@ final class AbstractExportTest extends UnitTestCase
      */
     public function sortsColumns(): void
     {
-        $export = new class extends AbstractExport {
+        $export = new class () extends AbstractExport {
             public function exposeColumnPaths(): array
             {
                 return $this->getColumnPaths();
             }
 
-            public function dump(iterable $items): void
-            {
-            }
+            public function dump(iterable $items): void {}
         };
 
         $configuration = [
@@ -54,6 +52,6 @@ final class AbstractExportTest extends UnitTestCase
             'custom',
         ];
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

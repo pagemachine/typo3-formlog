@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 
@@ -104,10 +104,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ->select(['*'], 'tx_formlog_entries')
             ->fetchAssociative();
 
-        $this->assertSame(123, $logEntry['pid'] ?? null);
-        $this->assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
-        $this->assertSame($expectedData, $logEntry['data'] ?? null);
-        $this->assertSame('[]', $logEntry['finisher_variables'] ?? null);
+        self::assertSame(123, $logEntry['pid'] ?? null);
+        self::assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
+        self::assertSame($expectedData, $logEntry['data'] ?? null);
+        self::assertSame('[]', $logEntry['finisher_variables'] ?? null);
     }
 
     public function formData(): \Generator
@@ -234,10 +234,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ->select(['*'], 'tx_formlog_entries')
             ->fetchAssociative();
 
-        $this->assertSame(123, $logEntry['pid'] ?? null);
-        $this->assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
-        $this->assertSame('{"name":"Tester"}', $logEntry['data'] ?? null);
-        $this->assertSame('{"SaveToDatabase":{"insertedUids.0":124}}', $logEntry['finisher_variables'] ?? null);
+        self::assertSame(123, $logEntry['pid'] ?? null);
+        self::assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
+        self::assertSame('{"name":"Tester"}', $logEntry['data'] ?? null);
+        self::assertSame('{"SaveToDatabase":{"insertedUids.0":124}}', $logEntry['finisher_variables'] ?? null);
     }
 
     protected function buildFormDefinition(array $configuration): FormDefinition
@@ -292,7 +292,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
                 ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
                 ->withAttribute('extbase', GeneralUtility::makeInstance(ExtbaseRequestParameters::class))
                 ->withAttribute('currentContentObject', $contentObjectRenderer);
-    
+
             $request = GeneralUtility::makeInstance(ExtbaseRequest::class, $serverRequest);
         }
 

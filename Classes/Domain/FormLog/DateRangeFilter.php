@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Domain\FormLog;
 
@@ -13,9 +13,7 @@ namespace Pagemachine\Formlog\Domain\FormLog;
  */
 class DateRangeFilter implements FilterInterface
 {
-    public function __construct(protected ?\DateTime $startDate = null, protected ?\DateTime $endDate = null)
-    {
-    }
+    public function __construct(protected ?\DateTime $startDate = null, protected ?\DateTime $endDate = null) {}
 
     public function getStartDate(): ?\DateTime
     {

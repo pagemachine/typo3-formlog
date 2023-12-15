@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Unit\ViewHelpers\Format;
 
@@ -33,7 +33,7 @@ final class ValueFormatterTest extends UnitTestCase
     {
         $result = $this->valueFormatter->format($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function formValues(): \Generator
@@ -167,7 +167,7 @@ TEXT
             ->setDateTimeFormat('d.m.Y')
             ->format($date);
 
-        $this->assertEquals('08.01.2021', $result);
+        self::assertEquals('08.01.2021', $result);
     }
 
     /**
@@ -177,6 +177,6 @@ TEXT
     {
         $this->expectException(\UnexpectedValueException::class);
 
-        $this->valueFormatter->format(new \stdClass);
+        $this->valueFormatter->format(new \stdClass());
     }
 }

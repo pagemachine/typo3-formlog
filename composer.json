@@ -27,8 +27,8 @@
         "typo3fluid/fluid": "^2.3"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^5.0",
         "ergebnis/composer-normalize": "^2.3",
+        "friendsofphp/php-cs-fixer": "^3.41",
         "helmich/typo3-typoscript-lint": "^3.0",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "michielroos/typo3scan": "^1.7",
@@ -40,9 +40,8 @@
         "rector/rector": "^0.18.5",
         "saschaegerer/phpstan-typo3": "^1.0.0",
         "sclable/xml-lint": "^0.6.0",
-        "slevomat/coding-standard": "^8.0",
-        "squizlabs/php_codesniffer": "^3.1",
         "typo3/cms-scheduler": "^11.5 || ^12.4",
+        "typo3/coding-standards": "^0.7.1",
         "typo3/testing-framework": "^7.0 || ^8.0"
     },
     "replace": {
@@ -110,7 +109,7 @@
         "deploy:ter:upload": [
             "composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
         ],
-        "fix:style": "phpcbf",
+        "fix:style": "php-cs-fixer fix --diff",
         "lint": [
             "@lint:php",
             "@lint:typoscript",
@@ -120,7 +119,7 @@
             "@lint:xml"
         ],
         "lint:php": "parallel-lint --exclude vendor --exclude web .",
-        "lint:style": "phpcs",
+        "lint:style": "php-cs-fixer fix --dry-run --diff",
         "lint:typoscript": "typoscript-lint --ansi",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
         "php:rector:fix": "rector",

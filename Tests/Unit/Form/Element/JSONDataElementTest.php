@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Unit\Form\Element;
 
@@ -57,7 +57,7 @@ class JSONDataElementTest extends UnitTestCase
 
         $result = $jsonDataElement->render();
 
-        $this->assertEquals($expected, $result['html']);
+        self::assertEquals($expected, $result['html']);
     }
 
     public function samples()

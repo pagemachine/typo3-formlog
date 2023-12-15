@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog;
 
@@ -35,7 +35,5 @@ final class Json
         return $encoded;
     }
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 }

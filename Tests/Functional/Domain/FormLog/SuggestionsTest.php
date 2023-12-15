@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Functional\Domain\FormLog;
 
@@ -69,7 +69,7 @@ final class SuggestionsTest extends FunctionalTestCase
 
         $result = $suggestions->getForProperty($property);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function properties(): \Generator

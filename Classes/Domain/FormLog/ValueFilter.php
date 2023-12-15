@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Domain\FormLog;
 
@@ -13,9 +13,7 @@ namespace Pagemachine\Formlog\Domain\FormLog;
  */
 class ValueFilter implements FilterInterface
 {
-    public function __construct(protected string $value = '')
-    {
-    }
+    public function __construct(protected string $value = '') {}
 
     public function getValue(): string
     {

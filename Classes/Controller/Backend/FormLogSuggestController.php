@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Controller\Backend;
 
@@ -18,9 +18,7 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 final class FormLogSuggestController
 {
-    public function __construct(private Suggestions $suggestions, private ResponseFactoryInterface $responseFactory)
-    {
-    }
+    public function __construct(private Suggestions $suggestions, private ResponseFactoryInterface $responseFactory) {}
 
     public function searchAction(ServerRequestInterface $request): ResponseInterface
     {

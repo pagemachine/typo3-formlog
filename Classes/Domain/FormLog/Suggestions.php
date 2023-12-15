@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Domain\FormLog;
 
@@ -15,9 +15,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  */
 final class Suggestions
 {
-    public function __construct(private ConnectionPool $connectionPool)
-    {
-    }
+    public function __construct(private ConnectionPool $connectionPool) {}
 
     /**
      * Get suggestions for a form log property

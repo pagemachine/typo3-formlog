@@ -29,6 +29,7 @@
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^5.0",
         "ergebnis/composer-normalize": "^2.3",
+        "friendsofphp/php-cs-fixer": "^3.41",
         "helmich/typo3-typoscript-lint": "^3.0",
         "jangregor/phpstan-prophecy": "^1.0.0",
         "michielroos/typo3scan": "^1.7",
@@ -43,6 +44,7 @@
         "slevomat/coding-standard": "^8.0",
         "squizlabs/php_codesniffer": "^3.1",
         "typo3/cms-scheduler": "^11.5 || ^12.4",
+        "typo3/coding-standards": "^0.7.1",
         "typo3/testing-framework": "^7.0 || ^8.0"
     },
     "replace": {

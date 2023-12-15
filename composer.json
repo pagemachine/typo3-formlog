@@ -112,7 +112,7 @@
         "deploy:ter:upload": [
             "composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
         ],
-        "fix:style": "phpcbf",
+        "fix:style": "php-cs-fixer fix --diff",
         "lint": [
             "@lint:php",
             "@lint:typoscript",
@@ -122,7 +122,7 @@
             "@lint:xml"
         ],
         "lint:php": "parallel-lint --exclude vendor --exclude web .",
-        "lint:style": "phpcs",
+        "lint:style": "php-cs-fixer fix --dry-run --diff",
         "lint:typoscript": "typoscript-lint --ansi",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
         "php:rector:fix": "rector",

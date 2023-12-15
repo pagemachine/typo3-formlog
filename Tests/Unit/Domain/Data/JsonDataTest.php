@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Unit\Domain\Data;
 
@@ -20,8 +20,8 @@ final class JsonDataTest extends UnitTestCase
         $jsonString = '{"foo":"bar","qux":10}';
         $data = new JsonData($jsonString);
 
-        $this->assertEquals('bar', $data['foo']);
-        $this->assertEquals(10, $data['qux']);
+        self::assertEquals('bar', $data['foo']);
+        self::assertEquals(10, $data['qux']);
 
         return $data;
     }
@@ -33,6 +33,6 @@ final class JsonDataTest extends UnitTestCase
     {
         $jsonString = (string)$data;
 
-        $this->assertEquals('{"foo":"bar","qux":10}', $jsonString);
+        self::assertEquals('{"foo":"bar","qux":10}', $jsonString);
     }
 }

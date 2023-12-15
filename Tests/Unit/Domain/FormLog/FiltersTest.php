@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Unit\Domain\FormLog;
 
@@ -42,9 +42,9 @@ class FiltersTest extends UnitTestCase
         $submissionDateFilter = $this->prophesize(DateRangeFilter::class)->reveal();
         $filters = new Filters($pageTitleFilter, $identifierFilter, $submissionDateFilter);
 
-        $this->assertSame($pageTitleFilter, $filters->getPageTitle());
-        $this->assertSame($identifierFilter, $filters->getIdentifier());
-        $this->assertSame($submissionDateFilter, $filters->getSubmissionDate());
+        self::assertSame($pageTitleFilter, $filters->getPageTitle());
+        self::assertSame($identifierFilter, $filters->getIdentifier());
+        self::assertSame($submissionDateFilter, $filters->getSubmissionDate());
     }
 
     /**
@@ -54,8 +54,8 @@ class FiltersTest extends UnitTestCase
     {
         $filters = new Filters();
 
-        $this->assertInstanceOf(ValueFilter::class, $filters->getPageTitle());
-        $this->assertInstanceOf(DateRangeFilter::class, $filters->getSubmissionDate());
+        self::assertInstanceOf(ValueFilter::class, $filters->getPageTitle());
+        self::assertInstanceOf(DateRangeFilter::class, $filters->getSubmissionDate());
     }
 
     /**
@@ -65,7 +65,7 @@ class FiltersTest extends UnitTestCase
     {
         $filters = new Filters();
 
-        $this->assertTrue($filters->isEmpty());
+        self::assertTrue($filters->isEmpty());
     }
 
     /**
@@ -80,15 +80,15 @@ class FiltersTest extends UnitTestCase
 
         $filters = new Filters($pageTitleFilter->reveal());
 
-        $this->assertFalse($filters->isEmpty());
+        self::assertFalse($filters->isEmpty());
 
         $filters = new Filters(null, null, $submissionDateFilter->reveal());
 
-        $this->assertFalse($filters->isEmpty());
+        self::assertFalse($filters->isEmpty());
 
         $filters = new Filters($pageTitleFilter->reveal(), null, $submissionDateFilter->reveal());
 
-        $this->assertFalse($filters->isEmpty());
+        self::assertFalse($filters->isEmpty());
     }
 
     /**
@@ -99,7 +99,7 @@ class FiltersTest extends UnitTestCase
         $filters = new Filters();
         $items = iterator_to_array($filters);
 
-        $this->assertEmpty($items);
+        self::assertEmpty($items);
     }
 
     /**
@@ -117,19 +117,19 @@ class FiltersTest extends UnitTestCase
         $filters = new Filters($pageTitleFilter->reveal());
         $items = iterator_to_array($filters);
 
-        $this->assertCount(1, $items);
-        $this->assertContainsOnlyInstancesOf(ValueFilter::class, $items);
+        self::assertCount(1, $items);
+        self::assertContainsOnlyInstancesOf(ValueFilter::class, $items);
 
         $filters = new Filters(null, null, $submissionDateFilter->reveal());
         $items = iterator_to_array($filters);
 
-        $this->assertCount(1, $items);
-        $this->assertContainsOnlyInstancesOf(DateRangeFilter::class, $items);
+        self::assertCount(1, $items);
+        self::assertContainsOnlyInstancesOf(DateRangeFilter::class, $items);
 
         $filters = new Filters($pageTitleFilter->reveal(), $identifierFilter->reveal(), $submissionDateFilter->reveal());
         $items = iterator_to_array($filters);
 
-        $this->assertCount(2, $items);
+        self::assertCount(2, $items);
     }
 
     /**
@@ -152,11 +152,11 @@ class FiltersTest extends UnitTestCase
 
         $result = $filters->toArray();
 
-        $this->assertArrayHasKey('pageTitle', $result);
-        $this->assertIsArray($result['pageTitle']);
-        $this->assertArrayHasKey('identifier', $result);
-        $this->assertIsArray($result['identifier']);
-        $this->assertArrayHasKey('submissionDate', $result);
-        $this->assertIsArray($result['submissionDate']);
+        self::assertArrayHasKey('pageTitle', $result);
+        self::assertIsArray($result['pageTitle']);
+        self::assertArrayHasKey('identifier', $result);
+        self::assertIsArray($result['identifier']);
+        self::assertArrayHasKey('submissionDate', $result);
+        self::assertIsArray($result['submissionDate']);
     }
 }

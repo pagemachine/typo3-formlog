@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Unit\Domain\FormLog;
 
@@ -34,7 +34,7 @@ class ValueFilterTest extends UnitTestCase
     {
         $valueFilter = new ValueFilter('foo');
 
-        $this->assertEquals('foo', $valueFilter->getValue());
+        self::assertEquals('foo', $valueFilter->getValue());
     }
 
     /**
@@ -44,7 +44,7 @@ class ValueFilterTest extends UnitTestCase
     {
         $valueFilter = new ValueFilter();
 
-        $this->assertTrue($valueFilter->isEmpty());
+        self::assertTrue($valueFilter->isEmpty());
     }
 
     /**
@@ -54,7 +54,7 @@ class ValueFilterTest extends UnitTestCase
     {
         $valueFilter = new ValueFilter('foo');
 
-        $this->assertFalse($valueFilter->isEmpty());
+        self::assertFalse($valueFilter->isEmpty());
     }
 
     /**
@@ -69,6 +69,6 @@ class ValueFilterTest extends UnitTestCase
             'value' => 'foo',
         ];
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

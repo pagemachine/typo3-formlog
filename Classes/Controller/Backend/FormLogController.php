@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Controller\Backend;
 
@@ -28,7 +28,6 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class FormLogController extends ActionController
 {
-
     protected array $viewFormatToExportMap = [
         'csv' => CsvExport::class,
         'xlsx' => XlsxExport::class,
@@ -36,9 +35,7 @@ class FormLogController extends ActionController
 
     protected FormLogEntryRepository $formLogEntryRepository;
 
-    public function __construct(protected ModuleTemplateFactory $moduleTemplateFactory)
-    {
-    }
+    public function __construct(protected ModuleTemplateFactory $moduleTemplateFactory) {}
 
     public function injectFormLogEntryRepository(FormLogEntryRepository $formLogEntryRepository)
     {
@@ -47,8 +44,6 @@ class FormLogController extends ActionController
 
     /**
      * Initialize all actions
-     *
-     * @return void
      */
     public function initializeAction()
     {

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Unit\Domain\FormLog;
 
@@ -36,8 +36,8 @@ class DateRangeFilterTest extends UnitTestCase
         $date2 = new \DateTime();
         $dateRangeFilter = new DateRangeFilter($date1, $date2);
 
-        $this->assertSame($date1, $dateRangeFilter->getStartDate());
-        $this->assertSame($date2, $dateRangeFilter->getEndDate());
+        self::assertSame($date1, $dateRangeFilter->getStartDate());
+        self::assertSame($date2, $dateRangeFilter->getEndDate());
     }
 
     /**
@@ -47,7 +47,7 @@ class DateRangeFilterTest extends UnitTestCase
     {
         $dateRangeFilter = new DateRangeFilter();
 
-        $this->assertTrue($dateRangeFilter->isEmpty());
+        self::assertTrue($dateRangeFilter->isEmpty());
     }
 
     /**
@@ -60,15 +60,15 @@ class DateRangeFilterTest extends UnitTestCase
 
         $dateRangeFilter = new DateRangeFilter($date1);
 
-        $this->assertFalse($dateRangeFilter->isEmpty());
+        self::assertFalse($dateRangeFilter->isEmpty());
 
         $dateRangeFilter = new DateRangeFilter(null, $date2);
 
-        $this->assertFalse($dateRangeFilter->isEmpty());
+        self::assertFalse($dateRangeFilter->isEmpty());
 
         $dateRangeFilter = new DateRangeFilter($date1, $date2);
 
-        $this->assertFalse($dateRangeFilter->isEmpty());
+        self::assertFalse($dateRangeFilter->isEmpty());
     }
 
     /**
@@ -87,6 +87,6 @@ class DateRangeFilterTest extends UnitTestCase
             'endDate' => '2020-09-28T11:30:00+00:00',
         ];
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }

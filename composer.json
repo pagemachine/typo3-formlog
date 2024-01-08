@@ -118,7 +118,7 @@
             "@php:rector:lint",
             "@lint:xml"
         ],
-        "lint:php": "parallel-lint --exclude vendor --exclude web .",
+        "lint:php": "parallel-lint --show-deprecated --exclude vendor --exclude web .",
         "lint:style": "php-cs-fixer fix --dry-run --diff",
         "lint:typoscript": "typoscript-lint --ansi",
         "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",

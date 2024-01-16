@@ -24,6 +24,8 @@ final class ValueFormatterTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->valueFormatter = new ValueFormatter();
+
+        parent::setUp();
     }
     /**
      * @test

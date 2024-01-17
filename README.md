@@ -43,7 +43,7 @@ Additional variables stored in the `FinisherVariableProvider` can also be logged
           - myCustomVariable
 ```
 
-The keys within `finisherVariables` are identifiers of finishers used in a form, the value of each entry is a list of finisher variable names.
+The keys within `finisherVariables` are identifiers of finishers used in a form, the value of each entry is a list of finisher variable names. In the example here the finisher variable `myCustomVariable` provided by the finisher `MyCustomFinisher` will be logged.
 
 ## Form log module
 

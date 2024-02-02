@@ -36,7 +36,7 @@
         "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^1.0.0",
-        "phpunit/phpunit": "^9.0 || ^10.0",
+        "phpunit/phpunit": "^11.0",
         "rector/rector": "^0.19.0",
         "saschaegerer/phpstan-typo3": "^1.0.0",
         "sclable/xml-lint": "^0.6.0",

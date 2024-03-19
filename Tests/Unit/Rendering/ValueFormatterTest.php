@@ -66,7 +66,7 @@ final class ValueFormatterTest extends UnitTestCase
 1: bar
 2: qux
 TEXT
-,
+            ,
         ];
 
         yield 'associative array' => [
@@ -80,7 +80,7 @@ TEXT
 2nd: bar
 3rd: qux
 TEXT
-,
+            ,
         ];
 
         yield 'nested associative array' => [
@@ -98,7 +98,7 @@ TEXT
         3rd: foo
     4th: bar
 TEXT
-,
+            ,
         ];
 
         yield 'array with mixed values' => [
@@ -118,7 +118,7 @@ TEXT
         4th: bar
     5th: qux
 TEXT
-,
+            ,
         ];
 
         yield 'array with mixed keys' => [
@@ -144,7 +144,7 @@ TEXT
     2nd:
         0: 3rd
 TEXT
-,
+            ,
         ];
 
         yield 'date' => [

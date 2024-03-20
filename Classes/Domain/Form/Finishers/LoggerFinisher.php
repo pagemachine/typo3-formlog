@@ -78,9 +78,7 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
             'finisher_variables' => $encodedFinisherVariables,
         ];
 
-        /** @var ConnectionPool */
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        /** @var \TYPO3\CMS\Core\Database\Connection */
         $connection = $connectionPool->getConnectionForTable('tx_formlog_entries');
         $connection->insert('tx_formlog_entries', $data);
 

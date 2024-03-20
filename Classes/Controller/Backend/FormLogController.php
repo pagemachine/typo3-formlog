@@ -71,7 +71,6 @@ class FormLogController extends ActionController
     {
         $entries = $this->formLogEntryRepository->findAllFiltered($filters);
         $paginator = new QueryResultPaginator($entries, $currentPageNumber);
-        /** @var UriBuilder */
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
         $this->view->assignMultiple([

@@ -21,34 +21,16 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class FormLogEntry extends AbstractEntity
 {
-    /**
-     * @var Page|null
-     */
     public ?Page $page = null;
 
-    /**
-     * @var \DateTime|null
-     */
     public ?\DateTime $submissionDate = null;
 
-    /**
-     * @var int|null
-     */
     public ?int $language = null;
 
-    /**
-     * @var string
-     */
     public string $identifier = '';
 
-    /**
-     * @var JsonData|null
-     */
     public ?JsonData $data = null;
 
-    /**
-     * @var JsonData|null
-     */
     public ?JsonData $finisherVariables = null;
 
     public function getSiteLanguage(): ?SiteLanguage

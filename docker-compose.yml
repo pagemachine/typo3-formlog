@@ -14,7 +14,8 @@ services:
       typo3DatabaseHost: mysql
       typo3DatabasePassword: root
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     volumes:
       - ./:/usr/src/app
 
@@ -23,5 +24,10 @@ services:
     command: ['mysqld', '--character-set-server=utf8mb4']
     environment:
       MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     tmpfs:
       - /var/lib/mysql

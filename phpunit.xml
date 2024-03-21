@@ -21,9 +21,6 @@
       <directory suffix=".php">Classes/</directory>
     </include>
   </coverage>
-  <php>
-    <env name="TYPO3_PATH_WEB" value="web"/>
-  </php>
   <testsuites>
     <testsuite name="Unit tests">
       <directory>Tests/Unit/</directory>

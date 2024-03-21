@@ -22,7 +22,6 @@
     </include>
   </coverage>
   <php>
-    <env name="TYPO3_PATH_WEB" value="web"/>
     <env name="typo3DatabaseName" value="typo3_functional"/>
     <env name="typo3DatabaseHost" value="127.0.0.1"/>
     <env name="typo3DatabaseUsername" value="root"/>

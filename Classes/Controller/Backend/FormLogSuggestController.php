@@ -18,7 +18,7 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 final class FormLogSuggestController
 {
-    public function __construct(private Suggestions $suggestions, private ResponseFactoryInterface $responseFactory) {}
+    public function __construct(private readonly Suggestions $suggestions, private readonly ResponseFactoryInterface $responseFactory) {}
 
     public function searchAction(ServerRequestInterface $request): ResponseInterface
     {

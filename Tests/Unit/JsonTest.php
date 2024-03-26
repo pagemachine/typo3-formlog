@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Pagemachine\Formlog\Tests\Unit;
 
 use Pagemachine\Formlog\Json;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -12,9 +13,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class JsonTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function failDecodingInvalidJsonString(): void
     {
         $this->expectException(\JsonException::class);
@@ -22,9 +21,7 @@ final class JsonTest extends UnitTestCase
         Json::decode('');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function failEncodingRecursiveValue(): void
     {
         $array1 = [];

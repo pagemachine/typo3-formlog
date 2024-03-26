@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Pagemachine\Formlog\Tests\Functional\Domain\FormLog;
 
 use Pagemachine\Formlog\Domain\FormLog\Suggestions;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -18,10 +20,8 @@ final class SuggestionsTest extends FunctionalTestCase
         'typo3conf/ext/formlog',
     ];
 
-    /**
-     * @test
-     * @dataProvider properties
-     */
+    #[DataProvider('properties')]
+    #[Test]
     public function returnsSuggestionsForProperty(string $property, array $expected): void
     {
         $data = [
@@ -72,7 +72,7 @@ final class SuggestionsTest extends FunctionalTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function properties(): \Generator
+    public static function properties(): \Generator
     {
         yield 'basic' => [
             'identifier',

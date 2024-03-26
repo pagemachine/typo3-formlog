@@ -7,8 +7,9 @@ namespace Pagemachine\Formlog\Tests\Unit\ViewHelpers\Format;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
-
 use Pagemachine\Formlog\Rendering\ValueFormatter;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -27,10 +28,8 @@ final class ValueFormatterTest extends UnitTestCase
 
         parent::setUp();
     }
-    /**
-     * @test
-     * @dataProvider formValues
-     */
+    #[DataProvider('formValues')]
+    #[Test]
     public function formatsSupportedValues($value, string $expected): void
     {
         $result = $this->valueFormatter->format($value);
@@ -38,7 +37,7 @@ final class ValueFormatterTest extends UnitTestCase
         self::assertEquals($expected, $result);
     }
 
-    public function formValues(): \Generator
+    public static function formValues(): \Generator
     {
         yield 'null' => [
             null,
@@ -158,9 +157,7 @@ TEXT
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function rendersDateWithCustomFormat(): void
     {
         $date = new \DateTime('@1610102035');
@@ -172,9 +169,7 @@ TEXT
         self::assertEquals('08.01.2021', $result);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsExceptionOnUnsupportedValues(): void
     {
         $this->expectException(\UnexpectedValueException::class);

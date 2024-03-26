@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Pagemachine\Formlog\Tests\Unit\Domain\Data;
 
 use Pagemachine\Formlog\Domain\Data\JsonData;
+use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -12,9 +14,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class JsonDataTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function parseJsonString(): JsonData
     {
         $jsonString = '{"foo":"bar","qux":10}';
@@ -26,9 +26,7 @@ final class JsonDataTest extends UnitTestCase
         return $data;
     }
 
-    /**
-     * @depends parseJsonString
-     */
+    #[Depends('parseJsonString')]
     public function formatJsonData(JsonData $data): void
     {
         $jsonString = (string)$data;

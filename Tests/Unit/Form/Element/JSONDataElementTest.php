@@ -7,8 +7,9 @@ namespace Pagemachine\Formlog\Tests\Unit\Form\Element;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
-
 use Pagemachine\Formlog\Form\Element\JSONDataElement;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Backend\Form\NodeFactory;
@@ -33,12 +34,11 @@ class JSONDataElementTest extends UnitTestCase
     }
 
     /**
-     * @test
-     * @dataProvider samples
-     *
      * @param string $formElementValue
      * @param string $expected
      */
+    #[DataProvider('samples')]
+    #[Test]
     public function rendersFormData($formElementValue, $expected)
     {
         $iconFactory = $this->prophesize(IconFactory::class);
@@ -60,7 +60,7 @@ class JSONDataElementTest extends UnitTestCase
         self::assertEquals($expected, $result['html']);
     }
 
-    public function samples()
+    public static function samples()
     {
         $expected = <<<HTML
 <table class="table table-striped table-hover">

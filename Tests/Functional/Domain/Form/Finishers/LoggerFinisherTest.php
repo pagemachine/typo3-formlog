@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -79,10 +81,8 @@ final class LoggerFinisherTest extends FunctionalTestCase
         unset($GLOBALS['TSFE']);
     }
 
-    /**
-     * @test
-     * @dataProvider formData
-     */
+    #[DataProvider('formData')]
+    #[Test]
     public function logsSubmittedFormData(array $fields, array $formValues, string $expectedData)
     {
         $formDefinition = $this->buildFormDefinition([
@@ -110,7 +110,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         self::assertSame('[]', $logEntry['finisher_variables'] ?? null);
     }
 
-    public function formData(): \Generator
+    public static function formData(): \Generator
     {
         yield 'basic' => [
             [
@@ -185,9 +185,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function logsFinisherVariables()
     {
         $formDefinition = $this->buildFormDefinition([

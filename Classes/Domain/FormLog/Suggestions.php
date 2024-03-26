@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  */
 final class Suggestions
 {
-    public function __construct(private ConnectionPool $connectionPool) {}
+    public function __construct(private readonly ConnectionPool $connectionPool) {}
 
     /**
      * Get suggestions for a form log property

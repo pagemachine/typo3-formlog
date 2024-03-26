@@ -7,8 +7,8 @@ namespace Pagemachine\Formlog\Tests\Unit\Domain\FormLog;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
-
 use Pagemachine\Formlog\Domain\FormLog\DateRangeFilter;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -27,9 +27,7 @@ class DateRangeFilterTest extends UnitTestCase
         GeneralUtility::purgeInstances();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructsWithDates()
     {
         $date1 = new \DateTime();
@@ -40,9 +38,7 @@ class DateRangeFilterTest extends UnitTestCase
         self::assertSame($date2, $dateRangeFilter->getEndDate());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isEmptyByDefault()
     {
         $dateRangeFilter = new DateRangeFilter();
@@ -50,9 +46,7 @@ class DateRangeFilterTest extends UnitTestCase
         self::assertTrue($dateRangeFilter->isEmpty());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isNotEmptyWithAtLeastOneDate()
     {
         $date1 = new \DateTime();
@@ -71,9 +65,7 @@ class DateRangeFilterTest extends UnitTestCase
         self::assertFalse($dateRangeFilter->isEmpty());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canBeConvertedToArray(): void
     {
         $dateRangeFilter = new DateRangeFilter(

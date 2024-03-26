@@ -7,8 +7,8 @@ namespace Pagemachine\Formlog\Tests\Unit\Domain\FormLog;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
-
 use Pagemachine\Formlog\Domain\FormLog\ValueFilter;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -27,9 +27,7 @@ class ValueFilterTest extends UnitTestCase
         GeneralUtility::purgeInstances();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructsWithValue()
     {
         $valueFilter = new ValueFilter('foo');
@@ -37,9 +35,7 @@ class ValueFilterTest extends UnitTestCase
         self::assertEquals('foo', $valueFilter->getValue());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isEmptyByDefault()
     {
         $valueFilter = new ValueFilter();
@@ -47,9 +43,7 @@ class ValueFilterTest extends UnitTestCase
         self::assertTrue($valueFilter->isEmpty());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isNotEmptyWithValue()
     {
         $valueFilter = new ValueFilter('foo');
@@ -57,9 +51,7 @@ class ValueFilterTest extends UnitTestCase
         self::assertFalse($valueFilter->isEmpty());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canBeConvertedToArray(): void
     {
         $valueFilter = new ValueFilter('foo');

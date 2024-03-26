@@ -7,10 +7,10 @@ namespace Pagemachine\Formlog\Tests\Unit\Domain\FormLog;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
-
 use Pagemachine\Formlog\Domain\FormLog\DateRangeFilter;
 use Pagemachine\Formlog\Domain\FormLog\Filters;
 use Pagemachine\Formlog\Domain\FormLog\ValueFilter;
+use PHPUnit\Framework\Attributes\Test;
 use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -32,9 +32,7 @@ class FiltersTest extends UnitTestCase
         GeneralUtility::purgeInstances();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructsWithFilters()
     {
         $pageTitleFilter = $this->prophesize(ValueFilter::class)->reveal();
@@ -47,9 +45,7 @@ class FiltersTest extends UnitTestCase
         self::assertSame($submissionDateFilter, $filters->getSubmissionDate());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructsWithFilterDefaults()
     {
         $filters = new Filters();
@@ -58,9 +54,7 @@ class FiltersTest extends UnitTestCase
         self::assertInstanceOf(DateRangeFilter::class, $filters->getSubmissionDate());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isEmptyByDefault()
     {
         $filters = new Filters();
@@ -68,9 +62,7 @@ class FiltersTest extends UnitTestCase
         self::assertTrue($filters->isEmpty());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isNotEmptyWithAtLeastOneNonEmptyFilter()
     {
         $pageTitleFilter = $this->prophesize(ValueFilter::class);
@@ -91,9 +83,7 @@ class FiltersTest extends UnitTestCase
         self::assertFalse($filters->isEmpty());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function yieldsNothingOnTraversalByDefault()
     {
         $filters = new Filters();
@@ -102,9 +92,7 @@ class FiltersTest extends UnitTestCase
         self::assertEmpty($items);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function yieldsNonEmptyFiltersOnTraversal()
     {
         $pageTitleFilter = $this->prophesize(ValueFilter::class);
@@ -132,9 +120,7 @@ class FiltersTest extends UnitTestCase
         self::assertCount(2, $items);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function canBeConvertedToArray(): void
     {
         $pageTitleFilter = $this->prophesize(ValueFilter::class);

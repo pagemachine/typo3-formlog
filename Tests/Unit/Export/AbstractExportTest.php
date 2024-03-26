@@ -7,8 +7,8 @@ namespace Pagemachine\Formlog\Tests\Unit\Export;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
-
 use Pagemachine\Formlog\Export\AbstractExport;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -16,9 +16,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class AbstractExportTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function sortsColumns(): void
     {
         $export = new class () extends AbstractExport {

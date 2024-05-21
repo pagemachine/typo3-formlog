@@ -105,8 +105,6 @@ abstract class AbstractExport
 
     /**
      * Convert supported values to string
-     *
-     * @param mixed $value value to convert
      */
     protected function convertValueToString(mixed $value): string
     {

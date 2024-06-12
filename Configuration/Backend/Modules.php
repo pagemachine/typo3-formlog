@@ -9,6 +9,9 @@ return [
             'after' => 'web_FormFormbuilder',
         ],
         'access' => 'user',
+        'aliases' => [
+            'web_FormlogList',
+        ],
         'labels' => 'LLL:EXT:formlog/Resources/Private/Language/locallang_mod_formlog.xlf',
         'icon' => 'EXT:formlog/Resources/Public/Icons/module-list.svg',
         'inheritNavigationComponentFromMainModule' => false,

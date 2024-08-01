@@ -12,6 +12,10 @@ return RectorConfig::configure()
         __DIR__ . '/Tests',
     ])
     ->withRootFiles()
+    ->withImportNames(
+        importShortClasses: false,
+        removeUnusedImports: true,
+    )
     ->withPhpSets()
     ->withSets([
         PHPUnitSetList::PHPUNIT_100,

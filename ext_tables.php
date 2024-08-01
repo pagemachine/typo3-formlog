@@ -1,16 +1,20 @@
 <?php
 
+use Pagemachine\Formlog\Controller\Backend\FormLogController;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 defined('TYPO3') or die();
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_formlog_entries');
+ExtensionManagementUtility::allowTableOnStandardPages('tx_formlog_entries');
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+ExtensionUtility::registerModule(
     'Formlog',
     'web',
     'list',
     'after:FormFormbuilder',
     [
-        \Pagemachine\Formlog\Controller\Backend\FormLogController::class => 'index, export',
+        FormLogController::class => 'index, export',
     ],
     [
         'access' => 'user,group',

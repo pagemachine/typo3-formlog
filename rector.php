@@ -17,7 +17,4 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_100,
         Typo3SetList::TYPO3_11,
     ])
-    ->withSkip([
-        \Rector\Php74\Rector\LNumber\AddLiteralSeparatorToNumberRector::class,
-    ])
 ;

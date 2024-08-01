@@ -1,5 +1,5 @@
 /.php-cs-fixer.cache
-/.phpunit.result.cache
+/.phpunit*.cache
 /bower_components
 /composer.lock
 /node_modules

@@ -12,6 +12,7 @@ return RectorConfig::configure()
         __DIR__ . '/Classes',
         __DIR__ . '/Tests',
     ])
+    ->withRootFiles()
     ->withSets([
         LevelSetList::UP_TO_PHP_81,
         PHPUnitSetList::PHPUNIT_100,

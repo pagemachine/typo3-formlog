@@ -126,7 +126,7 @@ The _Table garbage collection_ Scheduler task can be set up to automatically del
 
 All tests can be executed with the shipped Docker Compose definition:
 
-    docker-compose run --rm app composer build
+    docker compose run --rm app composer build
 
 ## Thanks
 

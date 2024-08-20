@@ -118,6 +118,66 @@ module.tx_formlog {
 }
 ```
 
+## More advanced export configuration
+```
+module.tx_formlog {
+  settings {
+    export {
+      // Define export columns - automatically filtered by form identifier
+      types {
+        myCustomForm {
+          label = Custom Form
+          key = myCustomForm
+          formIdentifier = definedInFormYaml-ttContentID
+
+          // TODO: make translations possible
+          valueMapper {
+            formValue = Better Readable Value
+          }
+
+          columns {
+            100 {
+              property = data.firstname
+              label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Form/locallang.xlf:element.firstname.properties.label
+            }
+            101 {
+              property = data.lastname
+              label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Form/locallang.xlf:element.lastname.properties.label
+            }
+          }
+        }
+
+        mySecondCustomForm {
+          label = Second Custom Form
+          key = mySecondCustomForm
+          formIdentifier = definedInFormYaml-ttContentID
+
+          valueMapper {
+            multi-family = Mehrfamilienhaus
+            townhouse = Reihenhaus
+            other = Sonstiges Objekt
+            tenant = Mieter
+            owner-occupier = Eigennutzer (Eigentümer)
+            owner-landlord = Vermieter (Eigentümer)
+          }
+
+          columns {
+            100 {
+              property = data.firstname
+              label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Form/locallang.xlf:element.firstname.properties.label
+            }
+            101 {
+              property = data.lastname
+              label = LLL:EXT:my_site/Resources/Private/Language/Extensions/Form/locallang.xlf:element.lastname.properties.label
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Log entry cleanup
 
 The _Table garbage collection_ Scheduler task can be set up to automatically delete old form log entries. Select `tx_formlog_entries` as _Table to clean up_ and a suitable value for _Delete entries older than given number of days_, 180 by default.

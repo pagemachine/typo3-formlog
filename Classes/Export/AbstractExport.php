@@ -91,12 +91,21 @@ abstract class AbstractExport
      */
     protected function generateRows($iterable, array $columnPaths): iterable
     {
+        $valueMapper = $this->configuration['valueMapper'];
+
         foreach ($iterable as $item) {
             $record = [];
 
             foreach ($columnPaths as $columnPath) {
                 $value = ObjectAccess::getPropertyPath($item, $columnPath);
-                $record[] = $this->convertValueToString($value);
+                $value = $this->convertValueToString($value);
+                foreach ($valueMapper as $key => $mappedValue) {
+                    if (str_contains($value, $key)) {
+                        $value = $mappedValue;
+                    }
+                }
+
+                $record[] = $value;
             }
 
             yield $record;

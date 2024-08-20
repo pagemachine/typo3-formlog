@@ -9,6 +9,7 @@ namespace Pagemachine\Formlog\Controller\Backend;
  */
 
 use Pagemachine\Formlog\Domain\FormLog\Filters;
+use Pagemachine\Formlog\Domain\FormLog\ValueFilter;
 use Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository;
 use Pagemachine\Formlog\Export\CsvExport;
 use Pagemachine\Formlog\Export\XlsxExport;
@@ -105,16 +106,25 @@ class FormLogController extends ActionController
     /**
      * Export CSV of form log entries
      */
-    public function exportAction(Filters $filters): ResponseInterface
+    public function exportAction(Filters $filters, string $type = ''): ResponseInterface
     {
         $export = GeneralUtility::makeInstance($this->viewFormatToExportMap[$this->request->getFormat()]);
 
         $now = new \DateTime();
+
+        $columns = $this->settings['export']['columns'];
         $fileBasename = sprintf('formlog-%s', $now->format('Y-m-d-H-i-s'));
+        if($type) {
+            $fileBasename = "{$this->settings['export']['types'][$type]['label']}_{$now->format('d-m-Y')}";
+            $fileBasename = (new \TYPO3\CMS\Core\Resource\Driver\LocalDriver)->sanitizeFileName($fileBasename);
+            $identifierFilter = new ValueFilter($this->settings['export']['types'][$type]['formIdentifier']);
+            $filters->setIdentifier($identifierFilter);
+            $columns = $this->settings['export']['types'][$type]['columns'];
+        }
         $logEntries = $this->formLogEntryRepository->findAllFiltered($filters);
 
         $export->setConfiguration([
-            'columns' => $this->settings['export']['columns'],
+            'columns' => $columns,
             'dateTimeFormat' => $this->settings['dateTimeFormat'],
             'fileBasename' => $fileBasename,
         ]);

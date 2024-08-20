@@ -1,44 +1,74 @@
-<f:if condition="{settings.export.columns}">
-  <f:then>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+      lang="en">
 
-    <div class="btn-group dropup" role="group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <c:icon identifier="actions-database-export"/>
-        <f:translate key="formlog.export"/>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-right">
-        <li>
-          <f:link.action
-            action="export"
-            arguments="{filters: '{filters as array}'}"
-            format="csv"
-            addQueryString="true"
-            class="dropdown-item"
-          >
-            <c:icon identifier="mimetypes-text-csv"/>
-            <f:translate key="formlog.export.csv"/>
-          </f:link.action>
-        </li>
-        <li>
-          <f:link.action
-            action="export"
-            arguments="{filters: '{filters as array}'}"
-            format="xlsx"
-            addQueryString="true"
-            class="dropdown-item"
-          >
-            <c:icon identifier="mimetypes-excel"/>
-            <f:translate key="formlog.export.xlsx"/>
-          </f:link.action>
-        </li>
-      </ul>
-    </div>
 
-  </f:then>
-  <f:else>
-    <button type="button" class="btn btn-default" disabled title="{f:translate(key: 'formlog.export.unconfigured')}">
-      <c:icon identifier="actions-document-export-csv"/>
-      <f:translate key="formlog.export.csv"/>
-    </button>
-  </f:else>
+<h2>
+    <f:translate key="formlog.export.title.custom" />
+</h2>
+<f:if condition="{settings.export.types -> f:count()}">
+    <f:for each="{settings.export.types}" as="type">
+        <f:render section="ExportActions" arguments="{_all}" />
+    </f:for>
 </f:if>
+
+<h2>
+    <f:translate key="formlog.export.title.default" />
+</h2>
+<f:if condition="{settings.export.columns}">
+    <f:then>
+        <f:render section="ExportActions" arguments="{_all}" />
+    </f:then>
+    <f:else>
+        <button type="button"
+                class="btn btn-default"
+                disabled
+                title="{f:translate(key: 'formlog.export.unconfigured')}">
+            <core:icon identifier="actions-database-export" />
+            <f:translate key="formlog.export.unconfigured"/>
+        </button>
+    </f:else>
+</f:if>
+
+<f:section name="ExportActions">
+    <div class="btn-group dropup" role="group">
+        <button type="button"
+                class="btn btn-default dropdown-toggle"
+                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            <core:icon identifier="actions-database-export"/>
+            <f:translate key="formlog.export"/> {type.label}
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+                <f:link.action
+                    action="export"
+                    arguments="{filters: '{filters as array}', type: type.key}"
+                    format="csv"
+                    addQueryString="true"
+                    class="dropdown-item"
+                >
+                    <core:icon identifier="mimetypes-text-csv"/>
+                    <f:translate key="formlog.export.csv"/>
+                </f:link.action>
+            </li>
+            <li>
+                <f:link.action
+                    action="export"
+                    arguments="{filters: '{filters as array}', type: type.key}"
+                    format="xlsx"
+                    addQueryString="true"
+                    class="dropdown-item"
+                >
+                    <core:icon identifier="mimetypes-excel"/>
+                    <f:translate key="formlog.export.xlsx"/>
+                </f:link.action>
+            </li>
+        </ul>
+    </div>
+</f:section>
+
+</html>

@@ -1,7 +1,7 @@
 <html
   xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
   xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-  xmlns:c="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+  xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
   xmlns:fl="http://typo3.org/ns/Pagemachine/Formlog/ViewHelpers"
   data-namespace-typo3-fluid="true">
 
@@ -153,7 +153,6 @@
             </div>
             <div class="col-sm-4 text-right text-end">
               <f:render partial="Backend/FormLog/FiltersActions" arguments="{filters: filters}"/>
-              <f:render partial="Backend/FormLog/ExportActions" arguments="{filters: filters}"/>
             </div>
           </div>
 
@@ -171,3 +170,7 @@
 
   </f:else>
 </f:if>
+
+<div class="pt-3">
+    <f:render partial="Backend/FormLog/ExportActions" arguments="{filters: filters}"/>
+</div>

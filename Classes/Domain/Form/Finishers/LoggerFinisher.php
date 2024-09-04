@@ -18,7 +18,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 use TYPO3\CMS\Form\Domain\Finishers\Exception\FinisherException;
-use TYPO3\CMS\Form\Domain\Model\FormElements\FormElementInterface;
 use TYPO3\CMS\Form\Domain\Model\FormElements\StringableFormElementInterface;
 
 /**
@@ -99,7 +98,6 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
         $skipElementTypes = GeneralUtility::trimExplode(',', $this->parseOption('skipElementsTypes'));
 
         foreach ($this->finisherContext->getFormValues() as $identifier => $formValue) {
-
             $element = $formDefinition->getElementByIdentifier($identifier);
             $elementType = null;
             if ($element !== null) {

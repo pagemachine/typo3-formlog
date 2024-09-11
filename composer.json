@@ -27,7 +27,7 @@
         "typo3/cms-fluid": "^11.5.4 || ^12.4",
         "typo3/cms-form": "^11.5.4 || ^12.4",
         "typo3/cms-frontend": "^11.5.4 || ^12.4",
-        "typo3fluid/fluid": "^2.3"
+        "typo3fluid/fluid": "^2.3 || ^4.0"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.3",

@@ -8,7 +8,10 @@
         <source>Log form data</source>
         <target>Formulardaten loggen</target>
       </trans-unit>
-
+      <trans-unit id="formEditor.elements.Form.editor.finishers.LogFormData.includeHiddenElements.label">
+        <source>Store composite form element data?</source>
+        <target>Formulardaten von Composite-Elementen speichern?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

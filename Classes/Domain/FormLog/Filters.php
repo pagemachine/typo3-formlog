@@ -45,6 +45,11 @@ class Filters implements \IteratorAggregate, \Countable
         return $this->identifier;
     }
 
+    public function setIdentifier(ValueFilter $identifier): void
+    {
+        $this->identifier = $identifier;
+    }
+
     /**
      * @return DateRangeFilter
      */

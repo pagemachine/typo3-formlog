@@ -32,6 +32,14 @@
         <source>Export</source>
       </trans-unit>
 
+      <trans-unit id="formlog.export.title.custom">
+        <source>Custom export</source>
+      </trans-unit>
+
+      <trans-unit id="formlog.export.title.default">
+        <source>Default export</source>
+      </trans-unit>
+
       <trans-unit id="formlog.export.csv">
         <source>Export to CSV</source>
       </trans-unit>

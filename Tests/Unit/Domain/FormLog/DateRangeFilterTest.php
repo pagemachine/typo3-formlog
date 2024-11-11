@@ -28,7 +28,7 @@ class DateRangeFilterTest extends UnitTestCase
     }
 
     #[Test]
-    public function constructsWithDates()
+    public function constructsWithDates(): void
     {
         $date1 = new \DateTime();
         $date2 = new \DateTime();
@@ -39,7 +39,7 @@ class DateRangeFilterTest extends UnitTestCase
     }
 
     #[Test]
-    public function isEmptyByDefault()
+    public function isEmptyByDefault(): void
     {
         $dateRangeFilter = new DateRangeFilter();
 
@@ -47,7 +47,7 @@ class DateRangeFilterTest extends UnitTestCase
     }
 
     #[Test]
-    public function isNotEmptyWithAtLeastOneDate()
+    public function isNotEmptyWithAtLeastOneDate(): void
     {
         $date1 = new \DateTime();
         $date2 = new \DateTime();

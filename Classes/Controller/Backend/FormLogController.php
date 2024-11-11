@@ -36,9 +36,7 @@ class FormLogController extends ActionController
 
     protected FormLogEntryRepository $formLogEntryRepository;
 
-    public function __construct(protected ModuleTemplateFactory $moduleTemplateFactory) {}
-
-    public function injectFormLogEntryRepository(FormLogEntryRepository $formLogEntryRepository)
+    public function __construct(protected ModuleTemplateFactory $moduleTemplateFactory, \Pagemachine\Formlog\Domain\Repository\FormLogEntryRepository $formLogEntryRepository)
     {
         $this->formLogEntryRepository = $formLogEntryRepository;
     }
@@ -46,7 +44,7 @@ class FormLogController extends ActionController
     /**
      * Initialize all actions
      */
-    public function initializeAction()
+    public function initializeAction(): void
     {
         if ($this->arguments->hasArgument('filters')) {
             $filters = $this->request->hasArgument('filters') ? $this->request->getArgument('filters') : [];

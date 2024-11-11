@@ -52,6 +52,6 @@ class FormLogEntry extends AbstractEntity
             return null;
         }
 
-        return $siteFinder->getSiteByPageId($this->page->uid);
+        return $siteFinder->getSiteByPageId($this->page->getUid());
     }
 }

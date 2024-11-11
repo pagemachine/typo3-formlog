@@ -33,7 +33,7 @@ class FiltersTest extends UnitTestCase
     }
 
     #[Test]
-    public function constructsWithFilters()
+    public function constructsWithFilters(): void
     {
         $pageTitleFilter = $this->prophesize(ValueFilter::class)->reveal();
         $identifierFilter = $this->prophesize(ValueFilter::class)->reveal();
@@ -46,7 +46,7 @@ class FiltersTest extends UnitTestCase
     }
 
     #[Test]
-    public function constructsWithFilterDefaults()
+    public function constructsWithFilterDefaults(): void
     {
         $filters = new Filters();
 
@@ -55,7 +55,7 @@ class FiltersTest extends UnitTestCase
     }
 
     #[Test]
-    public function isEmptyByDefault()
+    public function isEmptyByDefault(): void
     {
         $filters = new Filters();
 
@@ -63,7 +63,7 @@ class FiltersTest extends UnitTestCase
     }
 
     #[Test]
-    public function isNotEmptyWithAtLeastOneNonEmptyFilter()
+    public function isNotEmptyWithAtLeastOneNonEmptyFilter(): void
     {
         $pageTitleFilter = $this->prophesize(ValueFilter::class);
         $pageTitleFilter->isEmpty()->willReturn(false);
@@ -84,7 +84,7 @@ class FiltersTest extends UnitTestCase
     }
 
     #[Test]
-    public function yieldsNothingOnTraversalByDefault()
+    public function yieldsNothingOnTraversalByDefault(): void
     {
         $filters = new Filters();
         $items = iterator_to_array($filters);
@@ -93,7 +93,7 @@ class FiltersTest extends UnitTestCase
     }
 
     #[Test]
-    public function yieldsNonEmptyFiltersOnTraversal()
+    public function yieldsNonEmptyFiltersOnTraversal(): void
     {
         $pageTitleFilter = $this->prophesize(ValueFilter::class);
         $pageTitleFilter->isEmpty()->willReturn(false);

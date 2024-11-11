@@ -39,7 +39,7 @@ class JSONDataElementTest extends UnitTestCase
      */
     #[DataProvider('samples')]
     #[Test]
-    public function rendersFormData($formElementValue, $expected)
+    public function rendersFormData($formElementValue, $expected): void
     {
         $iconFactory = $this->prophesize(IconFactory::class);
         GeneralUtility::addInstance(IconFactory::class, $iconFactory->reveal());

@@ -42,17 +42,17 @@ final class SuggestionsTest extends FunctionalTestCase
             'tx_formlog_entries' => [
                 [
                     'uid' => 1,
-                    'pid' => 2,
+                    'page' => 2,
                     'identifier' => 'foo',
                 ],
                 [
                     'uid' => 2,
-                    'pid' => 2,
+                    'page' => 2,
                     'identifier' => 'foo',
                 ],
                 [
                     'uid' => 3,
-                    'pid' => 1,
+                    'page' => 1,
                     'identifier' => 'bar',
                 ],
             ],

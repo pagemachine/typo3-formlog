@@ -32,7 +32,7 @@ final class Suggestions
                 'tx_formlog_entries',
                 'pages',
                 'page',
-                $queryBuilder->expr()->eq('page.uid', $queryBuilder->quoteIdentifier('tx_formlog_entries.pid'))
+                $queryBuilder->expr()->eq('page.uid', $queryBuilder->quoteIdentifier('tx_formlog_entries.page'))
             )
             ->orderBy($property)
             ->groupBy($property);

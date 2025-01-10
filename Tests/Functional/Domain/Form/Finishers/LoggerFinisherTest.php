@@ -104,7 +104,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ->select(['*'], 'tx_formlog_entries')
             ->fetchAssociative();
 
-        self::assertSame(123, $logEntry['pid'] ?? null);
+        self::assertSame(123, $logEntry['page'] ?? null);
         self::assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
         self::assertSame($expectedData, $logEntry['data'] ?? null);
         self::assertSame('[]', $logEntry['finisher_variables'] ?? null);
@@ -232,7 +232,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ->select(['*'], 'tx_formlog_entries')
             ->fetchAssociative();
 
-        self::assertSame(123, $logEntry['pid'] ?? null);
+        self::assertSame(123, $logEntry['page'] ?? null);
         self::assertSame($formDefinition->getIdentifier(), $logEntry['identifier'] ?? null);
         self::assertSame('{"name":"Tester"}', $logEntry['data'] ?? null);
         self::assertSame('{"SaveToDatabase":{"insertedUids.0":124}}', $logEntry['finisher_variables'] ?? null);

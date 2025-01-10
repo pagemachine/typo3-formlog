@@ -7,9 +7,6 @@ return [
             'submissionDate' => [
                 'fieldName' => 'crdate',
             ],
-            'page' => [
-                'fieldName' => 'pid',
-            ],
         ],
     ],
     \Pagemachine\Formlog\Domain\Model\FormLogEntry\Page::class => [

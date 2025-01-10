@@ -69,9 +69,9 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
         }
 
         $data = [
-            'pid' => $this->getTypoScriptFrontendController()->id,
             'crdate' => $now,
             'tstamp' => $now,
+            'page' => $this->getTypoScriptFrontendController()->id,
             'language' => (int)$context->getPropertyFromAspect('language', 'id', 0),
             'identifier' => $formDefinition->getIdentifier(),
             'data' => $encodedFormValues,

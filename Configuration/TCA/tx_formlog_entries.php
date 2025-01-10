@@ -10,6 +10,7 @@ return [
         'crdate' => 'crdate',
         'tstamp' => 'tstamp',
         'delete' => 'deleted',
+        'rootLevel' => -1,
         'readOnly' => true,
         'iconfile' => 'EXT:formlog/Resources/Public/Icons/tx_formlog_entries.svg',
     ],

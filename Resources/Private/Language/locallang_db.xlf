@@ -8,6 +8,10 @@
         <source>Form log entry</source>
       </trans-unit>
 
+      <trans-unit id="tx_formlog_entries.page">
+        <source>Form page</source>
+      </trans-unit>
+
       <trans-unit id="tx_formlog_entries.language">
         <source>Form language</source>
       </trans-unit>

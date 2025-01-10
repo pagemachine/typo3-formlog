@@ -15,7 +15,7 @@ return [
     ],
     'types' => [
         '0' => [
-            'showitem' => 'crdate, language, identifier, data, finisher_variables',
+            'showitem' => 'crdate, page, language, identifier, data, finisher_variables',
         ],
     ],
     'columns' => [
@@ -32,6 +32,18 @@ return [
                 'type' => 'none',
                 'format' => 'datetime',
                 'eval' => 'datetime',
+            ],
+        ],
+        'page' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:formlog/Resources/Private/Language/locallang_db.xml:tx_formlog_entries.page',
+            'config' => [
+                'type' => 'group',
+                'allowed' => 'pages',
+                'foreign_table' => 'pages',
+                'maxitems' => 1,
+                'size' => 1,
+                'readOnly' => true,
             ],
         ],
         'language' => [

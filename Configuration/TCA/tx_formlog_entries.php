@@ -20,12 +20,6 @@ return [
         ],
     ],
     'columns' => [
-        'pid' => [
-            'config' => [
-                'type' => 'passthrough',
-                'foreign_table' => 'pages',
-            ],
-        ],
         'crdate' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.creationDate',

@@ -9,3 +9,6 @@ services:
 
   Pagemachine\Formlog\Controller\Backend\FormLogSuggestController:
     public: true
+
+  Pagemachine\Formlog\Updates\FormLogEntryPageUpdate:
+    public: true

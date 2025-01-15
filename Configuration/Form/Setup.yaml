@@ -22,6 +22,11 @@ TYPO3:
                           identifier: header
                           templateName: Inspector-CollectionElementHeaderEditor
                           label: formEditor.elements.Form.editor.finishers.LogFormData.label
+                        200:
+                          identifier: 'includeHiddenElements'
+                          templateName: 'Inspector-CheckboxEditor'
+                          label: 'formEditor.elements.Form.editor.finishers.LogFormData.includeHiddenElements.label'
+                          propertyPath: 'options.includeHiddenElements'
                         9999:
                           identifier: removeButton
                           templateName: Inspector-RemoveElementEditor
@@ -32,3 +37,7 @@ TYPO3:
               formEditor:
                 iconIdentifier: form-finisher
                 label: formEditor.elements.Form.editor.finishers.LogFormData.label
+                predefinedDefaults:
+                  options:
+                    includeHiddenElements: true
+                    skipElementsTypes: 'ContentElement,StaticText'

@@ -47,7 +47,7 @@
         "ssch/typo3-rector": "^2.2",
         "typo3/cms-scheduler": "^11.5.4 || ^12.4",
         "typo3/coding-standards": "^0.7.1 || ^0.8.0",
-        "typo3/testing-framework": "^7.0 || ^8.0"
+        "typo3/testing-framework": "^7.0 || ^8.0 || ^9.0"
     },
     "replace": {
         "typo3-ter/formlog": "self.version"

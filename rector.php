@@ -9,6 +9,7 @@ use Ssch\TYPO3Rector\Set\Typo3SetList;
 return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/Classes',
+        __DIR__ . '/Configuration/TCA',
         __DIR__ . '/Tests',
     ])
     ->withRootFiles()

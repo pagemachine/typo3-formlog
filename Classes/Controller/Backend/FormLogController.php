@@ -15,7 +15,6 @@ use Pagemachine\Formlog\Export\XlsxExport;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -49,12 +48,7 @@ class FormLogController extends ActionController
     {
         if ($this->arguments->hasArgument('filters')) {
             $filters = $this->request->hasArgument('filters') ? $this->request->getArgument('filters') : [];
-
-            if ((new Typo3Version())->getMajorVersion() < 11) {
-                $this->request->setArgument('filters', $filters);
-            } else {
-                $this->request = $this->request->withArgument('filters', $filters);
-            }
+            $this->request = $this->request->withArgument('filters', $filters);
 
             $filtersArgument = $this->arguments->getArgument('filters');
             $filtersArgument->getPropertyMappingConfiguration()

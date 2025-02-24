@@ -11,11 +11,9 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
 use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
@@ -278,23 +276,13 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $contentObjectRenderer = new ContentObjectRenderer();
         $contentObjectRenderer->setUserObjectType(ContentObjectRenderer::OBJECTTYPE_USER_INT);
 
-        if ((new Typo3Version())->getMajorVersion() < 12) {
-            $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
-            $configurationManager->setContentObject($contentObjectRenderer);
+        $requestFactory = GeneralUtility::makeInstance(ServerRequestFactory::class);
+        $serverRequest = $requestFactory->createServerRequest('POST', 'http://localhost')
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+            ->withAttribute('extbase', GeneralUtility::makeInstance(ExtbaseRequestParameters::class))
+            ->withAttribute('currentContentObject', $contentObjectRenderer);
 
-            $request = GeneralUtility::makeInstance(ExtbaseRequest::class)
-                ->withMethod('POST');
-        } else {
-            $requestFactory = GeneralUtility::makeInstance(ServerRequestFactory::class);
-            $serverRequest = $requestFactory->createServerRequest('POST', 'http://localhost')
-                ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
-                ->withAttribute('extbase', GeneralUtility::makeInstance(ExtbaseRequestParameters::class))
-                ->withAttribute('currentContentObject', $contentObjectRenderer);
-
-            $request = GeneralUtility::makeInstance(ExtbaseRequest::class, $serverRequest);
-        }
-
-        $request = $request->withArguments([
+        $request = GeneralUtility::makeInstance(ExtbaseRequest::class, $serverRequest)->withArguments([
             $formDefinition->getIdentifier() => $requestArguments,
         ]);
         $formRuntime = $formDefinition->bind($request);

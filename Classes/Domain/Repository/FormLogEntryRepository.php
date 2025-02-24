@@ -25,17 +25,6 @@ class FormLogEntryRepository extends Repository
     ];
 
     /**
-     * @return QueryInterface
-     */
-    public function createQuery()
-    {
-        $query = parent::createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
-
-        return $query;
-    }
-
-    /**
      * Find all objects optionally filtered
      */
     public function findAllFiltered(Filters $filters): QueryResultInterface

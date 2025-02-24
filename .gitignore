@@ -1,5 +1,4 @@
-/.php-cs-fixer.cache
-/.phpunit*.cache
+/*.cache
 /bower_components
 /composer.lock
 /node_modules

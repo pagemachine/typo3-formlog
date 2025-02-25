@@ -1,1 +1,1 @@
-export default TYPO3.settings.formlog||{};
+export default TYPO3.settings.formlog || {};

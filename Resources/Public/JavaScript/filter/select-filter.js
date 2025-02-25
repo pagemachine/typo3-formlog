@@ -1,1 +1,46 @@
-import $ from"jquery";import settings from"../settings.js";$(function(){var o=$("#filter-form");o.find(".formlog-select-filter").each(function(){var e=$(this).find("select").prop("disabled",!0).on("change",function(){o.submit()}),t=($.post(settings.suggestUri,{property:e.data("property")},function(t){e.prop("disabled",!1);var o=e.data("value");t.forEach(function(t){$("<option>",{text:t,selected:t===o}).appendTo(e)})}),$(this).find("button"));t.popover({container:t.parent(),content:"...",placement:"bottom"}).on("inserted.bs.popover",function(){$(this).siblings(".popover").children(".popover-content, .popover-body").empty().append(e)})})});
+import $ from 'jquery';
+import settings from '../settings.js';
+
+$(function() {
+  var $filterForm = $('#filter-form');
+
+  $filterForm.find('.formlog-select-filter').each(function() {
+    var $selectField = $(this).find('select')
+      .prop('disabled', true)
+      .on('change', function() {
+        $filterForm.submit();
+      });
+
+      $.post(
+        settings.suggestUri,
+        {
+          property: $selectField.data('property'),
+        },
+        function(data) {
+          $selectField.prop('disabled', false);
+
+          var selectedValue = $selectField.data('value');
+
+          data.forEach(function(value) {
+            $('<option>', {
+              text: value,
+              selected: value === selectedValue,
+            }).appendTo($selectField);
+          });
+        }
+      );
+
+    var $toggleButton = $(this).find('button');
+
+    $toggleButton
+      .popover({
+        container: $toggleButton.parent(),
+        content: '...',
+        placement: 'bottom',
+      }).on('inserted.bs.popover', function() {
+        $(this).siblings('.popover').children('.popover-content, .popover-body')
+          .empty()
+          .append($selectField);
+      });
+  });
+});

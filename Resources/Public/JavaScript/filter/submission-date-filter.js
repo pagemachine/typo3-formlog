@@ -1,7 +1,10 @@
 import $ from 'jquery';
 import 'https://cdn.jsdelivr.net/npm/daterangepicker@3.0.5/+esm';
+import daterangepickerSheet from 'https://cdn.jsdelivr.net/npm/daterangepicker@3.0.5/daterangepicker.css' with { type: 'css' };
 import moment from 'https://cdn.jsdelivr.net/npm/moment@2.29.4/+esm';
 import settings from '../settings.js';
+
+document.adoptedStyleSheets = [daterangepickerSheet];
 
 $(function() {
   var $filterForm = $("#filter-form");

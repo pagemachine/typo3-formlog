@@ -1,8 +1,6 @@
 {
   "devDependencies": {
-    "bower": "^1.7.9",
     "grunt": "^1.0.1",
-    "grunt-bower-task": "^0.6.0",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-less": "^3.0.0",
     "grunt-contrib-uglify": "^5.0.0",

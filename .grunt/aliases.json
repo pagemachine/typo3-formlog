@@ -3,8 +3,6 @@
     "clean:css",
     "clean:js",
     "less",
-    "replace",
-    "umd",
     "uglify"
   ]
 }

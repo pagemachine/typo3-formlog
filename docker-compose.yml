@@ -21,7 +21,6 @@ services:
 
   mysql:
     image: mysql:8.0
-    command: ['mysqld', '--character-set-server=utf8mb4']
     environment:
       MYSQL_ROOT_PASSWORD: root
     healthcheck:

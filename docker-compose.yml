@@ -4,7 +4,7 @@ services:
     environment:
       PHP_EXTENSION_INTL: 1
       PHP_INI_PHAR__READONLY: "Off"
-      TYPO3_VERSION: ${TYPO3_VERSION:-^12.4}
+      TYPO3_VERSION: ${TYPO3_VERSION:-^13.4}
       TYPO3_API_TOKEN:
       TYPO3_API_PASSWORD:
       TYPO3_API_USERNAME:

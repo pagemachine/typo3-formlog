@@ -14,6 +14,7 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Backend\Form\NodeFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -41,15 +42,24 @@ class JSONDataElementTest extends UnitTestCase
     #[Test]
     public function rendersFormData($formElementValue, $expected): void
     {
-        $iconFactory = $this->prophesize(IconFactory::class);
-        GeneralUtility::addInstance(IconFactory::class, $iconFactory->reveal());
+        if ((new Typo3Version())->getMajorVersion() < 13) {
+            GeneralUtility::addInstance(IconFactory::class, $this->prophesize(IconFactory::class)->reveal());
 
-        $nodeFactory = $this->prophesize(NodeFactory::class);
-        $jsonDataElement = new JSONDataElement($nodeFactory->reveal(), [
-            'parameterArray' => [
-                'itemFormElValue' => $formElementValue,
-            ],
-        ]);
+            $jsonDataElement = new JSONDataElement($this->prophesize(NodeFactory::class)->reveal(), [
+
+                'parameterArray' => [
+                    'itemFormElValue' => $formElementValue,
+                ],
+            ]);
+        } else {
+            $jsonDataElement = new JSONDataElement();
+            $jsonDataElement->setData([
+                'parameterArray' => [
+                    'itemFormElValue' => $formElementValue,
+                ],
+            ]);
+        }
+
         $languageService = $this->prophesize(LanguageService::class);
         $languageService->sL(Argument::containingString('field'))->willReturn('Field');
         $languageService->sL(Argument::containingString('value'))->willReturn('Value');

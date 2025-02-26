@@ -4,12 +4,8 @@
 .gitignore export-ignore
 .phpunit.result.cache export-ignore
 .php-cs-fixer.* export-ignore
-bower.json export-ignore
 composer.lock export-ignore
 docker-compose.yml export-ignore
-Gruntfile.js export-ignore
-package.json export-ignore
-package-lock.json export-ignore
 phpstan*.neon export-ignore
 phpunit-functional.xml export-ignore
 phpunit.xml export-ignore
@@ -17,7 +13,6 @@ rector.php export-ignore
 renovate.json export-ignore
 typoscript-lint.yml export-ignore
 
-.grunt/ export-ignore
 Tests/ export-ignore
 var/ export-ignore
 vendor/ export-ignore

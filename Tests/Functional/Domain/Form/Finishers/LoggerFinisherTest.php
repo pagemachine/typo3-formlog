@@ -216,6 +216,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
             XML,
         ]);
 
-        return (int)$connection->lastInsertId('tt_content');
+        return (int)$connection->lastInsertId();
     }
 }

@@ -20,6 +20,6 @@ return RectorConfig::configure()
     ->withPhpSets()
     ->withSets([
         PHPUnitSetList::PHPUNIT_100,
-        Typo3LevelSetList::UP_TO_TYPO3_12,
+        Typo3LevelSetList::UP_TO_TYPO3_13,
     ])
 ;

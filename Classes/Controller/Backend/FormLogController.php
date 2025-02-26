@@ -66,7 +66,8 @@ class FormLogController extends ActionController
         $paginator = new QueryResultPaginator($entries, $currentPageNumber);
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
-        $this->view->assignMultiple([
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->assignMultiple([
             'entries' => $paginator->getPaginatedItems(),
             'entriesCount' => count($entries),
             'filters' => $filters,
@@ -83,10 +84,7 @@ class FormLogController extends ActionController
             ],
         ]);
 
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        return $moduleTemplate->renderResponse();
     }
 
     /**

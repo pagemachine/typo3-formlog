@@ -8,7 +8,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Configuration\SiteConfiguration;
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Http\ServerRequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
@@ -44,8 +43,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
         parent::setUp();
 
         $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] = ORIGINAL_ROOT;
-
-        Bootstrap::initializeLanguageObject();
 
         $this->getConnectionPool()->getConnectionForTable('pages')->insert('pages', ['uid' => 123]);
         $this->setUpFrontendRootPage(123);

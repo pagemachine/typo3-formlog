@@ -14,8 +14,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Domain\FormLog\DateRangeFilter
- *
- * @requires PHP 7
  */
 class DateRangeFilterTest extends UnitTestCase
 {

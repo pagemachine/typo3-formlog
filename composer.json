@@ -85,55 +85,49 @@
         }
     },
     "scripts": {
-        "analyze:php": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
         "build": [
             "@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",
-            "@composer validate --ansi",
-            "@composer normalize --no-update-lock --dry-run",
-            "@lint",
             "@test"
         ],
-        "build:cleanup": [
-            "git reset --hard",
-            "git clean -xfd"
+        "composer:lint": [
+            "@composer validate --ansi",
+            "@composer normalize --no-update-lock --dry-run"
         ],
-        "build:ter:vendors": [
-            "(mkdir -p /tmp/vendors && cd /tmp/vendors && composer require league/csv:^9.1 nimmneun/onesheet:^1.0 && composer global exec phar-composer build -v)",
-            "cp /tmp/vendors/vendors.phar .",
-            "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php"
+        "php:functional:test": "phpunit --configuration phpunit-functional.xml --colors=always",
+        "php:lint": [
+            "@php:syntax:lint",
+            "@php:style:lint",
+            "@php:static:lint",
+            "@php:rector:lint"
         ],
-        "deploy:ter": [
-            "@build:cleanup",
-            "@deploy:ter:setup",
-            "@build:ter:vendors",
-            "@deploy:ter:upload"
-        ],
-        "deploy:ter:setup": [
-            "@composer global require clue/phar-composer typo3/tailor"
-        ],
-        "deploy:ter:upload": [
-            "composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
-        ],
-        "fix:style": "php-cs-fixer fix --diff",
-        "lint": [
-            "@lint:php",
-            "@lint:typoscript",
-            "@lint:style",
-            "@analyze:php",
-            "@php:rector:lint",
-            "@lint:xml"
-        ],
-        "lint:php": "parallel-lint --show-deprecated --exclude vendor --exclude web .",
-        "lint:style": "php-cs-fixer fix --dry-run --diff",
-        "lint:typoscript": "typoscript-lint --ansi",
-        "lint:xml": "xmllint --pattern '*.xlf,*.svg' Resources --ansi",
         "php:rector:fix": "rector",
         "php:rector:lint": "rector --dry-run --no-progress-bar",
-        "test": [
-            "@test:unit",
-            "@test:functional"
+        "php:static:lint": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
+        "php:style:fix": "php-cs-fixer fix --diff",
+        "php:style:lint": "php-cs-fixer fix --dry-run --diff",
+        "php:syntax:lint": "parallel-lint --show-deprecated --exclude vendor --exclude web .",
+        "php:test": [
+            "@php:unit:test",
+            "@php:functional:test"
         ],
-        "test:functional": "phpunit --configuration phpunit-functional.xml --colors=always",
-        "test:unit": "phpunit --colors=always"
+        "php:unit:test": "phpunit --colors=always",
+        "ter:deploy": [
+            "git reset --hard",
+            "git clean -xfd",
+            "@composer global require clue/phar-composer typo3/tailor",
+            "(mkdir -p /tmp/vendors && cd /tmp/vendors && composer require league/csv:^9.1 nimmneun/onesheet:^1.0 && composer global exec phar-composer build -v)",
+            "cp /tmp/vendors/vendors.phar .",
+            "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php",
+            "composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
+        ],
+        "test": [
+            "@composer:lint",
+            "@php:lint",
+            "@typoscript:lint",
+            "@xml:lint",
+            "@php:test"
+        ],
+        "typoscript:lint": "typoscript-lint --ansi",
+        "xml:lint": "xmllint --pattern '*.xlf,*.svg' Resources --ansi"
     }
 }

@@ -17,8 +17,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Testcase for Pagemachine\Formlog\Domain\FormLog\Filters
- *
- * @requires PHP 7
  */
 class FiltersTest extends UnitTestCase
 {

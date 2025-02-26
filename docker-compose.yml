@@ -1,6 +1,6 @@
 services:
   app:
-    image: thecodingmachine/php:${PHP_VERSION:-8.1}-v4-cli-node16
+    image: thecodingmachine/php:${PHP_VERSION:-8.1}-v4-cli
     environment:
       PHP_EXTENSION_INTL: 1
       PHP_INI_PHAR__READONLY: "Off"

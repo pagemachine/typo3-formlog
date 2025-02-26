@@ -15,7 +15,6 @@ use Pagemachine\Formlog\Export\XlsxExport;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -81,12 +80,6 @@ class FormLogController extends ActionController
                     'suggestUri' => (string)$uriBuilder->buildUriFromRoute('ajax_formlog_suggest'),
                     'language' => $GLOBALS['BE_USER']->user['lang'],
                 ],
-            ],
-        ]);
-
-        GeneralUtility::makeInstance(PageRenderer::class)->addRequireJsConfiguration([
-            'paths' => [
-                'TYPO3/CMS/Formlog/moment' => 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min',
             ],
         ]);
 

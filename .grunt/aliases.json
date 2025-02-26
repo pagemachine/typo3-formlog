@@ -1,11 +1,6 @@
 {
   "default": [
     "clean:css",
-    "clean:js",
-    "bower",
-    "less",
-    "replace",
-    "umd",
-    "uglify"
+    "less"
   ]
 }

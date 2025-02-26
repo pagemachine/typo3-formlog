@@ -7,11 +7,10 @@
 
 <f:be.pageRenderer
   includeCssFiles="{
-    1: '{f:uri.resource(path: \'Css/daterangepicker/daterangepicker.css\')}',
     99: '{f:uri.resource(path: \'Css/formlog.css\')}'
   }"
-  includeRequireJsModules="{
-    0: 'TYPO3/CMS/Formlog/FormLog/Filter'
+  includeJavaScriptModules="{
+    0: '@pagemachine/typo3-formlog/filter.js'
   }"
   addInlineSettings="{inlineSettings}"
 />

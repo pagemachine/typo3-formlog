@@ -78,7 +78,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
     #[DataProvider('formData')]
     #[Test]
-    public function logsSubmittedFormData(array $fields, array $formValues, string $expectedData)
+    public function logsSubmittedFormData(array $fields, array $formValues, string $expectedData): void
     {
         $formDefinition = $this->buildFormDefinition([
             'renderables' => [
@@ -181,7 +181,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function logsFinisherVariables()
+    public function logsFinisherVariables(): void
     {
         $formDefinition = $this->buildFormDefinition([
             'renderables' => [
@@ -252,7 +252,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         return $formDefinition;
     }
 
-    protected function submitForm(FormDefinition $formDefinition, array $formValues = [])
+    protected function submitForm(FormDefinition $formDefinition, array $formValues = []): void
     {
         $formState = GeneralUtility::makeInstance(FormState::class);
         $formState->setLastDisplayedPageIndex(0);

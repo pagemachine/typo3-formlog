@@ -7,7 +7,9 @@ namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Configuration\SiteConfiguration;
+use TYPO3\CMS\Core\Configuration\SiteWriter;
 use TYPO3\CMS\Core\Http\UploadedFile;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Form\Tests\Functional\Framework\FormHandling\FormDataFactory;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
@@ -40,8 +42,13 @@ final class LoggerFinisherTest extends FunctionalTestCase
             'EXT:formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/TypoScript/page.typoscript',
         ]);
 
-        $siteConfiguration = GeneralUtility::makeInstance(SiteConfiguration::class);
-        $siteConfiguration->createNewBasicSite('123', 123, 'http://localhost/');
+        if ((new Typo3Version())->getMajorVersion() < 13) {
+            $siteConfiguration = GeneralUtility::makeInstance(SiteConfiguration::class);
+            $siteConfiguration->createNewBasicSite('123', 123, 'http://localhost/');
+        } else {
+            $siteWriter = GeneralUtility::makeInstance(SiteWriter::class);
+            $siteWriter->createNewBasicSite('123', 123, 'http://localhost/');
+        }
     }
 
     protected function tearDown(): void

@@ -23,23 +23,17 @@ final class FormValueViewHelper extends AbstractViewHelper
         $this->contentArgumentName = 'value';
     }
 
-    /**
-     * Initialize arguments
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('value', 'mixed', 'Form value');
     }
 
-    /**
-     * @return string
-     */
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
+    ): string {
         $value = $renderChildrenClosure();
         $formatter = GeneralUtility::makeInstance(ValueFormatter::class);
 

@@ -21,7 +21,7 @@ class JSONDataElement extends AbstractFormElement
     /**
      * @return array
      */
-    public function render()
+    public function render(): array
     {
         $result = $this->initializeResultArray();
         $parameters = $this->data['parameterArray'];

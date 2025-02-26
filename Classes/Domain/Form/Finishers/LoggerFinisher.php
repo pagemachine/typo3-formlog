@@ -34,10 +34,7 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
         'finisherVariables' => [],
     ];
 
-    /**
-     * @return string|null
-     */
-    protected function executeInternal()
+    protected function executeInternal(): ?string
     {
         $formRuntime = $this->finisherContext->getFormRuntime();
         $formDefinition = $formRuntime->getFormDefinition();

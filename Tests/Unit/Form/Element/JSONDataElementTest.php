@@ -39,7 +39,7 @@ class JSONDataElementTest extends UnitTestCase
      */
     #[DataProvider('samples')]
     #[Test]
-    public function rendersFormData($formElementValue, $expected)
+    public function rendersFormData($formElementValue, $expected): void
     {
         $iconFactory = $this->prophesize(IconFactory::class);
         GeneralUtility::addInstance(IconFactory::class, $iconFactory->reveal());
@@ -60,7 +60,7 @@ class JSONDataElementTest extends UnitTestCase
         self::assertEquals($expected, $result['html']);
     }
 
-    public static function samples()
+    public static function samples(): \Generator
     {
         $expected = <<<HTML
 <table class="table table-striped table-hover">

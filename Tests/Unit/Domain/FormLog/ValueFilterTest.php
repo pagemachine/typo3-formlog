@@ -26,7 +26,7 @@ class ValueFilterTest extends UnitTestCase
     }
 
     #[Test]
-    public function constructsWithValue()
+    public function constructsWithValue(): void
     {
         $valueFilter = new ValueFilter('foo');
 
@@ -34,7 +34,7 @@ class ValueFilterTest extends UnitTestCase
     }
 
     #[Test]
-    public function isEmptyByDefault()
+    public function isEmptyByDefault(): void
     {
         $valueFilter = new ValueFilter();
 
@@ -42,7 +42,7 @@ class ValueFilterTest extends UnitTestCase
     }
 
     #[Test]
-    public function isNotEmptyWithValue()
+    public function isNotEmptyWithValue(): void
     {
         $valueFilter = new ValueFilter('foo');
 

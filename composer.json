@@ -75,6 +75,9 @@
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true
         },
+        "preferred-install": {
+            "typo3/cms-form": "source"
+        },
         "sort-packages": true
     },
     "extra": {

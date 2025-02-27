@@ -62,7 +62,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Pagemachine\\Formlog\\Tests\\": "Tests/"
+            "Pagemachine\\Formlog\\Tests\\": "Tests/",
+            "TYPO3\\CMS\\Form\\Tests\\Functional\\Framework\\": "vendor/typo3/cms-form/Tests/Functional/Framework/"
         },
         "files": [
             "Tests/Functional/Domain/Form/Finishers/functions.php"

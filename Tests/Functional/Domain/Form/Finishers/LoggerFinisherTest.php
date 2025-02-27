@@ -31,6 +31,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 final class LoggerFinisherTest extends FunctionalTestCase
 {
     protected array $coreExtensionsToLoad = [
+        'fluid_styled_content',
         'form',
     ];
 
@@ -45,7 +46,9 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $GLOBALS['TYPO3_CONF_VARS']['BE']['lockRootPath'] = ORIGINAL_ROOT;
 
         $this->getConnectionPool()->getConnectionForTable('pages')->insert('pages', ['uid' => 123]);
-        $this->setUpFrontendRootPage(123);
+        $this->setUpFrontendRootPage(123, [
+            'EXT:formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/TypoScript/page.typoscript',
+        ]);
 
         $siteConfiguration = GeneralUtility::makeInstance(SiteConfiguration::class);
         $siteConfiguration->createNewBasicSite('123', 123, 'http://localhost/');

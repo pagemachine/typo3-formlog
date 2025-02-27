@@ -1,0 +1,13 @@
+@import 'EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript'
+@import 'EXT:form/Configuration/TypoScript/setup.typoscript'
+
+page = PAGE
+page {
+  10 = CONTENT
+  10 {
+    table = tt_content
+    select {
+      where = colPos = 0
+    }
+  }
+}

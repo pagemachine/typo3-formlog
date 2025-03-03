@@ -1,0 +1,13 @@
+prototypeName: standard
+type: Form
+identifier: Date
+
+renderables:
+  - identifier: page
+    type: Page
+    renderables:
+      - identifier: date
+        type: Date
+
+finishers:
+  - identifier: LogFormData

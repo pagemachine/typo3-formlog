@@ -1,0 +1,13 @@
+prototypeName: standard
+type: Form
+identifier: Basic
+
+renderables:
+  - identifier: page
+    type: Page
+    renderables:
+      - identifier: name
+        type: Text
+
+finishers:
+  - identifier: LogFormData

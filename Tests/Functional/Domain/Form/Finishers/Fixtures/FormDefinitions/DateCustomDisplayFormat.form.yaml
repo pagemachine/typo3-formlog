@@ -1,0 +1,15 @@
+prototypeName: standard
+type: Form
+identifier: DateCustomDisplayFormat
+
+renderables:
+  - identifier: page
+    type: Page
+    renderables:
+      - identifier: date
+        type: Date
+        properties:
+          displayFormat: Y-m-d
+
+finishers:
+  - identifier: LogFormData

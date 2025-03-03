@@ -8,6 +8,11 @@ document.adoptedStyleSheets = [daterangepickerSheet];
 
 $(function() {
   var $filterForm = $("#filter-form");
+
+  if (!$filterForm.length) {
+    return;
+  }
+
   var $dateFilterButton = $('#submissiondate-filter');
   var $startDateField = $($dateFilterButton.data('startDateField'));
   var $endDateField = $($dateFilterButton.data('endDateField'));

@@ -84,7 +84,7 @@ class FormLogController extends ActionController
             ],
         ]);
 
-        return $moduleTemplate->renderResponse();
+        return $moduleTemplate->renderResponse('Backend/FormLog/Index');
     }
 
     /**

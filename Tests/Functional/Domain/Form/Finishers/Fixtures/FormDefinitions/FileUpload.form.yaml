@@ -1,0 +1,17 @@
+prototypeName: standard
+type: Form
+identifier: FileUpload
+
+renderables:
+  - identifier: page
+    type: Page
+    renderables:
+      - identifier: upload
+        type: FileUpload
+        properties:
+          saveToFileMount: 1:/
+          allowedMimeTypes:
+            - text/plain
+
+finishers:
+  - identifier: LogFormData

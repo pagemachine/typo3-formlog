@@ -1,0 +1,23 @@
+prototypeName: standard
+type: Form
+identifier: FinisherVariables
+
+renderables:
+  - identifier: page
+    type: Page
+    renderables:
+      - identifier: name
+        type: Text
+
+finishers:
+  - identifier: SaveToDatabase
+    options:
+      table: pages
+      databaseColumnMappings:
+        title:
+          value: Page created by form
+  - identifier: LogFormData
+    options:
+      finisherVariables:
+        SaveToDatabase:
+          - insertedUids.0

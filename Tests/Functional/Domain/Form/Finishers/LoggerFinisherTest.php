@@ -55,7 +55,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
         string $formPersistenceIdentifier,
         string $formIdentifier,
         array $formValues,
-        array $uploadedFiles,
         string $expectedData,
     ): void {
         $formContentUid = $this->createFormContentElement($formPersistenceIdentifier);
@@ -74,13 +73,51 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         $formSubmitRequest = $formData->toPostRequest($pageRequest);
 
-        if (!empty($uploadedFiles)) {
-            $formSubmitRequest = $formSubmitRequest->withUploadedFiles([
-                'tx_form_formframework' => [
-                    $formIdentifier => $uploadedFiles,
+        $response = $this->executeFrontendSubRequest($formSubmitRequest);
+
+        self::assertSame(200, $response->getStatusCode());
+
+        $logEntry = $this->getConnectionPool()->getConnectionForTable('tx_formlog_entries')
+            ->select(['*'], 'tx_formlog_entries')
+            ->fetchAssociative();
+
+        self::assertSame(123, $logEntry['page'] ?? null);
+        self::assertSame($formIdentifier, $logEntry['identifier'] ?? null);
+        self::assertSame($expectedData, $logEntry['data'] ?? null);
+        self::assertSame('[]', $logEntry['finisher_variables'] ?? null);
+    }
+
+    #[Test]
+    public function logsSubmittedFileData(): void
+    {
+        $formContentUid = $this->createFormContentElement('1:/form_definitions/FileUpload.form.yaml');
+        $formIdentifier = sprintf('FileUpload-%d', $formContentUid);
+
+        $pageRequest = (new InternalRequest())->withPageId(123);
+        $response = $this->executeFrontendSubRequest($pageRequest);
+
+        self::assertSame(200, $response->getStatusCode());
+
+        $formData = (new FormDataFactory())->fromHtmlMarkupAndXpath((string)$response->getBody(), '//form[@id="' . $formIdentifier . '"]');
+
+        $formSubmitRequest = $formData->toPostRequest($pageRequest);
+
+        $temporaryFilePath = tempnam(sys_get_temp_dir(), 'LoggerFinisherTest');
+        file_put_contents($temporaryFilePath, 'Test file for upload');
+
+        $formSubmitRequest = $formSubmitRequest->withUploadedFiles([
+            'tx_form_formframework' => [
+                $formIdentifier => [
+                    'upload' => new UploadedFile(
+                        input: $temporaryFilePath,
+                        size: 20,
+                        clientFilename: 'test.txt',
+                        clientMediaType: 'text/plain',
+                        errorStatus: \UPLOAD_ERR_OK,
+                    ),
                 ],
-            ]);
-        }
+            ],
+        ]);
 
         $response = $this->executeFrontendSubRequest($formSubmitRequest);
 
@@ -89,6 +126,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $logEntry = $this->getConnectionPool()->getConnectionForTable('tx_formlog_entries')
             ->select(['*'], 'tx_formlog_entries')
             ->fetchAssociative();
+        $expectedData = '{"upload":{"file":{"name":"test.txt"}}}';
 
         self::assertSame(123, $logEntry['page'] ?? null);
         self::assertSame($formIdentifier, $logEntry['identifier'] ?? null);
@@ -104,7 +142,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
             [
                 'name' => 'Tester',
             ],
-            [],
             '{"name":"Tester"}',
         ];
 
@@ -114,7 +151,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
             [
                 'date' => '2022-02-07',
             ],
-            [],
             '{"date":"07.02.2022"}',
         ];
 
@@ -124,30 +160,10 @@ final class LoggerFinisherTest extends FunctionalTestCase
             [
                 'date' => '2022-02-07',
             ],
-            [],
             '{"date":"2022-02-07"}',
         ];
 
         // TODO: Research why "DatePicker" fails completely
-
-        $temporaryFilePath = tempnam(sys_get_temp_dir(), 'LoggerFinisherTest');
-        file_put_contents($temporaryFilePath, 'Test file for upload');
-
-        yield 'file upload' => [
-            '1:/form_definitions/FileUpload.form.yaml',
-            'FileUpload',
-            [],
-            [
-                'upload' => new UploadedFile(
-                    input: $temporaryFilePath,
-                    size: 20,
-                    clientFilename: 'test.txt',
-                    clientMediaType: 'text/plain',
-                    errorStatus: \UPLOAD_ERR_OK,
-                ),
-            ],
-            '{"upload":{"file":{"name":"test.txt"}}}',
-        ];
     }
 
     #[Test]

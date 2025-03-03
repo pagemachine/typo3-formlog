@@ -107,7 +107,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
         $formData = (new FormDataFactory())->fromHtmlMarkupAndXpath((string)$response->getBody(), '//form[@id="' . $formIdentifier . '"]');
 
-        $formSubmitRequest = $formData->toPostRequest($pageRequest);
+        $formSubmitRequest = $formData->without('upload')->toPostRequest($pageRequest);
 
         $temporaryFilePath = tempnam(sys_get_temp_dir(), 'LoggerFinisherTest');
         file_put_contents($temporaryFilePath, 'Test file for upload');

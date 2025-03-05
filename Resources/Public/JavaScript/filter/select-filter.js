@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { Popover } from 'bootstrap';
 import settings from '../settings.js';
 
 $(function() {
@@ -30,17 +31,17 @@ $(function() {
         }
       );
 
-    var $toggleButton = $(this).find('button');
+    var toggleButton = this.querySelectorAll('button')[0];
+    toggleButton.addEventListener('inserted.bs.popover', function() {
+      $(this).siblings('.popover').children('.popover-content, .popover-body')
+        .empty()
+        .append($selectField);
+    });
 
-    $toggleButton
-      .popover({
-        container: $toggleButton.parent(),
-        content: '...',
-        placement: 'bottom',
-      }).on('inserted.bs.popover', function() {
-        $(this).siblings('.popover').children('.popover-content, .popover-body')
-          .empty()
-          .append($selectField);
-      });
+    new Popover(toggleButton, {
+      container: toggleButton.parentElement,
+      content: '...',
+      placement: 'bottom',
+    });
   });
 });

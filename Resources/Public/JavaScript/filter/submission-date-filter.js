@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import 'https://cdn.jsdelivr.net/npm/daterangepicker@3.0.5/+esm';
+import DateRangePicker from 'https://cdn.jsdelivr.net/npm/daterangepicker@3.0.5/+esm';
 import daterangepickerSheet from 'https://cdn.jsdelivr.net/npm/daterangepicker@3.0.5/daterangepicker.css' with { type: 'css' };
 import moment from 'https://cdn.jsdelivr.net/npm/moment@2.29.4/+esm';
 import settings from '../settings.js';
@@ -36,7 +36,8 @@ $(function() {
 
   moment.locale(settings.language);
 
-  $dateFilterButton.daterangepicker(
+  new DateRangePicker(
+    $dateFilterButton,
     {
       locale: translations.labels,
       startDate: $startDateField.val() ? moment($startDateField.val(), w3cDateFormat) : undefined,

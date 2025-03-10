@@ -8,7 +8,9 @@ This extension is installable from various sources:
 
 1. Via [Composer](https://packagist.org/packages/pagemachine/typo3-formlog):
 
-        composer require pagemachine/typo3-formlog
+   ```shell
+   composer require pagemachine/typo3-formlog
+   ```
 
 2. From the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/formlog/)
 
@@ -22,7 +24,7 @@ See our blog post [about the TYPO3 form log extension](https://www.pagemachine.d
 
 Logging can be enabled for any form by adding the `LogFormData` finisher to its form definition:
 
-```
+```yaml
 finishers:
   - ...
 
@@ -35,7 +37,7 @@ The `LogFormData` finisher should be the last finisher or right before the `Redi
 
 Additional variables stored in the `FinisherVariableProvider` can also be logged by using the `finisherVariables` option:
 
-```
+```yaml
   - identifier: LogFormData
     options:
       finisherVariables:
@@ -51,7 +53,7 @@ By default the form log module displays a few basic fields like page, form ident
 
 Additional columns can be added with the `list.columns` setting in `ext_typoscript_setup.txt`:
 
-```
+```typoscript
 module.tx_formlog {
   settings {
     list {
@@ -70,7 +72,7 @@ Within `list.columns` an arbitrary list of columns can be added where the `prope
 
 Similarly `finisherVariables.*` does the same for additional finisher variables by utilizing the finisher identifier and variable name:
 
-```
+```typoscript
 module.tx_formlog {
   settings {
     list {
@@ -91,7 +93,7 @@ Here `myCustomVariable` of `MyCustomFinisher` is added as column to the list.
 
 Out of the box form log entries can be exported to CSV and Excel (XLSX). Basic fields of form log entries are exported by default, additional columns can be added with the `export.columns` setting in `ext_typoscript_setup.txt` which is configured exactly the same as the `list.columns` setting:
 
-```
+```typoscript
 module.tx_formlog {
   settings {
     export {
@@ -126,7 +128,9 @@ The _Table garbage collection_ Scheduler task can be set up to automatically del
 
 All tests can be executed with the shipped Docker Compose definition:
 
-    docker compose run --rm app composer build
+```shell
+docker compose run --rm app composer build
+```
 
 ## Thanks
 

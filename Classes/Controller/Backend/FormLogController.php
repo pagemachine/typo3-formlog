@@ -82,6 +82,7 @@ class FormLogController extends ActionController
                     'language' => $GLOBALS['BE_USER']->user['lang'],
                 ],
             ],
+            'settings' => $this->settings,
         ]);
 
         return $moduleTemplate->renderResponse('Backend/FormLog/Index');

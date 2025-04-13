@@ -7,7 +7,9 @@
       <trans-unit id="formEditor.elements.Form.editor.finishers.LogFormData.label">
         <source>Log form data</source>
       </trans-unit>
-
+      <trans-unit id="formEditor.elements.Form.editor.finishers.LogFormData.includeHiddenElements.label">
+        <source>Store composite form element data?</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^There is no request attribute \"frontend\\.page\\.information\" configured so we can't figure out the exact type to return when calling TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Request\\:\\:getAttribute$#"
+			count: 1
+			path: Classes/Domain/Form/Finishers/LoggerFinisher.php
+
+		-
 			message: "#^Method TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\QueryInterface\\<Pagemachine\\\\Formlog\\\\Domain\\\\Model\\\\FormLogEntry\\>\\:\\:logicalAnd\\(\\) invoked with 2 parameters, 1 required\\.$#"
 			count: 1
 			path: Classes/Domain/Repository/FormLogEntryRepository.php

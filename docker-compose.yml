@@ -28,5 +28,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-    tmpfs:
-      - /var/lib/mysql
+    volumes:
+      - type: tmpfs
+        target: /var/lib/mysql

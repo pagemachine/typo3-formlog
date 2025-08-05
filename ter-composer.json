@@ -1,0 +1,6 @@
+{
+    "require": {
+        "league/csv": "^9.1",
+        "nimmneun/onesheet": "^1.0"
+	}
+}

@@ -33,6 +33,8 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
      */
     protected $defaultOptions = [
         'finisherVariables' => [],
+        'includeHiddenElements' => true,
+        'skipElementsTypes' => 'ContentElement,StaticText',
     ];
 
     protected function executeInternal(): ?string
@@ -90,8 +92,32 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
     {
         $normalizedFormValues = [];
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
+        $skipHiddenElements = !$this->parseOption('includeHiddenElements');
+        $skipElementTypes = GeneralUtility::trimExplode(',', $this->parseOption('skipElementsTypes'));
 
         foreach ($this->finisherContext->getFormValues() as $identifier => $formValue) {
+            $element = $formDefinition->getElementByIdentifier($identifier);
+            $elementType = null;
+            if ($element !== null) {
+                $renderingOptions = $element->getRenderingOptions();
+                $elementType = $element->getType();
+            }
+            if (
+                $skipHiddenElements &&
+                (
+                    // Mimik the logik of \TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
+                    // with conditions against {formValue.value} and {formValue.isSection} in
+                    // EXT:form/Resources/Private/Frontend/Templates/Finishers/Email/Default.html
+                    // where {formValue.isSection} is set in \TYPO3\CMS\Form\ViewHelpers\RenderFormValueViewHelper::renderStatic()
+                    ($renderingOptions['_isCompositeFormElement'] ?? false)
+                    || ($renderingOptions['_isSection'] ?? false)
+                    // additionally skip configurable element types which don't actually have form values (e.g. StaticText)
+                    || in_array($elementType, $skipElementTypes)
+                )
+            ) {
+                continue;
+            }
+
             if (is_object($formValue)) {
                 if ($formValue instanceof ExtbaseFileReference) {
                     $formValue = $formValue->getOriginalResource();
@@ -105,8 +131,6 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
                     ];
                     continue;
                 }
-
-                $element = $formDefinition->getElementByIdentifier($identifier);
 
                 if ($element instanceof StringableFormElementInterface) {
                     $normalizedFormValues[$identifier] = $element->valueToString($formValue);

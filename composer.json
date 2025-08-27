@@ -72,6 +72,7 @@
     },
     "config": {
         "allow-plugins": {
+            "cweagans/composer-patches": false,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "ergebnis/composer-normalize": true,
             "typo3/class-alias-loader": true,

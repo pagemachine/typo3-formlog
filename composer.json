@@ -1,138 +1,142 @@
 {
-    "name": "pagemachine/typo3-formlog",
-    "description": "Form log for TYPO3",
-    "license": "GPL-3.0-or-later",
-    "type": "typo3-cms-extension",
-    "keywords": [
-        "typo3",
-        "form",
-        "log"
-    ],
-    "authors": [
-        {
-            "name": "Mathias Brodala",
-            "email": "mbrodala@pagemachine.de"
-        }
-    ],
-    "require": {
-        "php": "^8.1",
-        "league/csv": "^9.1",
-        "nimmneun/onesheet": "^1.0",
-        "psr/http-factory": "^1.0",
-        "psr/http-message": "^1.0 || ^2.0",
-        "psr/log": "^1.0 || ^2.0 || ^3.0",
-        "typo3/cms-backend": "^12.4 || ^13.4",
-        "typo3/cms-core": "^12.4 || ^13.4",
-        "typo3/cms-extbase": "^12.4 || ^13.4",
-        "typo3/cms-fluid": "^12.4 || ^13.4",
-        "typo3/cms-form": "^12.4 || ^13.4",
-        "typo3/cms-frontend": "^12.4 || ^13.4",
-        "typo3/cms-install": "^12.4 || ^13.4",
-        "typo3fluid/fluid": "^2.3 || ^4.0"
-    },
-    "require-dev": {
-        "ergebnis/composer-normalize": "^2.3",
-        "friendsofphp/php-cs-fixer": "^3.41",
-        "helmich/typo3-typoscript-lint": "^3.0",
-        "jangregor/phpstan-prophecy": "^1.0.0 || ^2.0.0",
-        "michielroos/typo3scan": "^1.7",
-        "php-parallel-lint/php-console-highlighter": "^1.0.0",
-        "php-parallel-lint/php-parallel-lint": "^1.2",
-        "phpspec/prophecy-phpunit": "^2.0",
-        "phpstan/phpstan": "^1.0.0 || ^2.0.0",
-        "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0",
-        "rector/rector": "^1.0.0 || ^2.0.0",
-        "saschaegerer/phpstan-typo3": "^1.0.0 || ^2.0.0",
-        "sclable/xml-lint": "^0.9.0",
-        "ssch/typo3-rector": "^2.2 || ^3.0",
-        "typo3/cms-fluid-styled-content": "^12.4 || ^13.4",
-        "typo3/cms-scheduler": "^12.4 || ^13.4",
-        "typo3/coding-standards": "^0.8.0",
-        "typo3/testing-framework": "^8.0 || ^9.0"
-    },
-    "replace": {
-        "typo3-ter/formlog": "self.version"
-    },
-    "suggest": {
-        "typo3/cms-scheduler": "Allows automatic deletion of old form log entries."
-    },
-    "autoload": {
-        "psr-4": {
-            "Pagemachine\\Formlog\\": "Classes/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Pagemachine\\Formlog\\Tests\\": "Tests/",
-            "TYPO3\\CMS\\Form\\Tests\\Functional\\Framework\\": "vendor/typo3/cms-form/Tests/Functional/Framework/"
-        },
-        "files": [
-            "Tests/Functional/Domain/Form/Finishers/functions.php"
-        ]
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "ergebnis/composer-normalize": true,
-            "typo3/class-alias-loader": true,
-            "typo3/cms-composer-installers": true
-        },
-        "preferred-install": {
-            "typo3/cms-form": "source"
-        },
-        "sort-packages": true
-    },
-    "extra": {
-        "typo3/cms": {
-            "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "extension-key": "formlog",
-            "web-dir": "web"
-        }
-    },
-    "scripts": {
-        "build": [
-            "@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",
-            "@test"
-        ],
-        "composer:lint": [
-            "@composer validate --ansi",
-            "@composer normalize --no-update-lock --dry-run"
-        ],
-        "php:functional:test": "phpunit --configuration phpunit-functional.xml --colors=always",
-        "php:lint": [
-            "@php:syntax:lint",
-            "@php:style:lint",
-            "@php:static:lint",
-            "@php:rector:lint"
-        ],
-        "php:rector:fix": "rector",
-        "php:rector:lint": "rector --dry-run --no-progress-bar",
-        "php:static:lint": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
-        "php:style:fix": "php-cs-fixer fix --diff",
-        "php:style:lint": "php-cs-fixer fix --dry-run --diff",
-        "php:syntax:lint": "parallel-lint --show-deprecated --exclude vendor --exclude web .",
-        "php:test": [
-            "@php:unit:test",
-            "@php:functional:test"
-        ],
-        "php:unit:test": "phpunit --colors=always",
-        "ter:deploy": [
-            "git reset --hard",
-            "git clean -xfd",
-            "@composer global require clue/phar-composer typo3/tailor",
-            "(mkdir -p /tmp/vendors && cp ter-composer.json /tmp/vendors/composer.json && cd /tmp/vendors && composer install && composer global exec phar-composer build -v)",
-            "cp /tmp/vendors/vendors.phar .",
-            "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php",
-            "composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
-        ],
-        "test": [
-            "@composer:lint",
-            "@php:lint",
-            "@typoscript:lint",
-            "@xml:lint",
-            "@php:test"
-        ],
-        "typoscript:lint": "typoscript-lint --ansi",
-        "xml:lint": "xmllint --pattern '*.xlf,*.svg' Resources --ansi"
-    }
+	"name": "pagemachine/typo3-formlog",
+	"description": "Form log for TYPO3",
+	"license": "GPL-3.0-or-later",
+	"type": "typo3-cms-extension",
+	"keywords": [
+		"typo3",
+		"form",
+		"log"
+	],
+	"authors": [
+		{
+			"name": "Mathias Brodala",
+			"email": "mbrodala@pagemachine.de"
+		}
+	],
+	"require": {
+		"php": "^8.1",
+		"league/csv": "^9.1",
+		"nimmneun/onesheet": "^1.0",
+		"psr/http-factory": "^1.0",
+		"psr/http-message": "^1.0 || ^2.0",
+		"psr/log": "^1.0 || ^2.0 || ^3.0",
+		"typo3/cms-backend": "^12.4 || ^13.4",
+		"typo3/cms-core": "^12.4 || ^13.4",
+		"typo3/cms-extbase": "^12.4 || ^13.4",
+		"typo3/cms-fluid": "^12.4 || ^13.4",
+		"typo3/cms-form": "^12.4 || ^13.4",
+		"typo3/cms-frontend": "^12.4 || ^13.4",
+		"typo3/cms-install": "^12.4 || ^13.4",
+		"typo3fluid/fluid": "^2.3 || ^4.0"
+	},
+	"require-dev": {
+		"armin/editorconfig-cli": "^1.8 || ^2.2",
+		"ergebnis/composer-normalize": "^2.3",
+		"friendsofphp/php-cs-fixer": "^3.41",
+		"helmich/typo3-typoscript-lint": "^3.0",
+		"jangregor/phpstan-prophecy": "^1.0.0 || ^2.0.0",
+		"michielroos/typo3scan": "^1.7",
+		"php-parallel-lint/php-console-highlighter": "^1.0.0",
+		"php-parallel-lint/php-parallel-lint": "^1.2",
+		"phpspec/prophecy-phpunit": "^2.0",
+		"phpstan/phpstan": "^1.0.0 || ^2.0.0",
+		"phpunit/phpunit": "^10.0 || ^11.0 || ^12.0",
+		"rector/rector": "^1.0.0 || ^2.0.0",
+		"saschaegerer/phpstan-typo3": "^1.0.0 || ^2.0.0",
+		"sclable/xml-lint": "^0.9.0",
+		"ssch/typo3-rector": "^2.2 || ^3.0",
+		"typo3/cms-fluid-styled-content": "^12.4 || ^13.4",
+		"typo3/cms-scheduler": "^12.4 || ^13.4",
+		"typo3/coding-standards": "^0.8.0",
+		"typo3/testing-framework": "^8.0 || ^9.0"
+	},
+	"replace": {
+		"typo3-ter/formlog": "self.version"
+	},
+	"suggest": {
+		"typo3/cms-scheduler": "Allows automatic deletion of old form log entries."
+	},
+	"autoload": {
+		"psr-4": {
+			"Pagemachine\\Formlog\\": "Classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Pagemachine\\Formlog\\Tests\\": "Tests/",
+			"TYPO3\\CMS\\Form\\Tests\\Functional\\Framework\\": "vendor/typo3/cms-form/Tests/Functional/Framework/"
+		},
+		"files": [
+			"Tests/Functional/Domain/Form/Finishers/functions.php"
+		]
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"ergebnis/composer-normalize": true,
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
+		"preferred-install": {
+			"typo3/cms-form": "source"
+		},
+		"sort-packages": true
+	},
+	"extra": {
+		"typo3/cms": {
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"extension-key": "formlog",
+			"web-dir": "web"
+		}
+	},
+	"scripts": {
+		"build": [
+			"@composer require --no-progress --ansi --update-with-dependencies typo3/cms-core $TYPO3_VERSION",
+			"@test"
+		],
+		"composer:lint": [
+			"@composer validate --ansi",
+			"@composer normalize --no-update-lock --dry-run"
+		],
+		"editorconfig:fix": "ec --fix --no-progress --no-interaction",
+		"editorconfig:lint": "ec --no-progress --no-interaction",
+		"php:functional:test": "phpunit --configuration phpunit-functional.xml --colors=always",
+		"php:lint": [
+			"@php:syntax:lint",
+			"@php:style:lint",
+			"@php:static:lint",
+			"@php:rector:lint"
+		],
+		"php:rector:fix": "rector",
+		"php:rector:lint": "rector --dry-run --no-progress-bar",
+		"php:static:lint": "phpstan analyse --ansi --no-progress --memory-limit=512M --configuration=phpstan.neon",
+		"php:style:fix": "php-cs-fixer fix --diff",
+		"php:style:lint": "php-cs-fixer fix --dry-run --diff",
+		"php:syntax:lint": "parallel-lint --show-deprecated --exclude vendor --exclude web .",
+		"php:test": [
+			"@php:unit:test",
+			"@php:functional:test"
+		],
+		"php:unit:test": "phpunit --colors=always",
+		"ter:deploy": [
+			"git reset --hard",
+			"git clean -xfd",
+			"@composer global require clue/phar-composer typo3/tailor",
+			"(mkdir -p /tmp/vendors && cp ter-composer.json /tmp/vendors/composer.json && cd /tmp/vendors && composer install && composer global exec phar-composer build -v)",
+			"cp /tmp/vendors/vendors.phar .",
+			"echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php",
+			"composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
+		],
+		"test": [
+			"@composer:lint",
+			"@editorconfig:lint",
+			"@php:lint",
+			"@typoscript:lint",
+			"@xml:lint",
+			"@php:test"
+		],
+		"typoscript:lint": "typoscript-lint --ansi",
+		"xml:lint": "xmllint --pattern '*.xlf,*.svg' Resources --ansi"
+	}
 }

@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" product-name="formlog">
-    <header/>
-    <body>
+<file source-language="en" datatype="plaintext" original="messages" product-name="formlog">
+	<header/>
+	<body>
 
-      <trans-unit id="tx_formlog_entries">
-        <source>Form log entry</source>
-      </trans-unit>
+	  <trans-unit id="tx_formlog_entries">
+		<source>Form log entry</source>
+	  </trans-unit>
 
-      <trans-unit id="tx_formlog_entries.page">
-        <source>Form page</source>
-      </trans-unit>
+	  <trans-unit id="tx_formlog_entries.page">
+		<source>Form page</source>
+	  </trans-unit>
 
-      <trans-unit id="tx_formlog_entries.language">
-        <source>Form language</source>
-      </trans-unit>
+	  <trans-unit id="tx_formlog_entries.language">
+		<source>Form language</source>
+	  </trans-unit>
 
-      <trans-unit id="tx_formlog_entries.identifier">
-        <source>Form identifier</source>
-      </trans-unit>
+	  <trans-unit id="tx_formlog_entries.identifier">
+		<source>Form identifier</source>
+	  </trans-unit>
 
-      <trans-unit id="tx_formlog_entries.data">
-        <source>Form data</source>
-      </trans-unit>
+	  <trans-unit id="tx_formlog_entries.data">
+		<source>Form data</source>
+	  </trans-unit>
 
-      <trans-unit id="tx_formlog_entries.finisher_variables">
-        <source>Form finisher variables</source>
-      </trans-unit>
+	  <trans-unit id="tx_formlog_entries.finisher_variables">
+		<source>Form finisher variables</source>
+	  </trans-unit>
 
-    </body>
-  </file>
+	</body>
+</file>
 </xliff>

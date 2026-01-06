@@ -1,114 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.0">
-  <file source-language="en" target-language="de" datatype="plaintext" original="messages" product-name="formlog">
-    <header/>
-    <body>
+<file source-language="en" target-language="de" datatype="plaintext" original="messages" product-name="formlog">
+	<header/>
+	<body>
 
-      <trans-unit id="formlog.title">
-        <source>Form log entries</source>
-        <target>Formular-Logeinträge</target>
-      </trans-unit>
+	  <trans-unit id="formlog.title">
+		<source>Form log entries</source>
+		<target>Formular-Logeinträge</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.empty">
-        <source>There are no form log entries yet. Make sure to add the "LogFormData" finisher to your form definitions.</source>
-        <target>Es gibt noch keine Formular-Logeinträge. Bitte vergewissern Sie sich, dass der "LogFormData"-Finisher in Formular-Definitionen hinzugefügt wurde.</target>
-      </trans-unit>
+	  <trans-unit id="formlog.empty">
+		<source>There are no form log entries yet. Make sure to add the "LogFormData" finisher to your form definitions.</source>
+		<target>Es gibt noch keine Formular-Logeinträge. Bitte vergewissern Sie sich, dass der "LogFormData"-Finisher in Formular-Definitionen hinzugefügt wurde.</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.title">
-        <source>Filters active</source>
-        <target>Filter aktiv</target>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.title">
+		<source>Filters active</source>
+		<target>Filter aktiv</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.explanation">
-        <source>Log entries are shown with the following filters:</source>
-        <target>Logeinträge werden mit den folgenden Filtern angezeigt:</target>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.explanation">
+		<source>Log entries are shown with the following filters:</source>
+		<target>Logeinträge werden mit den folgenden Filtern angezeigt:</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.clear">
-        <source>Clear filters</source>
-        <target>Filter entfernen</target>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.clear">
+		<source>Clear filters</source>
+		<target>Filter entfernen</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.this">
-        <source>Filter by this</source>
-        <target>Hiernach filtern</target>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.this">
+		<source>Filter by this</source>
+		<target>Hiernach filtern</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.export.csv">
-        <source>Export to CSV</source>
-        <target>Export zu CSV</target>
-      </trans-unit>
+	  <trans-unit id="formlog.export.csv">
+		<source>Export to CSV</source>
+		<target>Export zu CSV</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.export.xlsx">
-        <source>Export to Excel (XLSX)</source>
-        <target>Export zu Excel (XLSX)</target>
-      </trans-unit>
+	  <trans-unit id="formlog.export.xlsx">
+		<source>Export to Excel (XLSX)</source>
+		<target>Export zu Excel (XLSX)</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.export.unconfigured">
-        <source>Export is disabled: the configuration is incomplete, please contact your developer or integrator.</source>
-        <target>Export ist deaktiviert: die Konfiguration ist unvollständig, bitte kontaktieren Sie Ihren Entwickler oder Integrator.</target>
-      </trans-unit>
+	  <trans-unit id="formlog.export.unconfigured">
+		<source>Export is disabled: the configuration is incomplete, please contact your developer or integrator.</source>
+		<target>Export ist deaktiviert: die Konfiguration ist unvollständig, bitte kontaktieren Sie Ihren Entwickler oder Integrator.</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.applyLabel">
-        <source>Apply</source>
-        <target>Übernehmen</target>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.applyLabel">
+		<source>Apply</source>
+		<target>Übernehmen</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.cancelLabel">
-        <source>Cancel</source>
-        <target>Abbrechen</target>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.cancelLabel">
+		<source>Cancel</source>
+		<target>Abbrechen</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.fromLabel">
-        <source>Start</source>
-        <target>Anfang</target>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.fromLabel">
+		<source>Start</source>
+		<target>Anfang</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.toLabel">
-        <source>End</source>
-        <target>Ende</target>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.toLabel">
+		<source>End</source>
+		<target>Ende</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.customRangeLabel">
-        <source>Other range</source>
-        <target>Anderer Zeitraum</target>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.customRangeLabel">
+		<source>Other range</source>
+		<target>Anderer Zeitraum</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.ranges.last30days">
-        <source>Last 30 days</source>
-        <target>Letzte 30 Tage</target>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.ranges.last30days">
+		<source>Last 30 days</source>
+		<target>Letzte 30 Tage</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.ranges.lastYear">
-        <source>Last year</source>
-        <target>Letztes Jahr</target>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.ranges.lastYear">
+		<source>Last year</source>
+		<target>Letztes Jahr</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.page.title">
-        <source>Page</source>
-        <target>Seite</target>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.page.title">
+		<source>Page</source>
+		<target>Seite</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.submissionDate">
-        <source>Date</source>
-        <target>Datum</target>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.submissionDate">
+		<source>Date</source>
+		<target>Datum</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.language">
-        <source>Language</source>
-        <target>Sprache</target>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.language">
+		<source>Language</source>
+		<target>Sprache</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.language.default">
-        <source>Default</source>
-        <target>Standard</target>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.language.default">
+		<source>Default</source>
+		<target>Standard</target>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.identifier">
-        <source>Form</source>
-        <target>Formular</target>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.identifier">
+		<source>Form</source>
+		<target>Formular</target>
+	  </trans-unit>
 
-    </body>
-  </file>
+	</body>
+</file>
 </xliff>

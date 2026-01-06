@@ -130,6 +130,7 @@
         ],
         "test": [
             "@composer:lint",
+            "@editorconfig:lint",
             "@php:lint",
             "@typoscript:lint",
             "@xml:lint",

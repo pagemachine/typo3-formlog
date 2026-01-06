@@ -31,6 +31,7 @@
         "typo3fluid/fluid": "^2.3 || ^4.0"
     },
     "require-dev": {
+        "armin/editorconfig-cli": "^1.8 || ^2.2",
         "ergebnis/composer-normalize": "^2.3",
         "friendsofphp/php-cs-fixer": "^3.41",
         "helmich/typo3-typoscript-lint": "^3.0",

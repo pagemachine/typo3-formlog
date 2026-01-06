@@ -99,6 +99,8 @@
             "@composer validate --ansi",
             "@composer normalize --no-update-lock --dry-run"
         ],
+        "editorconfig:fix": "ec --fix --no-progress --no-interaction",
+        "editorconfig:lint": "ec --no-progress --no-interaction",
         "php:functional:test": "phpunit --configuration phpunit-functional.xml --colors=always",
         "php:lint": [
             "@php:syntax:lint",

@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" product-name="formlog">
-    <header/>
-    <body>
+<file source-language="en" datatype="plaintext" original="messages" product-name="formlog">
+	<header/>
+	<body>
 
-      <trans-unit id="formlog.title">
-        <source>Form log entries</source>
-      </trans-unit>
+	  <trans-unit id="formlog.title">
+		<source>Form log entries</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.empty">
-        <source>There are no form log entries yet. Make sure to add the "LogFormData" finisher to your form definitions.</source>
-      </trans-unit>
+	  <trans-unit id="formlog.empty">
+		<source>There are no form log entries yet. Make sure to add the "LogFormData" finisher to your form definitions.</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.title">
-        <source>Filters active</source>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.title">
+		<source>Filters active</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.explanation">
-        <source>Log entries are shown with the following filters:</source>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.explanation">
+		<source>Log entries are shown with the following filters:</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.clear">
-        <source>Clear filters</source>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.clear">
+		<source>Clear filters</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.filters.this">
-        <source>Filter by this</source>
-      </trans-unit>
+	  <trans-unit id="formlog.filters.this">
+		<source>Filter by this</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.export">
-        <source>Export</source>
-      </trans-unit>
+	  <trans-unit id="formlog.export">
+		<source>Export</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.export.csv">
-        <source>Export to CSV</source>
-      </trans-unit>
+	  <trans-unit id="formlog.export.csv">
+		<source>Export to CSV</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.export.xlsx">
-        <source>Export to Excel (XLSX)</source>
-      </trans-unit>
+	  <trans-unit id="formlog.export.xlsx">
+		<source>Export to Excel (XLSX)</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.export.unconfigured">
-        <source>Export is disabled: the configuration is incomplete, please contact your developer or integrator.</source>
-      </trans-unit>
+	  <trans-unit id="formlog.export.unconfigured">
+		<source>Export is disabled: the configuration is incomplete, please contact your developer or integrator.</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.applyLabel">
-        <source>Apply</source>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.applyLabel">
+		<source>Apply</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.cancelLabel">
-        <source>Cancel</source>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.cancelLabel">
+		<source>Cancel</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.fromLabel">
-        <source>Start</source>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.fromLabel">
+		<source>Start</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.toLabel">
-        <source>End</source>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.toLabel">
+		<source>End</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.labels.customRangeLabel">
-        <source>Other range</source>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.labels.customRangeLabel">
+		<source>Other range</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.ranges.last30days">
-        <source>Last 30 days</source>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.ranges.last30days">
+		<source>Last 30 days</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.daterangepicker.ranges.lastYear">
-        <source>Last year</source>
-      </trans-unit>
+	  <trans-unit id="formlog.daterangepicker.ranges.lastYear">
+		<source>Last year</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.uid">
-        <source>UID</source>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.uid">
+		<source>UID</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.page.title">
-        <source>Page</source>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.page.title">
+		<source>Page</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.submissionDate">
-        <source>Date</source>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.submissionDate">
+		<source>Date</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.language">
-        <source>Language</source>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.language">
+		<source>Language</source>
+	  </trans-unit>
 
-      <trans-unit id="formlog.entry.identifier">
-        <source>Form</source>
-      </trans-unit>
+	  <trans-unit id="formlog.entry.identifier">
+		<source>Form</source>
+	  </trans-unit>
 
-      <trans-unit id="pagination.first">
-        <source>First</source>
-      </trans-unit>
+	  <trans-unit id="pagination.first">
+		<source>First</source>
+	  </trans-unit>
 
-      <trans-unit id="pagination.last">
-        <source>Last</source>
-      </trans-unit>
+	  <trans-unit id="pagination.last">
+		<source>Last</source>
+	  </trans-unit>
 
-      <trans-unit id="pagination.previous">
-        <source>Previous</source>
-      </trans-unit>
+	  <trans-unit id="pagination.previous">
+		<source>Previous</source>
+	  </trans-unit>
 
-      <trans-unit id="pagination.next">
-        <source>Next</source>
-      </trans-unit>
+	  <trans-unit id="pagination.next">
+		<source>Next</source>
+	  </trans-unit>
 
-      <trans-unit id="pagination.go">
-        <source>Go to page</source>
-      </trans-unit>
+	  <trans-unit id="pagination.go">
+		<source>Go to page</source>
+	  </trans-unit>
 
-    </body>
-  </file>
+	</body>
+</file>
 </xliff>

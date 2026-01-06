@@ -16,13 +16,18 @@ This extension is installable from various sources:
 
 ## Purpose
 
-One feature absent in the [TYPO3 form extension](https://docs.typo3.org/typo3cms/extensions/form/) is logging of form data. If you have ever used the now defunct Formhandler extension you know how valuable this can be. You can easily check if form submissions are working as they should, see internal values are generated correctly and perform some basic analysis thanks to exports to CSV or similar.
+One feature absent in the [TYPO3 form extension](https://docs.typo3.org/typo3cms/extensions/form/)
+is logging of form data. If you have ever used the now defunct Formhandler extension
+you know how valuable this can be. You can easily check if form submissions are
+working as they should, see internal values are generated correctly and perform
+some basic analysis thanks to exports to CSV or similar.
 
 See our blog post [about the TYPO3 form log extension](https://www.pagemachine.de/blog/typo3-form-log/).
 
 ## Start logging
 
-Logging can be enabled for any form by adding the `LogFormData` finisher to its form definition:
+Logging can be enabled for any form by adding the `LogFormData` finisher to its
+form definition:
 
 ```yaml
 finishers:
@@ -33,9 +38,11 @@ finishers:
   - identifier: Redirect
 ```
 
-The `LogFormData` finisher should be the last finisher or right before the `Redirect` finisher if used. Logging after a redirect is not possible.
+The `LogFormData` finisher should be the last finisher or right before the `Redirect`
+finisher if used. Logging after a redirect is not possible.
 
-Additional variables stored in the `FinisherVariableProvider` can also be logged by using the `finisherVariables` option:
+Additional variables stored in the `FinisherVariableProvider` can also be logged
+by using the `finisherVariables` option:
 
 ```yaml
   - identifier: LogFormData
@@ -45,11 +52,15 @@ Additional variables stored in the `FinisherVariableProvider` can also be logged
           - myCustomVariable
 ```
 
-The keys within `finisherVariables` are identifiers of finishers used in a form, the value of each entry is a list of finisher variable names. In the example here the finisher variable `myCustomVariable` provided by the finisher `MyCustomFinisher` will be logged.
+The keys within `finisherVariables` are identifiers of finishers used in a form,
+the value of each entry is a list of finisher variable names. In the example here
+the finisher variable `myCustomVariable` provided by the finisher `MyCustomFinisher`
+will be logged.
 
 ## Form log module
 
-By default the form log module displays a few basic fields like page, form identifier, language and date of form submission as columns.
+By default the form log module displays a few basic fields like page, form identifier,
+language and date of form submission as columns.
 
 Additional columns can be added with the `list.columns` setting in `ext_typoscript_setup.txt`:
 
@@ -68,9 +79,15 @@ module.tx_formlog {
 }
 ```
 
-Within `list.columns` an arbitrary list of columns can be added where the `property` option refers to a property path in the `FormLogEntry` domain model. Simply speaking `data.*` provides access to form data by a form element identifier, e.g. `data.email` for the value of the form element `email`. The `label` option is used to retrieve a translatable label. Usually one can simply use the same label that is used for the field within the form itself.
+Within `list.columns` an arbitrary list of columns can be added where the `property`
+option refers to a property path in the `FormLogEntry` domain model. Simply speaking
+`data.*` provides access to form data by a form element identifier, e.g. `data.email`
+for the value of the form element `email`. The `label` option is used to retrieve
+a translatable label. Usually one can simply use the same label that is used for
+the field within the form itself.
 
-Similarly `finisherVariables.*` does the same for additional finisher variables by utilizing the finisher identifier and variable name:
+Similarly `finisherVariables.*` does the same for additional finisher variables
+by utilizing the finisher identifier and variable name:
 
 ```typoscript
 module.tx_formlog {
@@ -91,7 +108,10 @@ Here `myCustomVariable` of `MyCustomFinisher` is added as column to the list.
 
 ## Form log export
 
-Out of the box form log entries can be exported to CSV and Excel (XLSX). Basic fields of form log entries are exported by default, additional columns can be added with the `export.columns` setting in `ext_typoscript_setup.txt` which is configured exactly the same as the `list.columns` setting:
+Out of the box form log entries can be exported to CSV and Excel (XLSX). Basic fields
+of form log entries are exported by default, additional columns can be added with
+the `export.columns` setting in `ext_typoscript_setup.txt` which is configured exactly
+the same as the `list.columns` setting:
 
 ```typoscript
 module.tx_formlog {
@@ -122,7 +142,9 @@ module.tx_formlog {
 
 ## Log entry cleanup
 
-The _Table garbage collection_ Scheduler task can be set up to automatically delete old form log entries. Select `tx_formlog_entries` as _Table to clean up_ and a suitable value for _Delete entries older than given number of days_, 180 by default.
+The _Table garbage collection_ Scheduler task can be set up to automatically delete
+old form log entries. Select `tx_formlog_entries` as _Table to clean up_ and a suitable
+value for _Delete entries older than given number of days_, 180 by default.
 
 ## Testing
 

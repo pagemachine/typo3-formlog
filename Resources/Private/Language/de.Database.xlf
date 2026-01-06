@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" product-name="formlog">
-    <header/>
-    <body>
+<file source-language="en" datatype="plaintext" original="messages" product-name="formlog">
+	<header/>
+	<body>
 
-      <trans-unit id="formEditor.elements.Form.editor.finishers.LogFormData.label">
-        <source>Log form data</source>
-        <target>Formulardaten loggen</target>
-      </trans-unit>
+	  <trans-unit id="formEditor.elements.Form.editor.finishers.LogFormData.label">
+		<source>Log form data</source>
+		<target>Formulardaten loggen</target>
+	  </trans-unit>
 
-    </body>
-  </file>
+	</body>
+</file>
 </xliff>

@@ -29,6 +29,9 @@ max_line_length = 80
 [*.md]
 max_line_length = 80
 
+[README.md]
+max_line_length = unset
+
 # YAML-Files
 [*.{yaml,yml}]
 indent_size = 2

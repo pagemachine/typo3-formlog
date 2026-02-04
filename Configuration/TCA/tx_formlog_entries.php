@@ -11,6 +11,9 @@ return [
         'tstamp' => 'tstamp',
         'delete' => 'deleted',
         'rootLevel' => 1,
+        'security' => [
+            'ignoreRootLevelRestriction' => true,
+        ],
         'readOnly' => true,
         'iconfile' => 'EXT:formlog/Resources/Public/Icons/tx_formlog_entries.svg',
     ],

@@ -123,7 +123,7 @@
             "(mkdir -p /tmp/vendors && cp ter-composer.json /tmp/vendors/composer.json && cd /tmp/vendors && composer install && composer global exec phar-composer build -v)",
             "cp /tmp/vendors/vendors.phar .",
             "echo \"require 'phar://' . \\TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility::extPath('$(composer config extra.typo3/cms.extension-key)') . 'vendors.phar/vendor/autoload.php';\" >> ext_localconf.php",
-            "composer global exec -v -- tailor set-version --no-docs $TAG",
+            "composer global exec -v -- tailor set-version $TAG",
             "composer global exec -v -- tailor ter:publish --comment \"$(git tag -l --format='%(contents)' $TAG)\" $TAG"
         ],
         "test": [

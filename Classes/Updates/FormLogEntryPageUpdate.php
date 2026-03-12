@@ -12,10 +12,10 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
-final class FormLogEntryPageUpdate implements UpgradeWizardInterface
+final readonly class FormLogEntryPageUpdate implements UpgradeWizardInterface
 {
     public function __construct(
-        private readonly ConnectionPool $connectionPool
+        private ConnectionPool $connectionPool
     ) {}
 
     public function getIdentifier(): string

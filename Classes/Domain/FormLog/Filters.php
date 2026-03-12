@@ -20,9 +20,9 @@ class Filters implements \IteratorAggregate, \Countable
     protected DateRangeFilter $submissionDate;
 
     public function __construct(
-        ValueFilter $pageTitle = null,
-        ValueFilter $identifier = null,
-        DateRangeFilter $submissionDate = null
+        ?ValueFilter $pageTitle = null,
+        ?ValueFilter $identifier = null,
+        ?DateRangeFilter $submissionDate = null
     ) {
         $this->pageTitle = $pageTitle ?: new ValueFilter();
         $this->identifier = $identifier ?: new ValueFilter();

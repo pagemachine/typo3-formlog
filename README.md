@@ -35,6 +35,18 @@ finishers:
 
 The `LogFormData` finisher should be the last finisher or right before the `Redirect` finisher if used. Logging after a redirect is not possible.
 
+## Configuration
+
+### Save values from hidden or composite Elements
+
+Some form elements, such as fieldsets or other containers, do not hold a form value by themselves; only their child elements hold values. By default, all form elements are saved, even those that never contain values, which can result in empty columns in the log records and exports.
+
+To prevent this, set the finisher option `includeHiddenElements` to `false`. This option ensures that values from composite elements are not saved, similar to how the `EmailFinisher` only includes fields in emails that actually contain a value.
+
+Additionally, you can use the finisher option `skipElementsTypes` to exclude specific form elements (comma separated list). By default, this option excludes `ContentElement` and `StaticText` elements, as they will never have a value.
+
+### Logging of finisher variables
+
 Additional variables stored in the `FinisherVariableProvider` can also be logged by using the `finisherVariables` option:
 
 ```yaml

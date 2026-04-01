@@ -3,7 +3,7 @@
 
     <div class="btn-group dropup" role="group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <c:icon identifier="actions-database-export"/>
+        <core:icon identifier="actions-database-export"/>
         <f:translate key="formlog.export"/>
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
@@ -15,7 +15,7 @@
             addQueryString="true"
             class="dropdown-item"
           >
-            <c:icon identifier="mimetypes-text-csv"/>
+            <core:icon identifier="mimetypes-text-csv"/>
             <f:translate key="formlog.export.csv"/>
           </f:link.action>
         </li>
@@ -27,7 +27,7 @@
             addQueryString="true"
             class="dropdown-item"
           >
-            <c:icon identifier="mimetypes-excel"/>
+            <core:icon identifier="mimetypes-excel"/>
             <f:translate key="formlog.export.xlsx"/>
           </f:link.action>
         </li>
@@ -37,7 +37,7 @@
   </f:then>
   <f:else>
     <button type="button" class="btn btn-default" disabled title="{f:translate(key: 'formlog.export.unconfigured')}">
-      <c:icon identifier="actions-document-export-csv"/>
+      <core:icon identifier="actions-document-export-csv"/>
       <f:translate key="formlog.export.csv"/>
     </button>
   </f:else>

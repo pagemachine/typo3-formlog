@@ -31,8 +31,8 @@ class JSONDataElement extends AbstractFormElement
         $languageService = $this->getLanguageService();
         $rows[] = sprintf(
             '<tr><th>%s</th><th>%s</th></tr>',
-            $languageService->sL('LLL:EXT:formlog/Resources/Private/Language/locallang_element.xlf:jsonData.field'),
-            $languageService->sL('LLL:EXT:formlog/Resources/Private/Language/locallang_element.xlf:jsonData.value')
+            $languageService->sL('formlog.element:jsonData.field'),
+            $languageService->sL('formlog.element:jsonData.value')
         );
 
         foreach ($data as $name => $value) {

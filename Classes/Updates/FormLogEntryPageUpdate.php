@@ -7,7 +7,6 @@ namespace Pagemachine\Formlog\Updates;
 /*
  * This file is part of the Pagemachine TYPO3 Formlog project.
  */
-
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
@@ -63,8 +62,6 @@ final readonly class FormLogEntryPageUpdate implements UpgradeWizardInterface
 
     public function getPrerequisites(): array
     {
-        return [
-            DatabaseUpdatedPrerequisite::class,
-        ];
+        return [];
     }
 }

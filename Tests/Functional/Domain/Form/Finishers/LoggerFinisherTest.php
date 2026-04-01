@@ -51,6 +51,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         }
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         unset($GLOBALS['TSFE']);

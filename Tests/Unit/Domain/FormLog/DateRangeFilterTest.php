@@ -20,6 +20,7 @@ class DateRangeFilterTest extends UnitTestCase
     /**
      * Tear down this testcase
      */
+    #[\Override]
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();

@@ -10,31 +10,18 @@ namespace Pagemachine\Formlog\ViewHelpers\Format;
 
 use Pagemachine\Formlog\Rendering\ValueFormatter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 final class FormValueViewHelper extends AbstractViewHelper
 {
-    use CompileWithContentArgumentAndRenderStatic;
-
-    public function __construct()
-    {
-        $this->contentArgumentName = 'value';
-    }
-
     public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('value', 'mixed', 'Form value');
     }
 
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ): string {
-        $value = $renderChildrenClosure();
+    public function render(): string {
+        $value = $this->buildRenderChildrenClosure()();
         $formatter = GeneralUtility::makeInstance(ValueFormatter::class);
 
         return $formatter->format($value);

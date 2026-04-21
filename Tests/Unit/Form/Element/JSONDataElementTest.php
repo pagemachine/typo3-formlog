@@ -12,9 +12,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
-use TYPO3\CMS\Backend\Form\NodeFactory;
-use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -42,23 +39,12 @@ class JSONDataElementTest extends UnitTestCase
     #[Test]
     public function rendersFormData($formElementValue, $expected): void
     {
-        if ((new Typo3Version())->getMajorVersion() < 13) {
-            GeneralUtility::addInstance(IconFactory::class, $this->prophesize(IconFactory::class)->reveal());
-
-            $jsonDataElement = new JSONDataElement($this->prophesize(NodeFactory::class)->reveal(), [
-
-                'parameterArray' => [
-                    'itemFormElValue' => $formElementValue,
-                ],
-            ]);
-        } else {
-            $jsonDataElement = new JSONDataElement();
-            $jsonDataElement->setData([
-                'parameterArray' => [
-                    'itemFormElValue' => $formElementValue,
-                ],
-            ]);
-        }
+        $jsonDataElement = new JSONDataElement();
+        $jsonDataElement->setData([
+            'parameterArray' => [
+                'itemFormElValue' => $formElementValue,
+            ],
+        ]);
 
         $languageService = $this->prophesize(LanguageService::class);
         $languageService->sL(Argument::containingString('field'))->willReturn('Field');

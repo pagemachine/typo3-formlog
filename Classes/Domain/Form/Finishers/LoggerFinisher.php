@@ -13,7 +13,6 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Resource\FileReference as CoreFileReference;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
@@ -69,7 +68,7 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
         $data = [
             'crdate' => $now,
             'tstamp' => $now,
-            'page' => (new Typo3Version())->getMajorVersion() < 13 ? $this->getTypoScriptFrontendController()->id : $this->finisherContext->getRequest()->getAttribute('frontend.page.information')->getId(),
+            'page' => $this->finisherContext->getRequest()->getAttribute('frontend.page.information')->getId(),
             'language' => (int)$context->getPropertyFromAspect('language', 'id', 0),
             'identifier' => $formDefinition->getIdentifier(),
             'data' => $encodedFormValues,

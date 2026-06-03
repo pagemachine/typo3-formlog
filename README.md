@@ -12,7 +12,13 @@ This extension is installable from various sources:
    composer require pagemachine/typo3-formlog
    ```
 
-2. From the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/formlog/)
+   From the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/formlog/)
+
+2. Add the "Form Log" static TypoScript template or import the TypoScript setup:
+
+   ```typoscript
+   @import 'EXT:formlog/Configuration/TypoScript/setup.typoscript'
+   ```
 
 ## Purpose
 

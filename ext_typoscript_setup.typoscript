@@ -1,10 +1,4 @@
-plugin.tx_form {
-  settings {
-    yamlConfigurations {
-      1520412939 = EXT:formlog/Configuration/Form/Setup.yaml
-    }
-  }
-}
+@import 'EXT:formlog/Configuration/TypoScript/setup.typoscript'
 
 module {
   tx_form {

@@ -1,4 +1,8 @@
-base: 'http://basic.localhost/'
+base: 'http://sets.localhost/'
+dependencies:
+  - typo3/fluid-styled-content
+  - typo3/form
+  - pagemachine/formlog
 languages:
   -
     title: English
@@ -8,4 +12,4 @@ languages:
     locale: en_US.UTF-8
     navigationTitle: English
     flag: us
-rootPageId: 123
+rootPageId: 124

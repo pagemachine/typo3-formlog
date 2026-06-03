@@ -6,9 +6,7 @@ namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Configuration\SiteWriter;
 use TYPO3\CMS\Core\Http\UploadedFile;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Form\Tests\Functional\Framework\FormHandling\FormDataFactory;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -29,6 +27,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
     protected array $pathsToLinkInTestInstance = [
         'typo3conf/ext/formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/FormDefinitions' => 'fileadmin/form_definitions',
+        'typo3conf/ext/formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/Sites' => 'typo3conf/sites',
     ];
 
     protected function setUp(): void
@@ -39,9 +38,6 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $this->setUpFrontendRootPage(123, [
             'EXT:formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/TypoScript/page.typoscript',
         ]);
-
-        $siteWriter = GeneralUtility::makeInstance(SiteWriter::class);
-        $siteWriter->createNewBasicSite('123', 123, 'http://localhost/');
     }
 
     protected function tearDown(): void

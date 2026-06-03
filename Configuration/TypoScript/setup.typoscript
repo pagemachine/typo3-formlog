@@ -1,0 +1,7 @@
+plugin.tx_form {
+  settings {
+    yamlConfigurations {
+      1520412939 = EXT:formlog/Configuration/Form/Setup.yaml
+    }
+  }
+}

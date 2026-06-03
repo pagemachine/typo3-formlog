@@ -12,7 +12,13 @@ This extension is installable from various sources:
    composer require pagemachine/typo3-formlog
    ```
 
-2. From the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/formlog/)
+   From the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/formlog/)
+
+2. Add the "Form Log" static TypoScript template or import the TypoScript setup:
+
+   ```typoscript
+   @import 'EXT:formlog/Configuration/TypoScript/setup.typoscript'
+   ```
 
 ## Purpose
 
@@ -51,9 +57,11 @@ The keys within `finisherVariables` are identifiers of finishers used in a form,
 
 By default the form log module displays a few basic fields like page, form identifier, language and date of form submission as columns.
 
-Additional columns can be added with the `list.columns` setting in `ext_typoscript_setup.txt`:
+Additional columns can be added with the `list.columns` setting in TypoScript loaded
+via `ext_localconf.php`:
 
-```typoscript
+```php
+ExtensionManagementUtility::addTypoScriptSetup(<<<TYPOSCRIPT
 module.tx_formlog {
   settings {
     list {
@@ -66,13 +74,15 @@ module.tx_formlog {
     }
   }
 }
+TYPOSCRIPT);
 ```
 
 Within `list.columns` an arbitrary list of columns can be added where the `property` option refers to a property path in the `FormLogEntry` domain model. Simply speaking `data.*` provides access to form data by a form element identifier, e.g. `data.email` for the value of the form element `email`. The `label` option is used to retrieve a translatable label. Usually one can simply use the same label that is used for the field within the form itself.
 
 Similarly `finisherVariables.*` does the same for additional finisher variables by utilizing the finisher identifier and variable name:
 
-```typoscript
+```php
+ExtensionManagementUtility::addTypoScriptSetup(<<<TYPOSCRIPT
 module.tx_formlog {
   settings {
     list {
@@ -85,15 +95,17 @@ module.tx_formlog {
     }
   }
 }
+TYPOSCRIPT);
 ```
 
 Here `myCustomVariable` of `MyCustomFinisher` is added as column to the list.
 
 ## Form log export
 
-Out of the box form log entries can be exported to CSV and Excel (XLSX). Basic fields of form log entries are exported by default, additional columns can be added with the `export.columns` setting in `ext_typoscript_setup.txt` which is configured exactly the same as the `list.columns` setting:
+Out of the box form log entries can be exported to CSV and Excel (XLSX). Basic fields of form log entries are exported by default, additional columns can be added with the `export.columns` setting in TypoScript loaded via `ext_localconf.php` which is configured exactly the same as the `list.columns` setting:
 
-```typoscript
+```php
+ExtensionManagementUtility::addTypoScriptSetup(<<<TYPOSCRIPT
 module.tx_formlog {
   settings {
     export {
@@ -118,6 +130,7 @@ module.tx_formlog {
     }
   }
 }
+TYPOSCRIPT);
 ```
 
 ## Log entry cleanup

@@ -4,8 +4,6 @@ Form log for TYPO3
 
 ## Installation
 
-This extension is installable from various sources:
-
 1. Via [Composer](https://packagist.org/packages/pagemachine/typo3-formlog):
 
    ```shell
@@ -14,7 +12,14 @@ This extension is installable from various sources:
 
    From the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/formlog/)
 
-2. Add the "Form Log" static TypoScript template or import the TypoScript setup:
+2. Add the Site Set `pagemachine/formlog` as dependency to your site configuration:
+
+   ```yaml
+   dependencies:
+     - pagemachine/formlog
+   ```
+
+   Alternatively add the "Form Log" static TypoScript template or import the TypoScript setup:
 
    ```typoscript
    @import 'EXT:formlog/Configuration/TypoScript/setup.typoscript'

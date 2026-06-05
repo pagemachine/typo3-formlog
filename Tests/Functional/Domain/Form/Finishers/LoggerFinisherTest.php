@@ -6,9 +6,7 @@ namespace Pagemachine\Formlog\Tests\Functional\Domain\Form\Finishers;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Configuration\SiteWriter;
 use TYPO3\CMS\Core\Http\UploadedFile;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Form\Tests\Functional\Framework\FormHandling\FormDataFactory;
 use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -29,6 +27,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
 
     protected array $pathsToLinkInTestInstance = [
         'typo3conf/ext/formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/FormDefinitions' => 'fileadmin/form_definitions',
+        'typo3conf/ext/formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/Sites' => 'typo3conf/sites',
     ];
 
     protected function setUp(): void
@@ -39,9 +38,7 @@ final class LoggerFinisherTest extends FunctionalTestCase
         $this->setUpFrontendRootPage(123, [
             'EXT:formlog/Tests/Functional/Domain/Form/Finishers/Fixtures/TypoScript/page.typoscript',
         ]);
-
-        $siteWriter = GeneralUtility::makeInstance(SiteWriter::class);
-        $siteWriter->createNewBasicSite('123', 123, 'http://localhost/');
+        $this->getConnectionPool()->getConnectionForTable('pages')->insert('pages', ['uid' => 124]);
     }
 
     protected function tearDown(): void
@@ -52,15 +49,17 @@ final class LoggerFinisherTest extends FunctionalTestCase
     #[DataProvider('formData')]
     #[Test]
     public function logsSubmittedFormData(
+        string $uri,
+        int $pageId,
         string $formPersistenceIdentifier,
         string $formIdentifier,
         array $formValues,
         string $expectedData,
     ): void {
-        $formContentUid = $this->createFormContentElement($formPersistenceIdentifier);
+        $formContentUid = $this->createFormContentElement($pageId, $formPersistenceIdentifier);
         $formIdentifier = sprintf('%s-%d', $formIdentifier, $formContentUid);
 
-        $pageRequest = (new InternalRequest())->withPageId(123);
+        $pageRequest = (new InternalRequest($uri))->withPageId($pageId);
         $response = $this->executeFrontendSubRequest($pageRequest);
 
         self::assertSame(200, $response->getStatusCode());
@@ -81,19 +80,58 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ->select(['*'], 'tx_formlog_entries')
             ->fetchAssociative();
 
-        self::assertSame(123, $logEntry['page'] ?? null);
+        self::assertNotFalse($logEntry, 'Missing log entry');
+        self::assertSame($pageId, $logEntry['page'] ?? null);
         self::assertSame($formIdentifier, $logEntry['identifier'] ?? null);
         self::assertSame($expectedData, $logEntry['data'] ?? null);
         self::assertSame('[]', $logEntry['finisher_variables'] ?? null);
     }
 
-    #[Test]
-    public function logsSubmittedFileData(): void
+    public static function formData(): \Generator
     {
-        $formContentUid = $this->createFormContentElement('1:/form_definitions/FileUpload.form.yaml');
+        foreach (self::sites() as $site) {
+            yield [
+                ...$site,
+                '1:/form_definitions/Basic.form.yaml',
+                'Basic',
+                [
+                    'name' => 'Tester',
+                ],
+                '{"name":"Tester"}',
+            ];
+
+            yield [
+                ...$site,
+                '1:/form_definitions/Date.form.yaml',
+                'Date',
+                [
+                    'date' => '2022-02-07',
+                ],
+                '{"date":"07.02.2022"}',
+            ];
+
+            yield [
+                ...$site,
+                '1:/form_definitions/DateCustomDisplayFormat.form.yaml',
+                'DateCustomDisplayFormat',
+                [
+                    'date' => '2022-02-07',
+                ],
+                '{"date":"2022-02-07"}',
+            ];
+
+            // TODO: Research why "DatePicker" fails completely
+        }
+    }
+
+    #[Test]
+    #[DataProvider('sites')]
+    public function logsSubmittedFileData(string $uri, int $pageId): void
+    {
+        $formContentUid = $this->createFormContentElement($pageId, '1:/form_definitions/FileUpload.form.yaml');
         $formIdentifier = sprintf('FileUpload-%d', $formContentUid);
 
-        $pageRequest = (new InternalRequest())->withPageId(123);
+        $pageRequest = (new InternalRequest($uri))->withPageId($pageId);
         $response = $this->executeFrontendSubRequest($pageRequest);
 
         self::assertSame(200, $response->getStatusCode());
@@ -128,51 +166,21 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ->fetchAssociative();
         $expectedData = '{"upload":{"file":{"name":"test.txt"}}}';
 
-        self::assertSame(123, $logEntry['page'] ?? null);
+        self::assertNotFalse($logEntry, 'Missing log entry');
+        self::assertSame($pageId, $logEntry['page'] ?? null);
         self::assertSame($formIdentifier, $logEntry['identifier'] ?? null);
         self::assertSame($expectedData, $logEntry['data'] ?? null);
         self::assertSame('[]', $logEntry['finisher_variables'] ?? null);
     }
 
-    public static function formData(): \Generator
-    {
-        yield [
-            '1:/form_definitions/Basic.form.yaml',
-            'Basic',
-            [
-                'name' => 'Tester',
-            ],
-            '{"name":"Tester"}',
-        ];
-
-        yield [
-            '1:/form_definitions/Date.form.yaml',
-            'Date',
-            [
-                'date' => '2022-02-07',
-            ],
-            '{"date":"07.02.2022"}',
-        ];
-
-        yield [
-            '1:/form_definitions/DateCustomDisplayFormat.form.yaml',
-            'DateCustomDisplayFormat',
-            [
-                'date' => '2022-02-07',
-            ],
-            '{"date":"2022-02-07"}',
-        ];
-
-        // TODO: Research why "DatePicker" fails completely
-    }
-
     #[Test]
-    public function logsFinisherVariables(): void
+    #[DataProvider('sites')]
+    public function logsFinisherVariables(string $uri, int $pageId): void
     {
-        $formContentUid = $this->createFormContentElement('1:/form_definitions/FinisherVariables.form.yaml');
+        $formContentUid = $this->createFormContentElement($pageId, '1:/form_definitions/FinisherVariables.form.yaml');
         $formIdentifier = sprintf('FinisherVariables-%d', $formContentUid);
 
-        $pageRequest = (new InternalRequest())->withPageId(123);
+        $pageRequest = (new InternalRequest($uri))->withPageId($pageId);
         $response = $this->executeFrontendSubRequest($pageRequest);
 
         self::assertSame(200, $response->getStatusCode());
@@ -187,18 +195,31 @@ final class LoggerFinisherTest extends FunctionalTestCase
             ->select(['*'], 'tx_formlog_entries')
             ->fetchAssociative();
 
-        self::assertSame(123, $logEntry['page'] ?? null);
+        self::assertNotFalse($logEntry, 'Missing log entry');
+        self::assertSame($pageId, $logEntry['page'] ?? null);
         self::assertSame($formIdentifier, $logEntry['identifier'] ?? null);
         self::assertSame('{"name":"Tester"}', $logEntry['data'] ?? null);
-        self::assertSame('{"SaveToDatabase":{"insertedUids.0":124}}', $logEntry['finisher_variables'] ?? null);
+        self::assertSame('{"SaveToDatabase":{"insertedUids.0":125}}', $logEntry['finisher_variables'] ?? null);
     }
 
-    private function createFormContentElement(string $formPersistenceIdentifier): int
+    public static function sites(): \Generator
+    {
+        yield [
+            'http://basic.localhost/',
+            123,
+        ];
+
+        yield [
+            'http://sets.localhost/',
+            124,
+        ];
+    }
+
+    private function createFormContentElement(int $pageId, string $formPersistenceIdentifier): int
     {
         $connection = $this->getConnectionPool()->getConnectionForTable('tt_content');
         $connection->insert('tt_content', [
-            'uid' => 1,
-            'pid' => 123,
+            'pid' => $pageId,
             'CType' => 'form_formframework',
             'pi_flexform' => <<<XML
                 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>

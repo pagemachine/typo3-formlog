@@ -1,0 +1,15 @@
+base: 'http://sets.localhost/'
+dependencies:
+  - typo3/fluid-styled-content
+  - typo3/form
+  - pagemachine/formlog
+languages:
+  -
+    title: English
+    enabled: true
+    languageId: 0
+    base: /
+    locale: en_US.UTF-8
+    navigationTitle: English
+    flag: us
+rootPageId: 124

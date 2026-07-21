@@ -140,7 +140,7 @@ TYPOSCRIPT);
 
 ## Log entry cleanup
 
-The _Table garbage collection_ Scheduler task can be set up to automatically delete old form log entries. Select `tx_formlog_entries` as _Table to clean up_ and a suitable value for _Delete entries older than given number of days_, 180 by default.
+The [Table garbage collection](https://docs.typo3.org/permalink/typo3-cms-scheduler:table-garbage-collection-task) Scheduler task can be set up to automatically delete old form log entries. Select `tx_formlog_entries` as _Table to clean up_ and a suitable value for _Delete entries older than given number of days_, 180 by default.
 
 ## Testing
 

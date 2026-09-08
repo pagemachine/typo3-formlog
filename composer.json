@@ -47,7 +47,7 @@
         "ssch/typo3-rector": "^2.2 || ^3.0",
         "typo3/cms-fluid-styled-content": "^13.4 || ^14.2",
         "typo3/cms-scheduler": "^13.4 || ^14.2",
-        "typo3/coding-standards": "^0.8.0",
+        "typo3/coding-standards": "^0.8.0 || ^0.9.0",
         "typo3/testing-framework": "^8.0 || ^9.0"
     },
     "replace": {

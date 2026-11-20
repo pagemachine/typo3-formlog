@@ -91,6 +91,12 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
         $formDefinition = $this->finisherContext->getFormRuntime()->getFormDefinition();
 
         foreach ($this->finisherContext->getFormValues() as $identifier => $formValue) {
+            $element = $formDefinition->getElementByIdentifier($identifier);
+
+            if ($element->getType() === 'Honeypot') {
+                continue;
+            }
+
             if (is_object($formValue)) {
                 if ($formValue instanceof ExtbaseFileReference) {
                     $formValue = $formValue->getOriginalResource();
@@ -104,8 +110,6 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
                     ];
                     continue;
                 }
-
-                $element = $formDefinition->getElementByIdentifier($identifier);
 
                 if ($element instanceof StringableFormElementInterface) {
                     $normalizedFormValues[$identifier] = $element->valueToString($formValue);

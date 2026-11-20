@@ -19,7 +19,7 @@ final class AbstractExportTest extends UnitTestCase
     #[Test]
     public function sortsColumns(): void
     {
-        $export = new class () extends AbstractExport {
+        $export = new class extends AbstractExport {
             public function exposeColumnPaths(): array
             {
                 return $this->getColumnPaths();

@@ -93,7 +93,7 @@ class LoggerFinisher extends AbstractFinisher implements LoggerAwareInterface
         foreach ($this->finisherContext->getFormValues() as $identifier => $formValue) {
             $element = $formDefinition->getElementByIdentifier($identifier);
 
-            if ($element->getType() === 'Honeypot') {
+            if ($element === null || $element->getType() === 'Honeypot') {
                 continue;
             }
 
